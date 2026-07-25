@@ -1,0 +1,32 @@
+
+export type Language = 'en' | 'ru';
+
+export interface NavLink {
+  id: string;
+  label: { en: string; ru: string };
+  href?: string; // For page links (e.g. '/case-studies') instead of scroll anchors
+}
+
+export interface Service {
+  title: { en: string; ru: string };
+  desc: { en: string; ru: string };
+  steps: Step[];
+}
+
+export interface Principle {
+  title: { en: string; ru: string };
+  desc: { en: string; ru: string };
+  icon?: string;
+}
+
+export interface Step {
+  title: { en: string; ru: string };
+  desc: { en: string; ru: string };
+  icon?: string;
+}
+
+export interface Partner {
+  name: string;
+  logo: string;
+  url: string;
+}
