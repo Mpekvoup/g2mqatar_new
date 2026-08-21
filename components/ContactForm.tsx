@@ -30,8 +30,14 @@ function getDailyCount(): number {
 
 const ContactForm: React.FC<ContactFormProps> = ({ lang }) => {
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error' | 'limited'>('idle');
-  const [cooldown, setCooldown] = useState(() => getRemainingCooldown());
-  const formRef = useRef<HTMLFormElement>(null);
+  const [cooldown, setCooldown] = useState(0); // Initialize with 0 to avoid SSR mismatch
+  const [currentStep, setCurrentStep] = useState(0);
+  const [formData, setFormData] = useState({
+    name: '',
+    contact: '',
+    region: 'qatar',
+    message: ''
+  });
   const cooldownIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
   // Инициализация Emailjs один раз при загрузке компонента
@@ -59,9 +65,66 @@ const ContactForm: React.FC<ContactFormProps> = ({ lang }) => {
     };
   }, []);
 
+  const countries = [
+    { value: 'qatar', label: { en: 'Qatar', ru: 'Катар' } },
+    { value: 'uae', label: { en: 'UAE', ru: 'ОАЭ' } },
+    { value: 'kazakhstan', label: { en: 'Kazakhstan', ru: 'Казахстан' } },
+    { value: 'russia', label: { en: 'Russia', ru: 'Россия' } },
+    { value: 'uzbekistan', label: { en: 'Uzbekistan', ru: 'Узбекистан' } },
+    { value: 'other', label: { en: 'Other', ru: 'Другая страна' } },
+  ];
+
+  const steps = [
+    {
+      id: 'name',
+      question: { en: "What's your name?", ru: 'Как вас зовут?' },
+      placeholder: 'Jane Cooper',
+      type: 'text' as const,
+      field: 'name' as const
+    },
+    {
+      id: 'contact',
+      question: { en: 'How can we reach you?', ru: 'Как с вами связаться?' },
+      placeholder: '+974 0000 0000 / email@address.com',
+      type: 'tel' as const,
+      field: 'contact' as const
+    },
+    {
+      id: 'region',
+      question: { en: 'Which region are you targeting?', ru: 'Какой регион вас интересует?' },
+      type: 'select' as const,
+      field: 'region' as const,
+      options: countries
+    },
+    {
+      id: 'message',
+      question: { en: 'What do you need help with?', ru: 'С чем вам нужна помощь?' },
+      placeholder: { en: 'Tell us about your goals...', ru: 'Расскажите о ваших целях...' },
+      type: 'textarea' as const,
+      field: 'message' as const
+    }
+  ];
+
+  const handleNext = (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
+
+    const currentField = steps[currentStep].field;
+    if (!formData[currentField]) return;
+
+    if (currentStep < steps.length - 1) {
+      setCurrentStep(prev => prev + 1);
+    }
+  };
+
+  const handleBack = () => {
+    if (currentStep > 0) {
+      setCurrentStep(prev => prev - 1);
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    
+
     if (cooldown > 0) return;
 
     if (getDailyCount() >= MAX_DAILY_SUBMISSIONS) {
@@ -72,15 +135,31 @@ const ContactForm: React.FC<ContactFormProps> = ({ lang }) => {
     setStatus('loading');
 
     try {
-      if (!formRef.current) return;
+      // Проверяем наличие необходимых переменных окружения
+      const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+      const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+      const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
-      // Отправляем форму через Emailjs
-      const result = await emailjs.sendForm(
-        import.meta.env.VITE_EMAILJS_SERVICE_ID,
-        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
-        formRef.current,
-        import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+      if (!serviceId || !templateId || !publicKey) {
+        console.error('EmailJS configuration missing:', { serviceId: !!serviceId, templateId: !!templateId, publicKey: !!publicKey });
+        throw new Error('EmailJS not configured');
+      }
+
+      // Отправляем данные напрямую через emailjs.send вместо sendForm
+      const result = await emailjs.send(
+        serviceId,
+        templateId,
+        {
+          to_email: import.meta.env.VITE_EMAILJS_TO_EMAIL,
+          name: formData.name,
+          contact: formData.contact,
+          region: formData.region,
+          message: formData.message,
+        },
+        publicKey
       );
+
+      console.log('EmailJS success:', result);
 
       setStatus('success');
       if (typeof window.gtag === 'function') {
@@ -93,9 +172,8 @@ const ContactForm: React.FC<ContactFormProps> = ({ lang }) => {
       window.history.pushState({}, '', url.toString());
 
       // Очищаем форму после успешной отправки
-      if (formRef.current) {
-        formRef.current.reset();
-      }
+      setFormData({ name: '', contact: '', region: 'qatar', message: '' });
+      setCurrentStep(0);
 
       // Сохраняем timestamp и счётчик в localStorage
       localStorage.setItem(STORAGE_KEY_LAST_SUBMIT, String(Date.now()));
@@ -119,19 +197,80 @@ const ContactForm: React.FC<ContactFormProps> = ({ lang }) => {
         });
       }, 1000);
 
-    } catch {
+    } catch (error) {
+      console.error('EmailJS error:', error);
       setStatus('error');
     }
   };
 
-  const countries = [
-    { value: 'qatar', label: { en: 'Qatar', ru: 'Катар' } },
-    { value: 'uae', label: { en: 'UAE', ru: 'ОАЭ' } },
-    { value: 'kazakhstan', label: { en: 'Kazakhstan', ru: 'Казахстан' } },
-    { value: 'russia', label: { en: 'Russia', ru: 'Россия' } },
-    { value: 'uzbekistan', label: { en: 'Uzbekistan', ru: 'Узбекистан' } },
-    { value: 'other', label: { en: 'Other', ru: 'Другая страна' } },
-  ];
+  const updateField = (field: string, value: string) => {
+    setFormData(prev => ({ ...prev, [field]: value }));
+  };
+
+  const renderStep = () => {
+    const step = steps[currentStep];
+    const value = formData[step.field];
+
+    return (
+      <div className="space-y-8 animate-in fade-in slide-in-from-right-4 duration-300">
+        <div className="space-y-4">
+          <div className="flex items-center gap-3">
+            <span className="text-sm font-black text-qatar-maroon/60 uppercase tracking-widest">
+              {lang === 'en' ? 'Question' : 'Вопрос'} {currentStep + 1}/{steps.length}
+            </span>
+          </div>
+          <h3 className="text-3xl lg:text-4xl font-extrabold text-slate-900 leading-tight">
+            {step.question[lang]}
+          </h3>
+        </div>
+
+        {step.type === 'text' || step.type === 'tel' ? (
+          <input
+            type={step.type}
+            value={value}
+            onChange={(e) => updateField(step.field, e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' && value) {
+                handleNext();
+              }
+            }}
+            placeholder={step.placeholder}
+            className="w-full px-8 py-6 text-xl bg-slate-50 border-2 border-slate-200 focus:border-qatar-maroon focus:bg-white rounded-3xl outline-none transition-all font-medium"
+            autoFocus
+          />
+        ) : step.type === 'select' ? (
+          <div className="space-y-3">
+            {step.options?.map((option) => (
+              <button
+                key={option.value}
+                type="button"
+                onClick={() => {
+                  updateField(step.field, option.value);
+                  setTimeout(() => handleNext(), 150);
+                }}
+                className={`w-full px-8 py-5 text-left text-lg font-bold rounded-2xl transition-all border-2 ${
+                  value === option.value
+                    ? 'bg-qatar-maroon text-white border-qatar-maroon shadow-lg scale-[1.02]'
+                    : 'bg-slate-50 text-slate-700 border-slate-200 hover:border-qatar-maroon/30 hover:bg-white'
+                }`}
+              >
+                {option.label[lang]}
+              </button>
+            ))}
+          </div>
+        ) : step.type === 'textarea' ? (
+          <textarea
+            value={value}
+            onChange={(e) => updateField(step.field, e.target.value)}
+            placeholder={typeof step.placeholder === 'object' ? step.placeholder[lang] : step.placeholder}
+            rows={5}
+            className="w-full px-8 py-6 text-xl bg-slate-50 border-2 border-slate-200 focus:border-qatar-maroon focus:bg-white rounded-3xl outline-none transition-all font-medium resize-none"
+            autoFocus
+          />
+        ) : null}
+      </div>
+    );
+  };
 
   return (
     <section id="contacts" className="py-32 bg-white">
@@ -148,7 +287,7 @@ const ContactForm: React.FC<ContactFormProps> = ({ lang }) => {
                   ? "Book a call with our team. We'll discuss your goals and explain how we can help."
                   : 'Запишитесь на звонок с нашей командой. Обсудим ваши цели и объясним, как можем помочь.'}
               </p>
-              
+
               <div className="space-y-8 pt-10">
                 <div className="flex items-start gap-6">
                   <div className="w-14 h-14 bg-white/10 rounded-2xl flex items-center justify-center flex-shrink-0 backdrop-blur-md">
@@ -170,7 +309,7 @@ const ContactForm: React.FC<ContactFormProps> = ({ lang }) => {
                 </div>
               </div>
             </div>
-            
+
             <div className="relative z-10 pt-12 flex items-center gap-4 text-sm font-bold">
                <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
                <span className="text-white/70 tracking-wide uppercase">
@@ -178,7 +317,7 @@ const ContactForm: React.FC<ContactFormProps> = ({ lang }) => {
                </span>
             </div>
           </div>
-          
+
           <div className="lg:w-[55%] p-12 lg:p-20 bg-white">
             {status === 'success' ? (
               <div className="h-full flex flex-col items-center justify-center text-center space-y-8 animate-in fade-in duration-500">
@@ -247,76 +386,97 @@ const ContactForm: React.FC<ContactFormProps> = ({ lang }) => {
                 </button>
               </div>
             ) : (
-              <form ref={formRef} onSubmit={handleSubmit} className="space-y-8">
-                {/* Скрытое поле для email получателя (для Emailjs) */}
-                <input type="hidden" name="to_email" value={import.meta.env.VITE_EMAILJS_TO_EMAIL} />
-                
-                <div className="grid md:grid-cols-2 gap-8">
-                  <div className="space-y-2">
-                    <label className="text-[10px] font-black text-slate-600 uppercase tracking-[0.2em] px-1">{lang === 'en' ? 'Full Name' : 'Полное имя'}</label>
-                    <input 
-                      type="text" 
-                      name="name"
-                      required 
-                      className="w-full px-6 py-4 bg-slate-100 border-2 border-slate-200 focus:border-qatar-maroon/30 focus:bg-white rounded-[1.25rem] outline-none transition-premium font-medium"
-                      placeholder="Jane Cooper"
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-[10px] font-black text-slate-600 uppercase tracking-[0.2em] px-1">{lang === 'en' ? 'Target Region' : 'Целевой регион'}</label>
-                    <select 
-                      name="region"
-                      aria-label={lang === 'en' ? 'Target Region' : 'Целевой регион'} 
-                      className="w-full px-6 py-4 bg-slate-100 border-2 border-slate-200 focus:border-qatar-maroon/30 focus:bg-white rounded-[1.25rem] outline-none transition-premium font-medium appearance-none cursor-pointer">
-                      {countries.map(c => <option key={c.value} value={c.value}>{c.label[lang]}</option>)}
-                    </select>
+              <form onSubmit={handleSubmit} className="h-full flex flex-col justify-between">
+
+                {/* Progress bar */}
+                <div className="mb-8">
+                  <div className="flex gap-2">
+                    {steps.map((_, index) => (
+                      <div
+                        key={index}
+                        className={`h-1.5 rounded-full flex-1 transition-all duration-500 ${
+                          index <= currentStep ? 'bg-qatar-maroon' : 'bg-slate-200'
+                        }`}
+                      />
+                    ))}
                   </div>
                 </div>
-                
-                <div className="space-y-2">
-                  <label className="text-[10px] font-black text-slate-600 uppercase tracking-[0.2em] px-1">{lang === 'en' ? 'Phone or Email' : 'Телефон или Email'}</label>
-                  <input 
-                    type="tel" 
-                    name="contact"
-                    required 
-                    className="w-full px-6 py-4 bg-slate-100 border-2 border-slate-200 focus:border-qatar-maroon/30 focus:bg-white rounded-[1.25rem] outline-none transition-premium font-medium"
-                    placeholder="+974 0000 0000 / email@address.com"
-                  />
+
+                {/* Current step */}
+                <div className="flex-grow">
+                  {renderStep()}
                 </div>
-                
-                <div className="space-y-2">
-                  <label className="text-[10px] font-black text-slate-600 uppercase tracking-[0.2em] px-1">{lang === 'en' ? 'What you need' : 'Что вам нужно'}</label>
-                  <textarea
-                    name="message"
-                    rows={4}
-                    className="w-full px-6 py-4 bg-slate-100 border-2 border-slate-200 focus:border-qatar-maroon/30 focus:bg-white rounded-[1.25rem] outline-none transition-premium font-medium resize-none"
-                    placeholder={lang === 'en' ? 'Tell us what you need help with...' : 'Расскажите, с чем нужна помощь...'}
-                  ></textarea>
-                </div>
-                
-                <div className="pt-4">
-                  <button 
-                    type="submit"
-                    disabled={status === 'loading' || cooldown > 0}
-                    className="w-full bg-slate-900 hover:bg-black text-white py-5 rounded-[1.25rem] font-bold text-lg shadow-xl shadow-slate-900/10 transition-premium hover:scale-[1.01] active:scale-[0.98] disabled:opacity-50 flex items-center justify-center gap-3"
-                  >
-                    {status === 'loading' ? (
-                      <>
-                        <svg className="animate-spin h-5 w-5 text-white" fill="none" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
-                        {lang === 'en' ? 'Processing...' : 'Обработка...'}
-                      </>
-                    ) : (
-                      lang === 'en' ? 'Send Request' : 'Отправить заявку'
+
+                {/* Navigation buttons */}
+                <div className="pt-8 space-y-4">
+                  <div className="flex gap-4">
+                    {currentStep > 0 && (
+                      <button
+                        type="button"
+                        onClick={handleBack}
+                        className="px-8 py-4 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-2xl font-bold transition-all flex items-center gap-2"
+                      >
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                        </svg>
+                        {lang === 'en' ? 'Back' : 'Назад'}
+                      </button>
                     )}
-                  </button>
+
+                    {currentStep < steps.length - 1 ? (
+                      <button
+                        type="button"
+                        onClick={handleNext}
+                        disabled={!formData[steps[currentStep].field]}
+                        className="flex-1 bg-slate-900 hover:bg-black text-white py-4 rounded-2xl font-bold text-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                      >
+                        {lang === 'en' ? 'Next' : 'Далее'}
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                        </svg>
+                      </button>
+                    ) : (
+                      <button
+                        type="submit"
+                        disabled={status === 'loading' || cooldown > 0 || !formData.message}
+                        className="flex-1 bg-qatar-maroon hover:bg-qatar-maroon/90 text-white py-4 rounded-2xl font-bold text-lg shadow-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3"
+                      >
+                        {status === 'loading' ? (
+                          <>
+                            <svg className="animate-spin h-5 w-5 text-white" fill="none" viewBox="0 0 24 24">
+                              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            </svg>
+                            {lang === 'en' ? 'Sending...' : 'Отправка...'}
+                          </>
+                        ) : (
+                          <>
+                            {lang === 'en' ? 'Send Request' : 'Отправить'}
+                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                            </svg>
+                          </>
+                        )}
+                      </button>
+                    )}
+                  </div>
+
                   {cooldown > 0 && (
-                    <p className="text-center text-[10px] text-slate-400 mt-6 font-bold uppercase tracking-widest">
-                      {lang === 'en' ? `Please wait ${cooldown} seconds before sending another request.` : `Пожалуйста, подождите ${cooldown} секунд перед повторной отправкой.`}
+                    <p className="text-center text-xs text-slate-400 font-bold uppercase tracking-widest">
+                      {lang === 'en' ? `Please wait ${cooldown}s before sending another request.` : `Подождите ${cooldown}с перед повторной отправкой.`}
                     </p>
                   )}
-                  <p className="text-center text-[10px] text-slate-400 mt-6 font-bold uppercase tracking-widest">
+
+                  <p className="text-center text-xs text-slate-400 font-bold uppercase tracking-widest">
                     {lang === 'en' ? 'Your data stays private' : 'Ваши данные остаются приватными'}
                   </p>
+
+                  {/* Hint for Enter key */}
+                  {currentStep < steps.length - 1 && steps[currentStep].type !== 'select' && (
+                    <p className="text-center text-xs text-slate-400 font-medium">
+                      {lang === 'en' ? 'Press Enter ↵ to continue' : 'Нажмите Enter ↵ чтобы продолжить'}
+                    </p>
+                  )}
                 </div>
               </form>
             )}

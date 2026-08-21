@@ -13,6 +13,10 @@ const ROUTES = [
   '/case-studies/caring-hands',
   '/case-studies/sidr-technology',
   '/case-studies/qalan',
+  '/services/business-intelligence',
+  '/services/incorporation',
+  '/services/business-matchmaking',
+  '/services/fundraising',
   '/privacy',
   '/terms',
 ];

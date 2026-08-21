@@ -11,6 +11,7 @@ import ContactForm from './components/ContactForm';
 import Partners from './components/Partners';
 import CaseStudiesPage from './components/CaseStudies';
 import CaseStudyDetail from './components/CaseStudyDetail';
+import ServiceDetailPage from './components/ServiceDetailPage';
 import PrivacyPage from './components/PrivacyPage';
 import TermsPage from './components/TermsPage';
 import NotFoundPage from './components/NotFoundPage';
@@ -19,6 +20,7 @@ import Testimonials from './components/Testimonials';
 import BusinessGoals from './components/BusinessGoals';
 import OurInsights from './components/OurInsights';
 import WhatsAppWidget from './components/WhatsAppWidget';
+import ScrollToTopOnNavigate from './components/ScrollToTopOnNavigate';
 
 const HomePage: React.FC<{ lang: Language; setLang: (l: Language) => void }> = ({ lang, setLang }) => {
   return (
@@ -44,12 +46,20 @@ const HomePage: React.FC<{ lang: Language; setLang: (l: Language) => void }> = (
 
 const ScrollToTop = () => {
   const [visible, setVisible] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
     const onScroll = () => setVisible(window.scrollY > 400);
+    onScroll(); // Check initial scroll position
     window.addEventListener('scroll', onScroll);
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
+
+  // Don't render anything during SSR or before hydration
+  if (!mounted) {
+    return null;
+  }
 
   return (
     <button
@@ -71,10 +81,12 @@ const App: React.FC = () => {
   return (
     <>
       <ScrollToTop />
+      <ScrollToTopOnNavigate />
       <Routes>
         <Route path="/" element={<HomePage lang={lang} setLang={setLang} />} />
         <Route path="/case-studies" element={<CaseStudiesPage lang={lang} setLang={setLang} />} />
         <Route path="/case-studies/:slug" element={<CaseStudyDetail lang={lang} setLang={setLang} />} />
+        <Route path="/services/:slug" element={<ServiceDetailPage lang={lang} setLang={setLang} />} />
         <Route path="/privacy" element={<PrivacyPage lang={lang} setLang={setLang} />} />
         <Route path="/terms" element={<TermsPage lang={lang} setLang={setLang} />} />
         <Route path="*" element={<NotFoundPage lang={lang} setLang={setLang} />} />

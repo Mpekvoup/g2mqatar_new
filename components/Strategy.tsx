@@ -40,7 +40,7 @@ const Strategy: React.FC<StrategyProps> = ({ lang }) => {
               )}
             </h2>
             <h3 className="text-2xl text-white/80 font-medium">
-              {lang === 'en' ? 'Qatar as a gateway to Gulf markets' : 'Катар как путь к рынкам Залива'}
+              {lang === 'en' ? 'Qatar as a gateway to GCC markets' : 'Катар как путь к рынкам GCC'}
             </h3>
             <div className="space-y-4 text-lg text-white/70">
               <p>

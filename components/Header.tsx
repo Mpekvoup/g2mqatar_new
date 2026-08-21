@@ -14,6 +14,7 @@ const Header: React.FC<HeaderProps> = ({ lang, setLang }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
   const isHomePage = location.pathname === '/';
+  const isServicePage = location.pathname.startsWith('/services/');
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
@@ -48,7 +49,7 @@ const Header: React.FC<HeaderProps> = ({ lang, setLang }) => {
     <>
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        isScrolled ? 'glass shadow-[0_8px_32px_rgba(0,0,0,0.04)] py-3' : 'bg-transparent py-8'
+        isScrolled || isServicePage ? 'glass shadow-[0_8px_32px_rgba(0,0,0,0.04)] py-3' : 'bg-transparent py-8'
       }`}
     >
       <div className="container mx-auto px-6 flex justify-between items-center">

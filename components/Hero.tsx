@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Language } from '../types';
 import { CLIENTS } from '../constants';
@@ -7,6 +6,33 @@ interface HeroProps {
   lang: Language;
 }
 
+// Moved outside the component: a literal defined inside the component body is a new
+// object reference on every render, which was needlessly re-triggering the effect below
+// (it's in the effect's dependency array) and could desync the country/image cycle.
+const countries = [
+  {
+    name: { en: 'Qatar', ru: 'Катаре' },
+    image: '/images/hero/qatar.jpg',
+    avif: '/images/hero/qatar.avif',
+  },
+  {
+    name: { en: 'Oman', ru: 'Омане' },
+    image: '/images/hero/oman.jpg',
+    avif: '/images/hero/oman.avif',
+  },
+  {
+    name: { en: 'Kuwait', ru: 'Кувейте' },
+    image: '/images/hero/kuwait.jpg',
+    avif: '/images/hero/kuwait.avif',
+  },
+  {
+    name: { en: 'UAE', ru: 'ОАЭ' },
+    image: '/images/hero/UAE.jpeg',
+    // No avif field yet — until an /images/hero/UAE.avif file actually exists,
+    // don't reference one (see <picture> below for why).
+  },
+];
+
 const Hero: React.FC<HeroProps> = ({ lang }) => {
   const [currentCountryIndex, setCurrentCountryIndex] = useState(0);
   const [displayedText, setDisplayedText] = useState('');
@@ -14,20 +40,6 @@ const Hero: React.FC<HeroProps> = ({ lang }) => {
   const [isPaused, setIsPaused] = useState(false);
   const [imageFade, setImageFade] = useState(true);
 
-  const countries = [
-    {
-      name: { en: 'Qatar', ru: 'Катаре' },
-      image: '/images/hero/qatar.jpg'
-    },
-    {
-      name: { en: 'Oman', ru: 'Омане' },
-      image: '/images/hero/oman.jpg'
-    },
-    {
-      name: { en: 'Kuwait', ru: 'Кувейте' },
-      image: '/images/hero/kuwait.jpg'
-    },
-  ];
 
   useEffect(() => {
     const currentCountry = countries[currentCountryIndex].name[lang];
@@ -36,7 +48,7 @@ const Hero: React.FC<HeroProps> = ({ lang }) => {
       const pauseTimer = setTimeout(() => {
         setIsPaused(false);
         setIsDeleting(true);
-      }, 3500); // 3.5 seconds pause
+      }, 750); // 3.5 seconds pause
       return () => clearTimeout(pauseTimer);
     }
 
@@ -68,7 +80,7 @@ const Hero: React.FC<HeroProps> = ({ lang }) => {
     }, typingSpeed);
 
     return () => clearTimeout(timer);
-  }, [displayedText, isDeleting, isPaused, currentCountryIndex, lang, countries]);
+  }, [displayedText, isDeleting, isPaused, currentCountryIndex, lang]);
 
   const content = {
     titlePrefix: {
@@ -76,8 +88,8 @@ const Hero: React.FC<HeroProps> = ({ lang }) => {
       ru: "Запустите бизнес в "
     },
     subtitle: {
-      en: "We help companies register, find investors, and enter the Gulf market. Based in Doha, working with businesses from around the world.",
-      ru: "Помогаем компаниям регистрироваться, находить инвесторов и выходить на рынок Залива. Работаем из Дохи с бизнесом со всего мира."
+      en: "We help companies register, find investors, and enter the GCC market. Based in Doha, working with businesses from around the world.",
+      ru: "Помогаем компаниям регистрироваться, находить инвесторов и выходить на рынок GCC. Работаем из Дохи с бизнесом со всего мира."
     },
     cta: {
       en: "Start Consultation",
@@ -160,7 +172,7 @@ const Hero: React.FC<HeroProps> = ({ lang }) => {
             <div className="flex items-center gap-8 pt-6 border-t border-slate-100">
               <div className="flex -space-x-3">
                 {[CLIENTS[0], CLIENTS[1], CLIENTS[3], CLIENTS[5]].map((client, i) => (
-                  <div key={i} className="w-[67px] h-[67px] rounded-full border-2 border-white bg-white p-2 flex items-center justify-center">
+                  <div key={i} className="w-[67px] h-[67px] rounded-full border-2 border-slate-200 bg-white p-2 flex items-center justify-center shadow-lg">
                     <img src={client.logo} className="w-full h-full object-contain" alt={client.name} loading="lazy" decoding="async" />
                   </div>
                 ))}
@@ -177,10 +189,12 @@ const Hero: React.FC<HeroProps> = ({ lang }) => {
           <div className="lg:w-2/5 relative hidden lg:block">
             <div className="relative z-10 rounded-[2.5rem] overflow-hidden shadow-[0_32px_64px_-16px_rgba(0,0,0,0.1)] border-8 border-white">
               <picture>
-                <source
-                  srcSet={countries[currentCountryIndex].image.replace(/\.jpg$/, '.avif')}
-                  type="image/avif"
-                />
+                {countries[currentCountryIndex].avif && (
+                  <source
+                    srcSet={countries[currentCountryIndex].avif}
+                    type="image/avif"
+                  />
+                )}
                 <img
                   src={countries[currentCountryIndex].image}
                   alt={`${countries[currentCountryIndex].name.en} Business District`}
