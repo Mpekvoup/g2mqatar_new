@@ -236,7 +236,6 @@ const ContactForm: React.FC<ContactFormProps> = ({ lang }) => {
             }}
             placeholder={step.placeholder}
             className="w-full px-8 py-6 text-xl bg-slate-50 border-2 border-slate-200 focus:border-qatar-maroon focus:bg-white rounded-3xl outline-none transition-all font-medium"
-            autoFocus
           />
         ) : step.type === 'select' ? (
           <div className="space-y-3">
@@ -265,7 +264,6 @@ const ContactForm: React.FC<ContactFormProps> = ({ lang }) => {
             placeholder={typeof step.placeholder === 'object' ? step.placeholder[lang] : step.placeholder}
             rows={5}
             className="w-full px-8 py-6 text-xl bg-slate-50 border-2 border-slate-200 focus:border-qatar-maroon focus:bg-white rounded-3xl outline-none transition-all font-medium resize-none"
-            autoFocus
           />
         ) : null}
       </div>
