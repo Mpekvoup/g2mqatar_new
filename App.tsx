@@ -1,26 +1,27 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, lazy, Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { Language } from './types';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import Services from './components/Services';
-import Team from './components/Team';
-import Principles from './components/Principles';
-import Strategy from './components/Strategy';
-import ContactForm from './components/ContactForm';
-import Partners from './components/Partners';
-import CaseStudiesPage from './components/CaseStudies';
-import CaseStudyDetail from './components/CaseStudyDetail';
-import ServiceDetailPage from './components/ServiceDetailPage';
-import PrivacyPage from './components/PrivacyPage';
-import TermsPage from './components/TermsPage';
-import NotFoundPage from './components/NotFoundPage';
 import Footer from './components/Footer';
-import Testimonials from './components/Testimonials';
-import BusinessGoals from './components/BusinessGoals';
-import OurInsights from './components/OurInsights';
 import WhatsAppWidget from './components/WhatsAppWidget';
 import ScrollToTopOnNavigate from './components/ScrollToTopOnNavigate';
+
+// Lazy load components below the fold for better performance
+const Team = lazy(() => import('./components/Team'));
+const Principles = lazy(() => import('./components/Principles'));
+const Strategy = lazy(() => import('./components/Strategy'));
+const ContactForm = lazy(() => import('./components/ContactForm'));
+const Partners = lazy(() => import('./components/Partners'));
+const Testimonials = lazy(() => import('./components/Testimonials'));
+const BusinessGoals = lazy(() => import('./components/BusinessGoals'));
+const CaseStudiesPage = lazy(() => import('./components/CaseStudies'));
+const CaseStudyDetail = lazy(() => import('./components/CaseStudyDetail'));
+const ServiceDetailPage = lazy(() => import('./components/ServiceDetailPage'));
+const PrivacyPage = lazy(() => import('./components/PrivacyPage'));
+const TermsPage = lazy(() => import('./components/TermsPage'));
+const NotFoundPage = lazy(() => import('./components/NotFoundPage'));
 
 const HomePage: React.FC<{ lang: Language; setLang: (l: Language) => void }> = ({ lang, setLang }) => {
   return (
@@ -29,14 +30,16 @@ const HomePage: React.FC<{ lang: Language; setLang: (l: Language) => void }> = (
       <main className="flex-grow">
         <Hero lang={lang} />
         <Services lang={lang} />
-        <BusinessGoals lang={lang} />
-        <Team lang={lang} />
-        <Testimonials lang={lang} />
-        {/* <OurInsights lang={lang} /> */}
-        <Principles lang={lang} />
-        <Strategy lang={lang} />
-        <ContactForm lang={lang} />
-        <Partners lang={lang} />
+        <Suspense fallback={<div className="min-h-screen" />}>
+          <BusinessGoals lang={lang} />
+          <Team lang={lang} />
+          <Testimonials lang={lang} />
+          {/* <OurInsights lang={lang} /> */}
+          <Principles lang={lang} />
+          <Strategy lang={lang} />
+          <ContactForm lang={lang} />
+          <Partners lang={lang} />
+        </Suspense>
       </main>
       <Footer lang={lang} />
       <WhatsAppWidget lang={lang} photoUrl="/images/about/avatar.jpg" />
@@ -82,15 +85,17 @@ const App: React.FC = () => {
     <>
       <ScrollToTop />
       <ScrollToTopOnNavigate />
-      <Routes>
-        <Route path="/" element={<HomePage lang={lang} setLang={setLang} />} />
-        <Route path="/case-studies" element={<CaseStudiesPage lang={lang} setLang={setLang} />} />
-        <Route path="/case-studies/:slug" element={<CaseStudyDetail lang={lang} setLang={setLang} />} />
-        <Route path="/services/:slug" element={<ServiceDetailPage lang={lang} setLang={setLang} />} />
-        <Route path="/privacy" element={<PrivacyPage lang={lang} setLang={setLang} />} />
-        <Route path="/terms" element={<TermsPage lang={lang} setLang={setLang} />} />
-        <Route path="*" element={<NotFoundPage lang={lang} setLang={setLang} />} />
-      </Routes>
+      <Suspense fallback={<div className="min-h-screen flex items-center justify-center"><div className="w-8 h-8 border-4 border-qatar-maroon border-t-transparent rounded-full animate-spin"></div></div>}>
+        <Routes>
+          <Route path="/" element={<HomePage lang={lang} setLang={setLang} />} />
+          <Route path="/case-studies" element={<CaseStudiesPage lang={lang} setLang={setLang} />} />
+          <Route path="/case-studies/:slug" element={<CaseStudyDetail lang={lang} setLang={setLang} />} />
+          <Route path="/services/:slug" element={<ServiceDetailPage lang={lang} setLang={setLang} />} />
+          <Route path="/privacy" element={<PrivacyPage lang={lang} setLang={setLang} />} />
+          <Route path="/terms" element={<TermsPage lang={lang} setLang={setLang} />} />
+          <Route path="*" element={<NotFoundPage lang={lang} setLang={setLang} />} />
+        </Routes>
+      </Suspense>
     </>
   );
 };

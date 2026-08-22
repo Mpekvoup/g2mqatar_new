@@ -80,6 +80,10 @@ const Services: React.FC<ServicesProps> = ({ lang }) => {
                 src="/images/about/about.jpg"
                 alt="Begarys Otarov"
                 className="w-80 h-80 rounded-2xl object-cover flex-shrink-0 border border-white/20"
+                width="800"
+                height="909"
+                loading="lazy"
+                decoding="async"
               />
               <div>
                 <h3 className="text-xl font-extrabold text-white leading-tight">
