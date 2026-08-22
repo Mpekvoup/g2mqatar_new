@@ -1,6 +1,6 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, '..');
@@ -22,7 +22,8 @@ const ROUTES = [
 ];
 
 async function prerender() {
-  const { render } = await import(path.join(distServer, 'entry-server.js'));
+  const serverEntryPath = pathToFileURL(path.join(distServer, 'entry-server.js')).href;
+  const { render } = await import(serverEntryPath);
   const template = await fs.readFile(path.join(distClient, 'index.html'), 'utf-8');
 
   for (const route of ROUTES) {

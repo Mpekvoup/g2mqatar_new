@@ -173,7 +173,7 @@ const Hero: React.FC<HeroProps> = ({ lang }) => {
               <div className="flex -space-x-3">
                 {[CLIENTS[0], CLIENTS[1], CLIENTS[3], CLIENTS[5]].map((client, i) => (
                   <div key={i} className="w-[67px] h-[67px] rounded-full border-2 border-slate-200 bg-white p-2 flex items-center justify-center shadow-lg">
-                    <img src={client.logo} className="w-full h-full object-contain" alt={client.name} loading="lazy" decoding="async" />
+                    <img src={client.logo} className="w-full h-full object-contain" alt={client.name} loading="eager" decoding="async" />
                   </div>
                 ))}
               </div>

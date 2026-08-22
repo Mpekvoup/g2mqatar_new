@@ -18,13 +18,19 @@
       });
     </script>
 
-    <!-- Google Analytics (deferred) -->
-    <script defer src="https://www.googletagmanager.com/gtag/js?id=G-MENKKYS38V"></script>
+    <!-- Google Analytics (fully deferred to avoid blocking render) -->
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-MENKKYS38V');
+      window.addEventListener('load', function() {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-MENKKYS38V');
+
+        var script = document.createElement('script');
+        script.async = true;
+        script.src = 'https://www.googletagmanager.com/gtag/js?id=G-MENKKYS38V';
+        document.head.appendChild(script);
+      });
     </script>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
@@ -49,8 +55,8 @@
     <meta name="twitter:description" content="Boutique consultancy for market entry, company formation, and fundraising in Qatar." />
     <meta name="twitter:image" content="https://go2market.qa/images/hero/qatar.jpg" />
 
-    <!-- Preload LCP hero image -->
-    <link rel="preload" as="image" href="/images/hero/qatar.avif" type="image/avif" fetchpriority="high" />
+    <!-- Preload LCP hero image (desktop only, as it's hidden on mobile with hidden lg:block) -->
+    <link rel="preload" as="image" href="/images/hero/qatar.avif" type="image/avif" fetchpriority="high" media="(min-width: 1024px)" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
