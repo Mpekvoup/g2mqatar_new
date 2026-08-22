@@ -14,20 +14,36 @@ const countries = [
     name: { en: 'Qatar', ru: 'Катаре' },
     image: '/images/hero/qatar.jpg',
     avif: '/images/hero/qatar.avif',
+    altText: {
+      en: 'Qatar skyline - Modern business district in Doha for company registration and business setup',
+      ru: 'Панорама Катара - Современный бизнес-район в Дохе для регистрации компаний и открытия бизнеса'
+    }
   },
   {
     name: { en: 'Oman', ru: 'Омане' },
     image: '/images/hero/oman.jpg',
     avif: '/images/hero/oman.avif',
+    altText: {
+      en: 'Oman business district - GCC market entry opportunities with G2M International',
+      ru: 'Бизнес-район Омана - Возможности выхода на рынок GCC с G2M International'
+    }
   },
   {
     name: { en: 'Kuwait', ru: 'Кувейте' },
     image: '/images/hero/kuwait.jpg',
     avif: '/images/hero/kuwait.avif',
+    altText: {
+      en: 'Kuwait City skyline - Business expansion and company formation in GCC region',
+      ru: 'Панорама Кувейта - Расширение бизнеса и регистрация компаний в регионе GCC'
+    }
   },
   {
     name: { en: 'UAE', ru: 'ОАЭ' },
     image: '/images/hero/UAE.jpeg',
+    altText: {
+      en: 'UAE Dubai Marina - Gulf region business opportunities and market entry services',
+      ru: 'ОАЭ Дубай Марина - Бизнес-возможности в регионе Залива и услуги выхода на рынок'
+    }
     // No avif field yet — until an /images/hero/UAE.avif file actually exists,
     // don't reference one (see <picture> below for why).
   },
@@ -173,7 +189,7 @@ const Hero: React.FC<HeroProps> = ({ lang }) => {
               <div className="flex -space-x-3">
                 {[CLIENTS[0], CLIENTS[1], CLIENTS[3], CLIENTS[5]].map((client, i) => (
                   <div key={i} className="w-[67px] h-[67px] rounded-full border-2 border-slate-200 bg-white p-2 flex items-center justify-center shadow-lg">
-                    <img src={client.logo} className="w-full h-full object-contain" alt={client.name} loading="eager" decoding="async" />
+                    <img src={client.logo} className="w-full h-full object-contain" alt={client.altText?.[lang] || client.name} loading="eager" decoding="async" />
                   </div>
                 ))}
               </div>
@@ -197,7 +213,7 @@ const Hero: React.FC<HeroProps> = ({ lang }) => {
                 )}
                 <img
                   src={countries[currentCountryIndex].image}
-                  alt={`${countries[currentCountryIndex].name.en} Business District`}
+                  alt={countries[currentCountryIndex].altText?.[lang] || `${countries[currentCountryIndex].name.en} Business District`}
                   className="w-full aspect-[4/5] object-cover"
                   fetchPriority={currentCountryIndex === 0 ? 'high' : 'low'}
                   loading="eager"

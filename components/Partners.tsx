@@ -61,7 +61,7 @@ const Partners: React.FC<PartnersProps> = ({ lang }) => {
           >
             <img
               src={PARTNERS[currentPartner].logo}
-              alt={PARTNERS[currentPartner].name}
+              alt={PARTNERS[currentPartner].altText?.[lang] || PARTNERS[currentPartner].name}
               className="h-28 object-contain mx-auto grayscale opacity-70"
               loading="lazy"
               decoding="async"
@@ -105,7 +105,7 @@ const Partners: React.FC<PartnersProps> = ({ lang }) => {
               rel="noopener noreferrer"
               className="inline-block flex-shrink-0 grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-500"
             >
-              <img src={p.logo} alt={p.name} className="h-28 object-contain" loading="lazy" decoding="async" />
+              <img src={p.logo} alt={p.altText?.[lang] || p.name} className="h-28 object-contain" loading="lazy" decoding="async" />
             </a>
           ))}
         </div>
@@ -139,7 +139,7 @@ const Partners: React.FC<PartnersProps> = ({ lang }) => {
 
             <div className="flex-1 max-w-xs">
               <div className="w-full aspect-video bg-slate-50 rounded-2xl p-6 flex items-center justify-center border border-slate-100">
-                <img src={CLIENTS[currentClient].logo} alt={CLIENTS[currentClient].name} className="max-h-full max-w-full object-contain" loading="lazy" decoding="async" />
+                <img src={CLIENTS[currentClient].logo} alt={CLIENTS[currentClient].altText?.[lang] || CLIENTS[currentClient].name} className="max-h-full max-w-full object-contain" loading="lazy" decoding="async" />
               </div>
             </div>
 
@@ -179,7 +179,7 @@ const Partners: React.FC<PartnersProps> = ({ lang }) => {
               key={idx}
               className="inline-flex flex-shrink-0 items-center justify-center w-48 h-28 bg-slate-50 rounded-2xl p-6 border border-slate-100 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-500"
             >
-              <img src={c.logo} alt={c.name} className="max-h-full max-w-full object-contain" loading="lazy" decoding="async" />
+              <img src={c.logo} alt={c.altText?.[lang] || c.name} className="max-h-full max-w-full object-contain" loading="lazy" decoding="async" />
             </div>
           ))}
         </div>

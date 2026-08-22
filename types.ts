@@ -29,4 +29,12 @@ export interface Partner {
   name: string;
   logo: string;
   url: string;
+  altText?: { en: string; ru: string };
+}
+
+export interface Client {
+  name: string;
+  logo: string;
+  url: string;
+  altText?: { en: string; ru: string };
 }

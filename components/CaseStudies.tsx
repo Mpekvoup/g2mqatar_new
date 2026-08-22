@@ -105,8 +105,10 @@ const CaseStudiesPage: React.FC<CaseStudiesPageProps> = ({ lang, setLang }) => {
                           <div className="mb-5">
                             <img
                               src={cs.logo}
-                              alt={cs.company[lang]}
+                              alt={`${cs.company[lang]} - ${cs.industry[lang]} ${lang === 'en' ? 'case study by G2M International Qatar' : 'кейс от G2M International Qatar'}`}
                               className="h-14 w-auto object-contain"
+                              loading="lazy"
+                              decoding="async"
                             />
                           </div>
                         )}

@@ -167,9 +167,10 @@ const Team: React.FC<TeamProps> = ({ lang }) => {
                 <div className="flex-shrink-0">
                   <img
                     src={member.image}
-                    alt={member.name[lang]}
+                    alt={`${member.name[lang]} - ${member.role[lang]} ${lang === 'en' ? 'at G2M International Consulting Qatar' : 'в G2M International Consulting Qatar'}`}
                     className="w-20 h-20 md:w-24 md:h-24 rounded-full object-cover object-[center_5%] md:object-[center_10%] border-4 border-slate-50"
                     loading="lazy"
+                    decoding="async"
                   />
                 </div>
 
@@ -209,8 +210,10 @@ const Team: React.FC<TeamProps> = ({ lang }) => {
                     <div className="lg:col-span-1 space-y-6">
                       <img
                         src={member.image}
-                        alt={member.name[lang]}
+                        alt={`${member.name[lang]} - ${member.role[lang]} ${lang === 'en' ? 'at G2M International Consulting Qatar' : 'в G2M International Consulting Qatar'}`}
                         className="w-40 h-40 md:w-48 md:h-48 rounded-full object-cover object-[center_5%] md:object-[center_10%] mx-auto lg:mx-0 border-8 border-slate-50 shadow-xl"
+                        loading="lazy"
+                        decoding="async"
                       />
 
                       {/* Contact */}

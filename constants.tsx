@@ -132,20 +132,108 @@ export const REGISTRATION_STEPS: Step[] = [
 ];
 
 export const PARTNERS: Partner[] = [
-  { name: 'MOCI', logo: '/images/partners/Ministry_OCI.png', url: 'https://www.moci.gov.qa/en/' },
-  { name: 'QSTP', logo: '/images/partners/qatar_science.png', url: 'https://qstp.org.qa/' },
-  { name: 'QFZ', logo: '/images/partners/qfz.png', url: 'https://qfz.gov.qa/' },
-  { name: 'QFC', logo: '/images/partners/QFC.png', url: 'https://www.qfc.qa/en' },
+  {
+    name: 'MOCI',
+    logo: '/images/partners/Ministry_OCI.png',
+    url: 'https://www.moci.gov.qa/en/',
+    altText: {
+      en: 'Ministry of Commerce and Industry Qatar - Government partner for business registration',
+      ru: 'Министерство торговли и промышленности Катара - Государственный партнер по регистрации бизнеса'
+    }
+  },
+  {
+    name: 'QSTP',
+    logo: '/images/partners/qatar_science.png',
+    url: 'https://qstp.org.qa/',
+    altText: {
+      en: 'Qatar Science & Technology Park - Free zone partner for technology companies',
+      ru: 'Парк науки и технологий Катара - Партнер свободной зоны для технологических компаний'
+    }
+  },
+  {
+    name: 'QFZ',
+    logo: '/images/partners/qfz.png',
+    url: 'https://qfz.gov.qa/',
+    altText: {
+      en: 'Qatar Free Zones Authority - Logistics and trading zone partner',
+      ru: 'Управление свободных зон Катара - Партнер по логистике и торговле'
+    }
+  },
+  {
+    name: 'QFC',
+    logo: '/images/partners/QFC.png',
+    url: 'https://www.qfc.qa/en',
+    altText: {
+      en: 'Qatar Financial Centre - Premier business and financial services partner',
+      ru: 'Финансовый центр Катара - Ведущий партнер по бизнесу и финансовым услугам'
+    }
+  },
 ];
 
 export const CLIENTS = [
-  { name: 'Qalan', logo: '/images/clients/qalan.webp', url: 'https://qalan.kz/' },
-  { name: 'MUSA', logo: '/images/clients/musa_h.webp', url: 'https://musa.kz/' },
-  { name: 'Caring Hands', logo: caringHandsLogo, url: '#' },
-  { name: 'Sidr Technology', logo: sidrTechLogo, url: '#' },
-  { name: 'ChopA', logo: chopaLogo, url: '#' },
-  { name: 'IdealFin', logo: '/images/clients/IdealFin.webp', url: '#' },
-  { name: 'Newoon', logo: '/images/clients/newoon.webp', url: '#' },
+  {
+    name: 'Qalan',
+    logo: '/images/clients/qalan.webp',
+    url: 'https://qalan.kz/',
+    altText: {
+      en: 'Qalan - Technology company successfully registered in Qatar through G2M International',
+      ru: 'Qalan - Технологическая компания успешно зарегистрированная в Катаре через G2M International'
+    }
+  },
+  {
+    name: 'MUSA',
+    logo: '/images/clients/musa_h.webp',
+    url: 'https://musa.kz/',
+    altText: {
+      en: 'MUSA - Kazakhstan business expanded to Qatar with G2M consulting services',
+      ru: 'MUSA - Казахстанский бизнес вышедший в Катар с консалтинговыми услугами G2M'
+    }
+  },
+  {
+    name: 'Caring Hands',
+    logo: caringHandsLogo,
+    url: '#',
+    altText: {
+      en: 'Caring Hands - Healthcare company registered in Qatar by G2M International',
+      ru: 'Caring Hands - Медицинская компания зарегистрированная в Катаре через G2M International'
+    }
+  },
+  {
+    name: 'Sidr Technology',
+    logo: sidrTechLogo,
+    url: '#',
+    altText: {
+      en: 'Sidr Technology - IT solutions provider established in Qatar with G2M support',
+      ru: 'Sidr Technology - IT компания открытая в Катаре при поддержке G2M'
+    }
+  },
+  {
+    name: 'ChopA',
+    logo: chopaLogo,
+    url: '#',
+    altText: {
+      en: 'ChopA - Business client successfully set up in Qatar through G2M International',
+      ru: 'ChopA - Бизнес-клиент успешно открывший компанию в Катаре через G2M International'
+    }
+  },
+  {
+    name: 'IdealFin',
+    logo: '/images/clients/IdealFin.webp',
+    url: '#',
+    altText: {
+      en: 'IdealFin - Financial services company registered in Qatar by G2M consulting',
+      ru: 'IdealFin - Финансовая компания зарегистрированная в Катаре консалтингом G2M'
+    }
+  },
+  {
+    name: 'Newoon',
+    logo: '/images/clients/newoon.webp',
+    url: '#',
+    altText: {
+      en: 'Newoon - Business successfully launched in Qatar with G2M International assistance',
+      ru: 'Newoon - Бизнес успешно запущенный в Катаре при содействии G2M International'
+    }
+  },
 ];
 
 // Additional services grouped by categories

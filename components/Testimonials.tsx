@@ -74,9 +74,10 @@ const Testimonials: React.FC<TestimonialsProps> = ({ lang }) => {
               <div className="flex items-center justify-between mb-6">
                 <img
                   src={item.logo}
-                  alt={item.company}
+                  alt={`${item.company} - ${lang === 'en' ? 'Client testimonial for G2M International Qatar consulting services' : 'Отзыв клиента о консалтинговых услугах G2M International Qatar'}`}
                   className="h-8 object-contain grayscale group-hover:grayscale-0 transition-all"
                   loading="lazy"
+                  decoding="async"
                 />
                 <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">{item.industry}</span>
               </div>
