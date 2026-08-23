@@ -48,16 +48,15 @@ const Footer: React.FC<FooterProps> = ({ lang }) => {
                 : <>Давайте выведем ваш бизнес<br />в Ближнем Востоке.</>}
             </h3>
           </div>
-          <a
-            href="#contacts"
-            onClick={(e) => scrollToSection(e, 'contacts')}
+          <Link
+            to="/#contacts"
             className="flex-shrink-0 bg-qatar-maroon hover:bg-[#701530] text-white px-8 py-4 rounded-2xl font-bold text-base transition-all hover:scale-[1.02] active:scale-95 flex items-center gap-2"
           >
             {lang === 'en' ? 'Get in touch' : 'Связаться с нами'}
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
             </svg>
-          </a>
+          </Link>
         </div>
       </div>
 
@@ -103,9 +102,9 @@ const Footer: React.FC<FooterProps> = ({ lang }) => {
             </h4>
             <ul className="space-y-3 text-slate-400 font-medium text-sm">
               <li><a href="#about" onClick={(e) => scrollToSection(e, 'about')} className="hover:text-white transition-colors">{lang === 'en' ? 'About Us' : 'О нас'}</a></li>
-              <li><a href="#services" onClick={(e) => scrollToSection(e, 'services')} className="hover:text-white transition-colors">{lang === 'en' ? 'Our Services' : 'Наши услуги'}</a></li>
+              <li><Link to="/#services" className="hover:text-white transition-colors">{lang === 'en' ? 'Our Services' : 'Наши услуги'}</Link></li>
               <li><Link to="/case-studies" className="hover:text-white transition-colors">{lang === 'en' ? 'Case Studies' : 'Кейсы'}</Link></li>
-              <li><a href="#contacts" onClick={(e) => scrollToSection(e, 'contacts')} className="hover:text-white transition-colors">{lang === 'en' ? 'Contact' : 'Контакты'}</a></li>
+              <li><Link to="/#contacts" className="hover:text-white transition-colors">{lang === 'en' ? 'Contact' : 'Контакты'}</Link></li>
             </ul>
           </div>
 
