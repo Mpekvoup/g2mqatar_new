@@ -55,8 +55,9 @@ const Strategy: React.FC<StrategyProps> = ({ lang }) => {
               </p>
             </div>
             <a
-              href="#contacts"
-              onClick={(e) => scrollToSection(e, 'contacts')}
+              href={`https://wa.me/97450910893?text=${lang === 'en' ? 'Hello! I would like to get in touch with you.' : 'Здравствуйте! Хотел бы связаться с вами.'}`}
+              target="_blank"
+              rel="noopener noreferrer"
               className="block w-full lg:inline-block lg:w-auto bg-white text-qatar-maroon px-10 py-4 rounded-2xl font-bold text-lg hover:bg-white/90 hover:scale-105 transition-premium shadow-xl text-center"
             >
               {lang === 'en' ? 'Get in Touch' : 'Связаться'}

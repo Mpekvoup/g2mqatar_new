@@ -122,7 +122,9 @@ const Services: React.FC<ServicesProps> = ({ lang }) => {
                 </span>
               </div>
               <a
-                href="#contact"
+                href={`https://wa.me/97450910893?text=${lang === 'en' ? 'Hello! I would like to book a consultation for my business in Qatar.' : 'Здравствуйте! Хотел бы записаться на консультацию по бизнесу в Катаре.'}`}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="group inline-flex w-full items-center justify-center gap-2 bg-white text-qatar-maroon font-black text-sm px-7 py-4 rounded-2xl shadow-[0_10px_28px_rgba(0,0,0,0.22)] hover:shadow-[0_14px_34px_rgba(0,0,0,0.28)] hover:-translate-y-0.5 transition-all duration-200"
               >
                 {lang === 'en' ? 'Book Now' : 'Записаться'}
@@ -381,7 +383,9 @@ const Services: React.FC<ServicesProps> = ({ lang }) => {
                 </div>
 
                 <a
-                  href="#contact"
+                  href={`https://wa.me/97450910893?text=${lang === 'en' ? 'Hello! I would like to get started with your services.' : 'Здравствуйте! Хотел бы начать работу с вашими услугами.'}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   onClick={(e) => e.stopPropagation()}
                   className="group/cta flex items-center justify-center gap-2 bg-qatar-maroon text-white font-black text-sm px-8 py-3 rounded-2xl shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-200 flex-1 sm:flex-initial"
                 >

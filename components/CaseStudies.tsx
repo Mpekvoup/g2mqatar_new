@@ -172,15 +172,17 @@ const CaseStudiesPage: React.FC<CaseStudiesPageProps> = ({ lang, setLang }) => {
                     ? 'Tell us about your business goals. We will show you the most efficient path to the Qatar market.'
                     : 'Расскажите о ваших бизнес-целях. Мы покажем самый эффективный путь на рынок Катара.'}
                 </p>
-                <Link
-                  to="/#contacts"
+                <a
+                  href={`https://wa.me/97450910893?text=${lang === 'en' ? 'Hello! I would like to get in touch with you.' : 'Здравствуйте! Хотел бы связаться с вами.'}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="inline-flex items-center gap-3 bg-white text-qatar-maroon px-10 py-5 rounded-full font-bold text-sm uppercase tracking-widest hover:bg-white/90 hover:scale-105 transition-premium shadow-xl"
                 >
                   {lang === 'en' ? 'Get in Touch' : 'Связаться'}
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                   </svg>
-                </Link>
+                </a>
               </div>
             </div>
           </div>

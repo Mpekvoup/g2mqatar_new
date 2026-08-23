@@ -174,8 +174,9 @@ const Hero: React.FC<HeroProps> = ({ lang }) => {
                 {lang === 'en' ? 'Chat on WhatsApp' : 'Написать в WhatsApp'}
               </a>
               <a
-                href="#contacts"
-                onClick={(e) => scrollToSection(e, 'contacts')}
+                href={`https://wa.me/97450910893?text=${lang === 'en' ? 'Hello! I would like to send a request for your services.' : 'Здравствуйте! Хотел бы отправить заявку на ваши услуги.'}`}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="bg-white border-2 border-slate-100 hover:border-slate-200 text-slate-600 px-10 py-5 rounded-2xl font-bold text-lg transition-premium text-center flex items-center justify-center gap-2 group"
               >
                 {lang === 'en' ? 'Send Request' : 'Оставить заявку'}
