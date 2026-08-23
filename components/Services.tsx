@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Language } from '../types';
 import { SERVICES } from '../constants';
 
@@ -227,13 +228,8 @@ const Services: React.FC<ServicesProps> = ({ lang }) => {
         </p>
 
         {/* INCORPORATION — Premium Wide Card */}
-        <button
-          onClick={() => handleCardClick(1)}
-          className={`group w-full text-left rounded-[2.5rem] border overflow-hidden transition-all duration-300 cursor-pointer mb-8 ${
-            activeIdx === 1
-              ? 'shadow-[0_32px_80px_-12px_rgba(141,27,61,0.4)] border-qatar-maroon'
-              : 'shadow-[0_16px_48px_rgba(141,27,61,0.22)] border-qatar-maroon/30 hover:shadow-[0_32px_72px_-10px_rgba(141,27,61,0.35)] hover:border-qatar-maroon'
-          }`}
+        <div
+          className="group w-full text-left rounded-[2.5rem] border overflow-hidden transition-all duration-300 mb-8 shadow-[0_16px_48px_rgba(141,27,61,0.22)] border-qatar-maroon/30 hover:shadow-[0_32px_72px_-10px_rgba(141,27,61,0.35)] hover:border-qatar-maroon"
         >
           <div className="flex flex-col lg:flex-row">
             {/* Left: Gradient side with icon & badge */}
@@ -333,60 +329,27 @@ const Services: React.FC<ServicesProps> = ({ lang }) => {
                 </div>
               </div>
 
-              {/* Expanded detailed steps - shown when activeIdx === 1 */}
-              {activeIdx === 1 && (
-                <div className="border-t border-slate-200 pt-8 animate-steps-in">
-                  <p className="text-[10px] font-black text-qatar-maroon uppercase tracking-[0.4em] mb-6">
-                    {lang === 'en' ? 'Detailed process' : 'Подробный процесс'}
-                  </p>
-                  <div className="space-y-0">
-                    {SERVICES[1].steps.map((step, stepIdx) => (
-                      <div key={stepIdx} className="flex gap-4">
-                        <div className="flex flex-col items-center flex-shrink-0">
-                          <div className="w-9 h-9 bg-qatar-maroon text-white rounded-xl flex items-center justify-center text-xs font-black shadow-sm">
-                            {stepIdx + 1}
-                          </div>
-                          {stepIdx < SERVICES[1].steps.length - 1 && (
-                            <div className="w-px flex-1 bg-qatar-maroon/12 my-1.5" />
-                          )}
-                        </div>
-                        <div className={stepIdx < SERVICES[1].steps.length - 1 ? 'pb-6' : ''}>
-                          <h5 className="font-bold text-slate-900 mb-1 text-sm pt-1.5 leading-tight">{step.title[lang]}</h5>
-                          <p className="text-slate-500 text-xs leading-relaxed">{step.desc[lang]}</p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-
               {/* Bottom: CTA */}
-              <div className={`flex flex-col sm:flex-row items-center gap-4 ${activeIdx === 1 ? 'mt-8' : ''}`}>
-                <div
-                  className={`flex items-center gap-2 text-sm font-bold px-6 py-3 rounded-2xl border transition-all duration-200 flex-1 justify-center ${
-                    activeIdx === 1
-                      ? 'bg-qatar-maroon text-white border-qatar-maroon'
-                      : 'bg-slate-50 text-slate-700 border-slate-200 group-hover:bg-qatar-maroon group-hover:text-white group-hover:border-qatar-maroon'
-                  }`}
+              <div className="flex flex-col sm:flex-row items-center gap-4">
+                <Link
+                  to="/services/incorporation"
+                  className="flex items-center gap-2 text-sm font-bold px-6 py-3 rounded-2xl border transition-all duration-200 flex-1 justify-center bg-slate-50 text-slate-700 border-slate-200 hover:bg-qatar-maroon hover:text-white hover:border-qatar-maroon"
                 >
                   <span>
-                    {activeIdx === 1
-                      ? (lang === 'en' ? 'Hide process' : 'Скрыть процесс')
-                      : (lang === 'en' ? 'View full process' : 'Посмотреть процесс')}
+                    {lang === 'en' ? 'View full process' : 'Посмотреть процесс'}
                   </span>
                   <svg
-                    className={`w-4 h-4 transition-transform duration-300 ${activeIdx === 1 ? 'rotate-180' : ''}`}
+                    className="w-4 h-4 transition-transform duration-300"
                     fill="none" stroke="currentColor" viewBox="0 0 24 24"
                   >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                   </svg>
-                </div>
+                </Link>
 
                 <a
                   href={`https://wa.me/97450910893?text=${lang === 'en' ? 'Hello! I would like to get started with your services.' : 'Здравствуйте! Хотел бы начать работу с вашими услугами.'}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  onClick={(e) => e.stopPropagation()}
                   className="group/cta flex items-center justify-center gap-2 bg-qatar-maroon text-white font-black text-sm px-8 py-3 rounded-2xl shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-200 flex-1 sm:flex-initial"
                 >
                   {lang === 'en' ? 'Get Started' : 'Начать'}
@@ -397,7 +360,7 @@ const Services: React.FC<ServicesProps> = ({ lang }) => {
               </div>
             </div>
           </div>
-        </button>
+        </div>
 
         {/* Other Services — 3 column grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
