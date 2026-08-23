@@ -81,7 +81,7 @@ const Services: React.FC<ServicesProps> = ({ lang }) => {
                 alt={lang === 'en'
                   ? "Begarys Otarov - Managing Partner at G2M International Consulting, Qatar business registration expert"
                   : "Бегарыс Отаров - Управляющий партнер G2M International Consulting, эксперт по регистрации бизнеса в Катаре"}
-                className="w-80 h-80 rounded-2xl object-cover flex-shrink-0 border border-white/20"
+                className="w-80 h-80 rounded-2xl object-cover object-[center_30%] lg:object-[center_25%] flex-shrink-0 border border-white/20"
                 width="800"
                 height="909"
                 loading="lazy"
