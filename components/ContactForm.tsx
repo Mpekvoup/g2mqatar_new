@@ -302,7 +302,7 @@ const ContactForm: React.FC<ContactFormProps> = ({ lang }) => {
                   </div>
                   <div>
                     <div className="text-[10px] font-black opacity-80 uppercase tracking-[0.2em] mb-1">{lang === 'en' ? 'Email' : 'Email'}</div>
-                    <div className="text-base sm:text-2xl font-bold tracking-tight break-all sm:break-normal">Info@go2market.qa</div>
+                    <div className="text-base sm:text-2xl font-bold tracking-tight break-all sm:break-normal">ceo@go2market.qa</div>
                   </div>
                 </div>
               </div>

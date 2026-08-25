@@ -388,7 +388,7 @@ const Services: React.FC<ServicesProps> = ({ lang }) => {
                   <span className={`text-3xl font-black tabular-nums leading-none transition-colors duration-300 ${
                     activeIdx === idx ? 'text-qatar-maroon/30' : 'text-slate-100 group-hover:text-qatar-maroon/20'
                   }`}>
-                    {String(idx + 1).padStart(2, '0')}
+                    {idx === 0 ? '02' : String(idx + 1).padStart(2, '0')}
                   </span>
                 </div>
                 <h3 className={`text-xl font-bold mb-4 transition-colors leading-tight ${
