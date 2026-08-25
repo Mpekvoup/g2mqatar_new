@@ -90,6 +90,7 @@ const PrivacyPage: React.FC<Props> = ({ lang, setLang }) => {
                 <li><strong>EmailJS</strong> — {lang === 'en' ? 'to deliver contact form submissions to us' : 'для доставки сообщений из формы обратной связи'}</li>
                 <li><strong>Google Analytics</strong> — {lang === 'en' ? 'for anonymous website analytics' : 'для анонимной аналитики сайта'}</li>
                 <li><strong>Yandex Metrika</strong> — {lang === 'en' ? 'for anonymous website analytics' : 'для анонимной аналитики сайта'}</li>
+                <li><strong>LinkedIn Insight Tag</strong> — {lang === 'en' ? 'to measure the effectiveness of our advertising campaigns and create targeted audiences for remarketing purposes' : 'для измерения эффективности рекламных кампаний и создания целевых аудиторий для ремаркетинга'}</li>
               </ul>
             </section>
 
