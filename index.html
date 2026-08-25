@@ -45,6 +45,25 @@
         document.head.appendChild(script);
       });
     </script>
+
+    <!-- LinkedIn Insight Tag -->
+    <script type="text/javascript">
+      _linkedin_partner_id = "10805801";
+      window._linkedin_data_partner_ids = window._linkedin_data_partner_ids || [];
+      window._linkedin_data_partner_ids.push(_linkedin_partner_id);
+    </script>
+    <script type="text/javascript">
+      (function(l) {
+        if (!l){window.lintrk = function(a,b){window.lintrk.q.push([a,b])};
+        window.lintrk.q=[]}
+        var s = document.getElementsByTagName("script")[0];
+        var b = document.createElement("script");
+        b.type = "text/javascript";b.async = true;
+        b.src = "https://snap.licdn.com/li.lms-analytics/insight.min.js";
+        s.parentNode.insertBefore(b, s);
+      })(window.lintrk);
+    </script>
+
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
@@ -154,6 +173,11 @@
   <body class="bg-[#FCFCFD] text-slate-900 overflow-x-hidden selection:bg-qatar-maroon selection:text-white">
     <!-- Yandex Metrika Noscript -->
     <noscript><div><img src="https://mc.yandex.ru/watch/106830866" style="position:absolute;left:-9999px;" alt="" /></div></noscript>
+
+    <!-- LinkedIn Insight Tag Noscript -->
+    <noscript>
+      <img height="1" width="1" style="display:none;" alt="" src="https://px.ads.linkedin.com/collect/?pid=10805801&fmt=gif" />
+    </noscript>
 
     <div id="root"></div>
     <script type="module" src="/index.tsx"></script>
