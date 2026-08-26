@@ -65,9 +65,8 @@ const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ lang, setLang }) 
 
               <div className="pt-6">
                 <a
-                  href={`https://wa.me/97450910893?text=${lang === 'en' ? 'Hello! I would like to get started with your services.' : 'Здравствуйте! Хотел бы начать работу с вашими услугами.'}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href="#contacts"
+                  onClick={(e) => scrollToSection(e, 'contacts')}
                   className="inline-flex items-center gap-2 bg-white text-qatar-maroon px-10 py-5 rounded-2xl font-bold text-lg hover:bg-white/90 hover:scale-105 transition-all shadow-2xl"
                 >
                   {lang === 'en' ? 'Get Started' : 'Начать'}
@@ -246,9 +245,8 @@ const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ lang, setLang }) 
                     </div>
 
                     <a
-                      href={`https://wa.me/97450910893?text=${lang === 'en' ? 'Hello! I would like to get started with your services.' : 'Здравствуйте! Хотел бы начать работу с вашими услугами.'}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
+                      href="#contacts"
+                      onClick={(e) => scrollToSection(e, 'contacts')}
                       className={`block text-center py-4 rounded-2xl font-bold text-lg transition-all ${
                         index === service.pricing.length - 1
                           ? 'bg-qatar-maroon text-white hover:bg-qatar-maroon/90 shadow-lg'
