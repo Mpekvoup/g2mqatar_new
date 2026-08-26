@@ -106,10 +106,6 @@ ${data.message}
   const countries = [
     { value: 'qatar', label: { en: 'Qatar', ru: 'Катар' } },
     { value: 'uae', label: { en: 'UAE', ru: 'ОАЭ' } },
-    { value: 'kazakhstan', label: { en: 'Kazakhstan', ru: 'Казахстан' } },
-    { value: 'russia', label: { en: 'Russia', ru: 'Россия' } },
-    { value: 'uzbekistan', label: { en: 'Uzbekistan', ru: 'Узбекистан' } },
-    { value: 'other', label: { en: 'Other', ru: 'Другая страна' } },
   ];
 
   const steps = [
