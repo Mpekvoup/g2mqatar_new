@@ -159,6 +159,12 @@ ${data.message}
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    // Проверяем что все обязательные поля заполнены
+    if (!formData.name || !formData.contact || !formData.message) {
+      console.error('Not all required fields are filled');
+      return;
+    }
+
     if (cooldown > 0) return;
 
     if (getDailyCount() >= MAX_DAILY_SUBMISSIONS) {
