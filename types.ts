@@ -1,3 +1,10 @@
+// Facebook Pixel types
+declare global {
+  interface Window {
+    fbq?: (command: string, eventName: string, params?: Record<string, any>) => void;
+    gtag?: (...args: any[]) => void;
+  }
+}
 
 export type Language = 'en' | 'ru';
 

@@ -182,8 +182,20 @@ ${data.message}
       console.log('Telegram success:', result);
 
       setStatus('success');
+
+      // Google Analytics
       if (typeof window.gtag === 'function') {
         window.gtag('event', 'generate_lead', { event_category: 'contact', event_label: 'form_submit' });
+      }
+
+      // Facebook Pixel Lead event
+      if (typeof window.fbq === 'function') {
+        window.fbq('track', 'Lead', {
+          content_name: 'Contact Form',
+          content_category: 'Contact',
+          value: 100,
+          currency: 'USD'
+        });
       }
 
       // Добавляем параметр success=true в URL для отслеживания конверсий
