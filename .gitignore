@@ -25,3 +25,4 @@ dist-server
 *.sln
 *.sw?
 CLAUDE.md
+.claude
