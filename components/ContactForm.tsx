@@ -42,7 +42,7 @@ const ContactForm: React.FC<ContactFormProps> = ({ lang }) => {
   // Функция отправки в Telegram
   const sendToTelegram = async (data: typeof formData) => {
     const botToken = '8840974420:AAHtYHhZXWnobVwMR0GpQ15Q1qFEKZ7mID8';
-    const chatId = '-5597896419';
+    const chatId = '-1004304606289';
 
     const regionLabels = {
       qatar: { en: 'Qatar', ru: 'Катар' },
@@ -77,7 +77,9 @@ ${data.message}
     });
 
     if (!response.ok) {
-      throw new Error('Telegram API error');
+      const errorData = await response.json();
+      console.error('Telegram API error:', errorData);
+      throw new Error(`Telegram API error: ${JSON.stringify(errorData)}`);
     }
 
     return response.json();
