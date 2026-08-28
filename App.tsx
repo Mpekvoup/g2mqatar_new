@@ -84,7 +84,7 @@ const App: React.FC = () => {
   // Initialize Meta Pixel
   useEffect(() => {
     // Load Meta Pixel script
-    !(function (f: any, b: any, e: any, v: any, n?: any, t?: any, s?: any) {
+    (function (f: any, b: any, e: any, v: any, n?: any, t?: any, s?: any) {
       if (f.fbq) return;
       n = f.fbq = function () {
         n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments);
