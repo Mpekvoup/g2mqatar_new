@@ -1,7 +1,4 @@
 import { NavLink, Service, Principle, Step, Partner } from './types';
-import sidrTechLogo from './src/assets/clients/sidr-tech-logo.webp';
-import caringHandsLogo from './src/assets/clients/caring_hands.webp';
-import chopaLogo from './src/assets/clients/chopa.webp';
 
 export const NAV_LINKS: NavLink[] = [
   { id: 'about', label: { en: 'About us', ru: 'О нас' } },
@@ -191,7 +188,7 @@ export const CLIENTS = [
   },
   {
     name: 'Caring Hands',
-    logo: caringHandsLogo,
+    logo: '/images/clients/caring_hands.webp',
     url: '#',
     altText: {
       en: 'Caring Hands - Healthcare company registered in Qatar by G2M International',
@@ -200,7 +197,7 @@ export const CLIENTS = [
   },
   {
     name: 'Sidr Technology',
-    logo: sidrTechLogo,
+    logo: '/images/clients/sidr-tech-logo.webp',
     url: '#',
     altText: {
       en: 'Sidr Technology - IT solutions provider established in Qatar with G2M support',
@@ -209,7 +206,7 @@ export const CLIENTS = [
   },
   {
     name: 'ChopA',
-    logo: chopaLogo,
+    logo: '/images/clients/chopa.webp',
     url: '#',
     altText: {
       en: 'ChopA - Business client successfully set up in Qatar through G2M International',

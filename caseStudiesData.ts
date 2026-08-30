@@ -1,7 +1,3 @@
-
-import sidrTechLogo from './src/assets/clients/sidr-tech-logo.webp';
-import caringHandsLogo from './src/assets/clients/caring_hands.webp';
-
 export interface CaseStudy {
   id: number;
   slug: string;
@@ -22,7 +18,7 @@ export const CASE_STUDIES: CaseStudy[] = [
   {
     id: 1,
     slug: 'caring-hands',
-    logo: caringHandsLogo,
+    logo: '/images/clients/caring_hands.webp',
     industry: { en: 'Healthcare', ru: 'Здравоохранение' },
     company: { en: 'Caring Hands', ru: 'Caring Hands' },
     subtitle: { en: 'Premium Home Nursing Operator in Qatar', ru: 'Премиальный оператор домашнего ухода в Катаре' },
@@ -72,7 +68,7 @@ export const CASE_STUDIES: CaseStudy[] = [
   {
     id: 2,
     slug: 'sidr-technology',
-    logo: sidrTechLogo,
+    logo: '/images/clients/sidr-tech-logo.webp',
     industry: { en: 'Technology', ru: 'Технологии' },
     company: { en: 'Sidr Technology', ru: 'Sidr Technology' },
     subtitle: { en: 'UK Software Consultancy Entering Qatar Tech Market', ru: 'Британская software-компания выходит на рынок Катара' },

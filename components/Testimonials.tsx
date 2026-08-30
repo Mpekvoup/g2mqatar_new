@@ -2,8 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Language } from '../types';
 import { CASE_STUDIES } from '../caseStudiesData';
-import sidrTechLogo from '../src/assets/clients/sidr-tech-logo.webp';
-import caringHandsLogo from '../src/assets/clients/caring_hands.webp';
 
 interface TestimonialsProps {
   lang: Language;
@@ -16,7 +14,7 @@ const Testimonials: React.FC<TestimonialsProps> = ({ lang }) => {
       author: CASE_STUDIES[0].quotee[lang],
       company: CASE_STUDIES[0].company[lang],
       industry: CASE_STUDIES[0].industry[lang],
-      logo: caringHandsLogo,
+      logo: '/images/clients/caring_hands.webp',
       slug: CASE_STUDIES[0].slug,
       highlight: { metric: CASE_STUDIES[0].results[lang][0].metric, label: CASE_STUDIES[0].results[lang][0].label },
     },
@@ -25,7 +23,7 @@ const Testimonials: React.FC<TestimonialsProps> = ({ lang }) => {
       author: CASE_STUDIES[1].quotee[lang],
       company: CASE_STUDIES[1].company[lang],
       industry: CASE_STUDIES[1].industry[lang],
-      logo: sidrTechLogo,
+      logo: '/images/clients/sidr-tech-logo.webp',
       slug: CASE_STUDIES[1].slug,
       highlight: { metric: CASE_STUDIES[1].results[lang][0].metric, label: CASE_STUDIES[1].results[lang][0].label },
     },
