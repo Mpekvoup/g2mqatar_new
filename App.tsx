@@ -16,6 +16,7 @@ const ContactForm = lazy(() => import('./components/ContactForm'));
 const Partners = lazy(() => import('./components/Partners'));
 const Testimonials = lazy(() => import('./components/Testimonials'));
 const BusinessGoals = lazy(() => import('./components/BusinessGoals'));
+const QatarBenefits = lazy(() => import('./components/QatarBenefits'));
 const CaseStudiesPage = lazy(() => import('./components/CaseStudies'));
 const CaseStudyDetail = lazy(() => import('./components/CaseStudyDetail'));
 const ServiceDetailPage = lazy(() => import('./components/ServiceDetailPage'));
@@ -31,6 +32,7 @@ const HomePage: React.FC<{ lang: Language; setLang: (l: Language) => void }> = (
         <Hero lang={lang} />
         <Services lang={lang} />
         <Suspense fallback={<div className="min-h-screen" />}>
+          <QatarBenefits lang={lang} />
           <BusinessGoals lang={lang} />
           <Team lang={lang} />
           <Testimonials lang={lang} />
