@@ -47,92 +47,144 @@ const Header: React.FC<HeaderProps> = ({ lang, setLang }) => {
 
   return (
     <>
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        isScrolled || isServicePage ? 'glass shadow-[0_8px_32px_rgba(0,0,0,0.04)] py-3' : 'bg-transparent py-8'
-      }`}
-    >
-      <div className="container mx-auto px-6 flex justify-between items-center">
-        {/* Logo */}
-        {isHomePage ? (
-          <a
-            href="/"
-            onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
-            className="flex items-center space-x-3 group cursor-pointer"
-          >
-            <img src="/images/logo/logo.webp" alt="G2M International Consulting" className="h-10 w-auto object-contain group-hover:scale-105 transition-transform" width="269" height="101" fetchPriority="high" />
-          </a>
-        ) : (
-          <Link
-            to="/"
-            className="flex items-center space-x-3 group cursor-pointer"
-          >
-            <img src="/images/logo/logo.webp" alt="G2M International Consulting" className="h-10 w-auto object-contain group-hover:scale-105 transition-transform" width="269" height="101" fetchPriority="high" />
-          </Link>
-        )}
+    <header className="fixed top-0 left-0 right-0 z-50">
+      {/* Top Bar - Contact Info */}
+      <div className="bg-gradient-to-r from-qatar-maroon/70 to-[#6B1F3D]/70 backdrop-blur-md border-b border-white/10">
+        <div className="container mx-auto px-6">
+          <div className="flex justify-between items-center py-1.5">
+            {/* Contact Info */}
+            <div className="hidden md:flex items-center gap-6 text-sm text-white/70">
+              <a href="mailto:Info@go2market.qa" className="flex items-center gap-2 hover:text-white transition-colors">
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+                Info@go2market.qa
+              </a>
+              <a href="tel:+97450910893" className="flex items-center gap-2 hover:text-white transition-colors">
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                </svg>
+                +974 50 910 893
+              </a>
+            </div>
 
-        {/* Desktop Nav */}
-        <nav className="hidden md:flex items-center space-x-10">
-          {NAV_LINKS.map((link) => (
-            link.href ? (
-              <Link
-                key={link.id}
-                to={link.href}
-                className={`text-[13px] font-black hover:text-qatar-maroon transition-premium uppercase tracking-widest relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:h-[2px] after:bg-qatar-maroon after:transition-all ${
-                  location.pathname === link.href
-                    ? 'text-qatar-maroon after:w-full'
-                    : 'text-slate-500 after:w-0 hover:after:w-full'
-                }`}
-              >
-                {link.label[lang]}
-              </Link>
-            ) : isHomePage ? (
+            {/* Social Icons */}
+            <div className="flex items-center gap-3 ml-auto">
+              <a href="https://www.linkedin.com/company/g2m-international-consulting" target="_blank" rel="noopener noreferrer" className="w-8 h-8 flex items-center justify-center text-white/70 hover:text-white hover:bg-white/10 rounded transition-all">
+                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Main Navigation */}
+      <div className="bg-gradient-to-r from-slate-900/75 to-slate-800/75 backdrop-blur-md shadow-lg">
+        <div className="container mx-auto px-6">
+          <div className="flex justify-between items-center py-4">
+            {/* Logo */}
+            {isHomePage ? (
               <a
-                key={link.id}
-                href={`#${link.id}`}
-                onClick={(e) => scrollToSection(e, link.id)}
-                className="text-[13px] font-black text-slate-500 hover:text-qatar-maroon transition-premium uppercase tracking-widest relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[2px] after:bg-qatar-maroon hover:after:w-full after:transition-all"
+                href="/"
+                onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+                className="flex items-center space-x-3 group cursor-pointer"
               >
-                {link.label[lang]}
+                <img src="/images/logo/logo.webp" alt="G2M International Consulting" className="h-10 w-auto object-contain group-hover:scale-105 transition-transform brightness-0 invert" width="269" height="101" fetchPriority="high" />
               </a>
             ) : (
               <Link
-                key={link.id}
-                to={`/#${link.id}`}
-                className="text-[13px] font-black text-slate-500 hover:text-qatar-maroon transition-premium uppercase tracking-widest relative after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[2px] after:bg-qatar-maroon hover:after:w-full after:transition-all"
+                to="/"
+                className="flex items-center space-x-3 group cursor-pointer"
               >
-                {link.label[lang]}
+                <img src="/images/logo/logo.webp" alt="G2M International Consulting" className="h-10 w-auto object-contain group-hover:scale-105 transition-transform brightness-0 invert" width="269" height="101" fetchPriority="high" />
               </Link>
-            )
-          ))}
-          <div className="flex items-center space-x-3 bg-slate-100/50 p-1.5 rounded-full border border-slate-200/50 ml-4 backdrop-blur-sm">
+            )}
+
+            {/* Desktop Nav */}
+            <nav className="hidden lg:flex items-center space-x-8">
+              {NAV_LINKS.map((link) => (
+                link.href ? (
+                  <Link
+                    key={link.id}
+                    to={link.href}
+                    className={`text-sm font-semibold transition-colors uppercase ${
+                      location.pathname === link.href
+                        ? 'text-qatar-maroon'
+                        : 'text-white hover:text-qatar-maroon'
+                    }`}
+                  >
+                    {link.label[lang]}
+                  </Link>
+                ) : isHomePage ? (
+                  <a
+                    key={link.id}
+                    href={`#${link.id}`}
+                    onClick={(e) => scrollToSection(e, link.id)}
+                    className="text-sm font-semibold text-white hover:text-qatar-maroon transition-colors uppercase"
+                  >
+                    {link.label[lang]}
+                  </a>
+                ) : (
+                  <Link
+                    key={link.id}
+                    to={`/#${link.id}`}
+                    className="text-sm font-semibold text-white hover:text-qatar-maroon transition-colors uppercase"
+                  >
+                    {link.label[lang]}
+                  </Link>
+                )
+              ))}
+
+              {/* Language Switcher */}
+              <div className="flex items-center space-x-2 bg-white/10 p-1 rounded-md">
+                <button
+                  onClick={() => setLang('en')}
+                  className={`px-3 py-1 rounded text-xs font-bold transition-all ${lang === 'en' ? 'bg-qatar-maroon text-white' : 'text-white/70 hover:text-white'}`}
+                >
+                  EN
+                </button>
+                <button
+                  onClick={() => setLang('ru')}
+                  className={`px-3 py-1 rounded text-xs font-bold transition-all ${lang === 'ru' ? 'bg-qatar-maroon text-white' : 'text-white/70 hover:text-white'}`}
+                >
+                  RU
+                </button>
+              </div>
+
+              {/* CTA Button */}
+              {isHomePage ? (
+                <a
+                  href="#contacts"
+                  onClick={(e) => scrollToSection(e, 'contacts')}
+                  className="bg-qatar-maroon hover:bg-[#6B1F3D] text-white px-6 py-2.5 rounded-md font-semibold transition-all shadow-lg hover:shadow-xl whitespace-nowrap"
+                >
+                  {lang === 'en' ? 'Book Consultation' : 'Консультация'}
+                </a>
+              ) : (
+                <Link
+                  to="/#contacts"
+                  className="bg-qatar-maroon hover:bg-[#6B1F3D] text-white px-6 py-2.5 rounded-md font-semibold transition-all shadow-lg hover:shadow-xl whitespace-nowrap"
+                >
+                  {lang === 'en' ? 'Book Consultation' : 'Консультация'}
+                </Link>
+              )}
+            </nav>
+
+            {/* Mobile Menu Toggle */}
             <button
-              onClick={() => setLang('en')}
-              className={`w-10 h-10 flex items-center justify-center rounded-full text-xs font-black transition-all ${lang === 'en' ? 'bg-white shadow-md text-qatar-maroon' : 'text-slate-400 hover:text-slate-600'}`}
+              className={`lg:hidden relative w-10 h-10 flex flex-col items-center justify-center gap-1.5 transition-opacity duration-300 ${isMobileMenuOpen ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
+              onClick={() => setIsMobileMenuOpen(true)}
+              aria-label="Open menu"
             >
-              EN
-            </button>
-            <button
-              onClick={() => setLang('ru')}
-              className={`w-10 h-10 flex items-center justify-center rounded-full text-xs font-black transition-all ${lang === 'ru' ? 'bg-white shadow-md text-qatar-maroon' : 'text-slate-400 hover:text-slate-600'}`}
-            >
-              RU
+              <span className="block h-0.5 w-6 bg-white rounded-full" />
+              <span className="block h-0.5 w-4 bg-white rounded-full" />
+              <span className="block h-0.5 w-6 bg-white rounded-full" />
             </button>
           </div>
-        </nav>
-
-        {/* Mobile Menu Toggle */}
-        <button
-          className={`md:hidden relative w-10 h-10 flex flex-col items-center justify-center gap-1.5 transition-opacity duration-300 ${isMobileMenuOpen ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
-          onClick={() => setIsMobileMenuOpen(true)}
-          aria-label="Open menu"
-        >
-          <span className="block h-0.5 w-6 bg-slate-900 rounded-full" />
-          <span className="block h-0.5 w-4 bg-slate-900 rounded-full" />
-          <span className="block h-0.5 w-6 bg-slate-900 rounded-full" />
-        </button>
+        </div>
       </div>
-
     </header>
 
       {/* Mobile Menu Overlay - outside header to avoid stacking context issues */}

@@ -131,7 +131,7 @@ const Hero: React.FC<HeroProps> = ({ lang }) => {
   };
 
   return (
-    <section className="relative min-h-[90vh] flex items-center pt-24 pb-12 overflow-hidden bg-white">
+    <section className="relative min-h-[90vh] flex items-center pt-32 pb-12 overflow-hidden bg-white">
       {/* Decorative background */}
       <div className="absolute top-0 right-0 w-1/3 h-full bg-slate-50/50 -skew-x-6 transform translate-x-1/4 z-0"></div>
       <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-slate-50 to-transparent z-0"></div>
@@ -139,16 +139,6 @@ const Hero: React.FC<HeroProps> = ({ lang }) => {
       <div className="container mx-auto px-6 relative z-10">
         <div className="flex flex-col lg:flex-row items-center gap-16">
           <div className="lg:w-3/5 space-y-10">
-            <div className="inline-flex items-center space-x-2 py-1.5 px-4 bg-qatar-maroon/5 rounded-full border border-qatar-maroon/10">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-qatar-maroon opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-qatar-maroon"></span>
-              </span>
-              <span className="text-qatar-maroon text-[11px] font-extrabold uppercase tracking-[0.2em]">
-                {lang === 'en' ? 'GCC Market Entry' : 'Выход на рынок GCC'}
-              </span>
-            </div>
-            
             <h1 className="text-5xl md:text-7xl font-extrabold text-slate-900 leading-[1.05] tracking-tight text-balance">
               {content.titlePrefix[lang]}
               <span className="inline-block min-w-[200px] md:min-w-[300px] text-qatar-maroon">

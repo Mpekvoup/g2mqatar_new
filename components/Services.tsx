@@ -8,6 +8,8 @@ interface ServicesProps {
 }
 
 const ICONS = [
+  // B2B Lead Generation — target/bullseye
+  <svg key="lead" className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" /></svg>,
   // Business Intelligence — bar chart
   <svg key="bi" className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>,
   // Incorporation — building
@@ -236,6 +238,135 @@ const Services: React.FC<ServicesProps> = ({ lang }) => {
           {lang === 'en' ? "What we'll cover" : 'Что обсудим на консультации'}
         </p>
 
+        {/* B2B LEAD GENERATION — Premium Wide Card */}
+        <div
+          className="group w-full text-left rounded-[2.5rem] border overflow-hidden transition-all duration-300 mb-8 shadow-[0_16px_48px_rgba(141,27,61,0.22)] border-qatar-maroon/30 hover:shadow-[0_32px_72px_-10px_rgba(141,27,61,0.35)] hover:border-qatar-maroon"
+        >
+          <div className="flex flex-col lg:flex-row">
+            {/* Left: Gradient side with icon & badge */}
+            <div className="lg:w-80 flex-shrink-0 bg-gradient-to-br from-qatar-maroon to-[#5e1128] p-10 lg:p-12 relative overflow-hidden">
+              <div className="absolute -top-16 -right-16 w-48 h-48 rounded-full bg-white/5 pointer-events-none" />
+              <div className="absolute -bottom-12 -left-12 w-40 h-40 rounded-full bg-white/5 pointer-events-none" />
+
+              <div className="relative">
+                {/* Badge */}
+                <div className="inline-flex items-center gap-1.5 bg-white/15 backdrop-blur-sm border border-white/20 rounded-full px-3 py-1.5 mb-8">
+                  <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clipRule="evenodd" />
+                  </svg>
+                  <span className="text-white/90 text-[10px] font-black uppercase tracking-wider">
+                    {lang === 'en' ? 'New Service' : 'Новый сервис'}
+                  </span>
+                </div>
+
+                {/* Icon */}
+                <div className="w-20 h-20 bg-white/15 backdrop-blur-sm rounded-[1.5rem] flex items-center justify-center text-white mb-8 border border-white/20">
+                  {ICONS[0]}
+                </div>
+
+                {/* Title */}
+                <h3 className="text-3xl font-black text-white mb-4 leading-tight">
+                  {SERVICES[0].title[lang]}
+                </h3>
+
+                {/* Description */}
+                <p className="text-white/75 text-sm leading-relaxed mb-8">
+                  {SERVICES[0].desc[lang]}
+                </p>
+
+                {/* Key Benefits */}
+                <div className="space-y-3">
+                  {[
+                    { en: 'Targeted GCC decision-makers', ru: 'Целевые лица, принимающие решения в GCC' },
+                    { en: 'Personalised outreach at scale', ru: 'Персонализированный охват в масштабе' },
+                    { en: 'Pay for results, not activity', ru: 'Платите за результаты, а не за активность' },
+                  ].map((benefit, i) => (
+                    <div key={i} className="flex items-center gap-3">
+                      <svg className="w-4 h-4 text-white/90 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                      </svg>
+                      <span className="text-white/85 text-xs font-semibold">{benefit[lang]}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Right: White side with details & CTA */}
+            <div className="flex-1 bg-white p-10 lg:p-12 flex flex-col justify-between">
+              {/* Top section */}
+              <div>
+                <p className="text-[10px] font-black text-qatar-maroon uppercase tracking-[0.4em] mb-6">
+                  {lang === 'en' ? 'What you get' : 'Что входит'}
+                </p>
+
+                {/* Stats grid */}
+                <div className="grid grid-cols-3 gap-6 mb-8">
+                  {[
+                    { value: '4-8', label: { en: 'weeks', ru: 'недель' } },
+                    { value: '500+', label: { en: 'leads reached', ru: 'лидов' } },
+                    { value: '100%', label: { en: 'outreach delivered', ru: 'охват' } },
+                  ].map((stat, i) => (
+                    <div key={i} className="text-center">
+                      <p className="text-3xl font-black text-qatar-maroon leading-none mb-2">{stat.value}</p>
+                      <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wide leading-tight">
+                        {stat.label[lang]}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+
+                {/* What's Included */}
+                <div className="bg-slate-50/70 rounded-2xl p-6 mb-6">
+                  <p className="text-xs font-bold text-slate-900 mb-4">
+                    {lang === 'en' ? "What's included:" : 'Что включено:'}
+                  </p>
+                  <div className="space-y-3">
+                    {[
+                      { en: 'ICP and target list building', ru: 'ICP и построение целевых списков' },
+                      { en: 'Multi-channel outreach (email, LinkedIn, WhatsApp)', ru: 'Мультиканальный охват (email, LinkedIn, WhatsApp)' },
+                      { en: 'Messaging and sequence design', ru: 'Дизайн сообщений и последовательностей' },
+                      { en: 'Meeting booking and handoff', ru: 'Бронирование встреч и передача' },
+                      { en: 'Weekly pipeline reporting', ru: 'Еженедельная отчетность по воронке' },
+                    ].map((item, i) => (
+                      <div key={i} className="flex items-start gap-3">
+                        <svg className="w-4 h-4 text-qatar-maroon flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                        </svg>
+                        <span className="text-slate-700 text-xs font-semibold leading-relaxed">{item[lang]}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* Bottom: CTA */}
+              <div className="flex flex-col sm:flex-row items-center gap-4">
+                <a
+                  href="#contacts"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    const element = document.getElementById('contacts');
+                    if (element) {
+                      const offset = 80;
+                      const bodyRect = document.body.getBoundingClientRect().top;
+                      const elementRect = element.getBoundingClientRect().top;
+                      const offsetPosition = elementRect - bodyRect - offset;
+                      window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+                    }
+                  }}
+                  className="group/cta flex items-center justify-center gap-2 bg-qatar-maroon text-white font-black text-sm px-8 py-3 rounded-2xl shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-200 flex-1"
+                >
+                  {lang === 'en' ? 'Get Started' : 'Начать'}
+                  <svg className="w-4 h-4 transition-transform group-hover/cta:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
         {/* INCORPORATION — Premium Wide Card */}
         <div
           className="group w-full text-left rounded-[2.5rem] border overflow-hidden transition-all duration-300 mb-8 shadow-[0_16px_48px_rgba(141,27,61,0.22)] border-qatar-maroon/30 hover:shadow-[0_32px_72px_-10px_rgba(141,27,61,0.35)] hover:border-qatar-maroon"
@@ -259,17 +390,17 @@ const Services: React.FC<ServicesProps> = ({ lang }) => {
 
                 {/* Icon */}
                 <div className="w-20 h-20 bg-white/15 backdrop-blur-sm rounded-[1.5rem] flex items-center justify-center text-white mb-8 border border-white/20">
-                  {ICONS[1]}
+                  {ICONS[2]}
                 </div>
 
                 {/* Title */}
                 <h3 className="text-3xl font-black text-white mb-4 leading-tight">
-                  {SERVICES[1].title[lang]}
+                  {SERVICES[2].title[lang]}
                 </h3>
 
                 {/* Description */}
                 <p className="text-white/75 text-sm leading-relaxed mb-8">
-                  {SERVICES[1].desc[lang]}
+                  {SERVICES[2].desc[lang]}
                 </p>
 
                 {/* Key Benefits */}
@@ -298,22 +429,6 @@ const Services: React.FC<ServicesProps> = ({ lang }) => {
                   {lang === 'en' ? 'What you get' : 'Что входит'}
                 </p>
 
-                {/* Stats grid */}
-                <div className="grid grid-cols-3 gap-6 mb-8">
-                  {[
-                    { value: '2-4', label: { en: 'Weeks', ru: 'Недели' } },
-                    { value: '20+', label: { en: 'Companies', ru: 'Компаний' } },
-                    { value: '100%', label: { en: 'Success rate', ru: 'Успех' } },
-                  ].map((stat, i) => (
-                    <div key={i} className="text-center">
-                      <p className="text-3xl font-black text-qatar-maroon leading-none mb-2">{stat.value}</p>
-                      <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wide leading-tight">
-                        {stat.label[lang]}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-
                 {/* What's Included */}
                 <div className="bg-slate-50/70 rounded-2xl p-6 mb-6">
                   <p className="text-xs font-bold text-slate-900 mb-4">
@@ -340,21 +455,6 @@ const Services: React.FC<ServicesProps> = ({ lang }) => {
 
               {/* Bottom: CTA */}
               <div className="flex flex-col sm:flex-row items-center gap-4">
-                <Link
-                  to="/services/incorporation"
-                  className="flex items-center gap-2 text-sm font-bold px-6 py-3 rounded-2xl border transition-all duration-200 flex-1 justify-center bg-slate-50 text-slate-700 border-slate-200 hover:bg-qatar-maroon hover:text-white hover:border-qatar-maroon"
-                >
-                  <span>
-                    {lang === 'en' ? 'View full process' : 'Посмотреть процесс'}
-                  </span>
-                  <svg
-                    className="w-4 h-4 transition-transform duration-300"
-                    fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                  </svg>
-                </Link>
-
                 <a
                   href="#contacts"
                   onClick={(e) => {
@@ -368,7 +468,7 @@ const Services: React.FC<ServicesProps> = ({ lang }) => {
                       window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
                     }
                   }}
-                  className="group/cta flex items-center justify-center gap-2 bg-qatar-maroon text-white font-black text-sm px-8 py-3 rounded-2xl shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-200 flex-1 sm:flex-initial"
+                  className="group/cta flex items-center justify-center gap-2 bg-qatar-maroon text-white font-black text-sm px-8 py-3 rounded-2xl shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-200 flex-1"
                 >
                   {lang === 'en' ? 'Get Started' : 'Начать'}
                   <svg className="w-4 h-4 transition-transform group-hover/cta:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -383,7 +483,10 @@ const Services: React.FC<ServicesProps> = ({ lang }) => {
         {/* Other Services — 3 column grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {SERVICES.map((service, idx) => {
-            if (idx === 1) return null; // Skip Incorporation — it's above
+            if (idx === 0 || idx === 2) return null; // Skip B2B Lead Gen & Incorporation — they're above
+
+            // Calculate display number for remaining cards
+            const displayNumber = idx === 1 ? 1 : (idx === 3 ? 2 : 3);
 
             return (
               <button
@@ -406,7 +509,7 @@ const Services: React.FC<ServicesProps> = ({ lang }) => {
                   <span className={`text-3xl font-black tabular-nums leading-none transition-colors duration-300 ${
                     activeIdx === idx ? 'text-qatar-maroon/30' : 'text-slate-100 group-hover:text-qatar-maroon/20'
                   }`}>
-                    {idx === 0 ? '02' : String(idx + 1).padStart(2, '0')}
+                    {String(displayNumber).padStart(2, '0')}
                   </span>
                 </div>
                 <h3 className={`text-xl font-bold mb-4 transition-colors leading-tight ${

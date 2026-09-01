@@ -9,6 +9,20 @@ export const NAV_LINKS: NavLink[] = [
 
 export const SERVICES: Service[] = [
   {
+    title: { en: 'B2B Lead Generation', ru: 'B2B генерация лидов' },
+    desc: {
+      en: 'We build and run outbound campaigns that put your offer in front of GCC decision-makers — targeted lists, personalised outreach, warm meetings booked.',
+      ru: 'Мы строим и запускаем исходящие кампании, которые доставляют ваше предложение лицам, принимающим решения в GCC — целевые списки, персонализированный охват, забронированные встречи.'
+    },
+    steps: [
+      { title: { en: 'ICP & Target List Building', ru: 'ICP и построение списков' }, desc: { en: 'We define your ideal customer profile and build verified lists of decision-makers in target companies across GCC.', ru: 'Определяем ваш идеальный профиль клиента и строим проверенные списки лиц, принимающих решения в целевых компаниях GCC.' } },
+      { title: { en: 'Multi-Channel Outreach', ru: 'Мультиканальный охват' }, desc: { en: 'Personalized sequences across email, LinkedIn, and WhatsApp — the critical channel for GCC business communication.', ru: 'Персонализированные последовательности через email, LinkedIn и WhatsApp — критически важный канал для бизнес-коммуникации в GCC.' } },
+      { title: { en: 'Messaging & Sequence Design', ru: 'Дизайн сообщений' }, desc: { en: 'We craft compelling messaging that resonates with GCC decision-makers and test different approaches to optimize response rates.', ru: 'Создаём убедительные сообщения, которые находят отклик у лиц, принимающих решения в GCC, и тестируем разные подходы для оптимизации отклика.' } },
+      { title: { en: 'Meeting Booking & Handoff', ru: 'Бронирование встреч' }, desc: { en: 'We handle the entire funnel from first touch to booked meeting, then hand off warm, qualified leads to your sales team.', ru: 'Ведём всю воронку от первого касания до забронированной встречи, затем передаём тёплых, квалифицированных лидов вашей команде продаж.' } },
+      { title: { en: 'Weekly Pipeline Reporting', ru: 'Еженедельные отчёты' }, desc: { en: 'Transparent reporting on outreach volume, response rates, meetings booked, and pipeline impact every single week.', ru: 'Прозрачная отчётность по объёму охвата, уровню отклика, забронированным встречам и влиянию на воронку каждую неделю.' } },
+    ]
+  },
+  {
     title: { en: 'Business Intelligence', ru: 'Бизнес-аналитика' },
     desc: {
       en: 'Market research, regulatory analysis, financial projections and a launch plan so you know exactly what you are getting into.',
@@ -136,6 +150,15 @@ export const PARTNERS: Partner[] = [
     altText: {
       en: 'Ministry of Commerce and Industry Qatar - Government partner for business registration',
       ru: 'Министерство торговли и промышленности Катара - Государственный партнер по регистрации бизнеса'
+    }
+  },
+  {
+    name: 'General Tax Authority',
+    logo: '/images/partners/gen_tax_qatar.png',
+    url: 'https://www.gta.gov.qa/en/',
+    altText: {
+      en: 'General Tax Authority Qatar - Tax and compliance partner',
+      ru: 'Главное налоговое управление Катара - Партнер по налогам и соответствию'
     }
   },
   {

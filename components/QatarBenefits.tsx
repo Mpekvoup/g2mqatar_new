@@ -222,7 +222,7 @@ const QatarBenefits: React.FC<QatarBenefitsProps> = ({ lang }) => {
         {/* Background Image */}
         <div className="absolute inset-0">
           <img
-            src="/images/businessman_big_page.webp"
+            src="/images/businessman_big_page.jpg"
             alt={lang === 'en' ? 'Business consultant' : 'Бизнес-консультант'}
             className="w-full h-full object-cover"
           />
