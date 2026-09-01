@@ -31,7 +31,7 @@ const Header: React.FC<HeaderProps> = ({ lang, setLang }) => {
     e.preventDefault();
     const element = document.getElementById(id);
     if (element) {
-      const offset = 80; // Offset for fixed header
+      const offset = 40; // Offset for fixed header
       const bodyRect = document.body.getBoundingClientRect().top;
       const elementRect = element.getBoundingClientRect().top;
       const elementPosition = elementRect - bodyRect;
@@ -54,7 +54,7 @@ const Header: React.FC<HeaderProps> = ({ lang, setLang }) => {
           <div className="flex justify-between items-center py-1.5">
             {/* Contact Info - All devices */}
             <div className="flex items-center gap-3 md:gap-6 text-xs md:text-sm text-white/70">
-              <a href="mailto:Info@go2market.qa" className="flex items-center gap-1.5 md:gap-2 hover:text-white transition-colors">
+              <a href="mailto:ceo@go2market.qa" className="flex items-center gap-1.5 md:gap-2 hover:text-white transition-colors">
                 <svg className="w-3.5 h-3.5 md:w-4 md:h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                 </svg>

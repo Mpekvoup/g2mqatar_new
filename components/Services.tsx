@@ -348,7 +348,7 @@ const Services: React.FC<ServicesProps> = ({ lang }) => {
                     e.preventDefault();
                     const element = document.getElementById('contacts');
                     if (element) {
-                      const offset = 80;
+                      const offset = 40;
                       const bodyRect = document.body.getBoundingClientRect().top;
                       const elementRect = element.getBoundingClientRect().top;
                       const offsetPosition = elementRect - bodyRect - offset;
@@ -461,7 +461,7 @@ const Services: React.FC<ServicesProps> = ({ lang }) => {
                     e.preventDefault();
                     const element = document.getElementById('contacts');
                     if (element) {
-                      const offset = 80;
+                      const offset = 40;
                       const bodyRect = document.body.getBoundingClientRect().top;
                       const elementRect = element.getBoundingClientRect().top;
                       const offsetPosition = elementRect - bodyRect - offset;
