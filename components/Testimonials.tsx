@@ -61,40 +61,69 @@ const Testimonials: React.FC<TestimonialsProps> = ({ lang }) => {
           </Link>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-3 gap-8">
           {items.map((item, idx) => (
             <Link
               key={idx}
               to={`/case-studies/${item.slug}`}
-              className="group flex flex-col bg-white rounded-[2rem] p-8 shadow-sm border border-slate-100 hover:shadow-xl hover:border-qatar-maroon/10 transition-all duration-300"
+              className="group flex flex-col bg-white rounded-3xl p-10 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.08)] border border-slate-200/60 hover:shadow-[0_20px_60px_-15px_rgba(114,28,36,0.15)] hover:border-qatar-maroon/20 hover:-translate-y-2 transition-all duration-500 relative overflow-hidden"
             >
-              {/* Logo + industry */}
-              <div className="flex items-center justify-between mb-6">
-                <img
-                  src={item.logo}
-                  alt={`${item.company} - ${lang === 'en' ? 'Client testimonial for G2M International Qatar consulting services' : 'Отзыв клиента о консалтинговых услугах G2M International Qatar'}`}
-                  className="h-8 object-contain grayscale group-hover:grayscale-0 transition-all"
-                  loading="lazy"
-                  decoding="async"
-                />
-                <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">{item.industry}</span>
-              </div>
+              {/* Background gradient on hover */}
+              <div className="absolute inset-0 bg-gradient-to-br from-qatar-maroon/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
 
-              {/* Key metric */}
-              <div className="bg-qatar-maroon/5 rounded-2xl px-5 py-4 mb-6 flex items-center gap-3 sm:gap-4 min-w-0">
-                <div className="text-xl sm:text-2xl md:text-3xl font-black text-qatar-maroon leading-none flex-shrink-0 break-words">{item.highlight.metric}</div>
-                <div className="text-xs text-slate-500 font-semibold leading-tight min-w-0">{item.highlight.label}</div>
-              </div>
+              {/* Top accent line */}
+              <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-qatar-maroon via-qatar-maroon/50 to-transparent transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
 
-              {/* Quote */}
-              <blockquote className="text-slate-700 font-medium leading-relaxed flex-grow text-sm">
-                {item.quote}
-              </blockquote>
+              <div className="relative z-10">
+                {/* Logo + industry */}
+                <div className="flex items-center justify-between mb-8">
+                  <div className="p-3 bg-slate-50 rounded-2xl group-hover:bg-white group-hover:shadow-sm transition-all duration-300">
+                    <img
+                      src={item.logo}
+                      alt={`${item.company} - ${lang === 'en' ? 'Client testimonial for G2M International Qatar consulting services' : 'Отзыв клиента о консалтинговых услугах G2M International Qatar'}`}
+                      className="h-10 object-contain grayscale group-hover:grayscale-0 transition-all duration-300"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  </div>
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gradient-to-r from-slate-100 to-slate-50 text-slate-600 text-[10px] font-black uppercase tracking-widest border border-slate-200/50 group-hover:border-qatar-maroon/20 transition-colors">
+                    <span className="w-1 h-1 rounded-full bg-qatar-maroon"></span>
+                    {item.industry}
+                  </span>
+                </div>
 
-              {/* Author */}
-              <div className="mt-6 pt-6 border-t border-slate-100">
-                <div className="text-sm font-bold text-slate-900">{item.author}</div>
-                <div className="text-xs text-slate-400 font-medium mt-0.5">{item.company}</div>
+                {/* Key metric - Enhanced */}
+                <div className="bg-gradient-to-br from-qatar-maroon/10 via-qatar-maroon/5 to-transparent rounded-2xl px-6 py-5 mb-8 border border-qatar-maroon/10 group-hover:border-qatar-maroon/20 group-hover:shadow-sm transition-all duration-300">
+                  <div className="text-3xl md:text-4xl font-black bg-gradient-to-br from-qatar-maroon to-qatar-maroon/70 bg-clip-text text-transparent leading-none mb-2">
+                    {item.highlight.metric}
+                  </div>
+                  <div className="text-xs text-slate-600 font-bold uppercase tracking-wide">
+                    {item.highlight.label}
+                  </div>
+                </div>
+
+                {/* Quote - Enhanced */}
+                <div className="relative mb-8">
+                  <div className="absolute -left-2 -top-1 text-6xl text-qatar-maroon/10 leading-none">"</div>
+                  <blockquote className="text-slate-600 font-medium leading-relaxed flex-grow text-base pl-6 italic">
+                    {item.quote}
+                  </blockquote>
+                </div>
+
+                {/* Author - Enhanced */}
+                <div className="mt-auto pt-6 border-t border-slate-100 group-hover:border-qatar-maroon/10 transition-colors">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <div className="text-sm font-bold text-slate-900 group-hover:text-qatar-maroon transition-colors">{item.author}</div>
+                      <div className="text-xs text-slate-500 font-medium mt-1">{item.company}</div>
+                    </div>
+                    <div className="w-10 h-10 rounded-full border-2 border-slate-200 flex items-center justify-center group-hover:border-qatar-maroon group-hover:bg-qatar-maroon group-hover:scale-110 transition-all duration-300">
+                      <svg className="w-4 h-4 text-slate-400 group-hover:text-white transition-all duration-300 group-hover:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                      </svg>
+                    </div>
+                  </div>
+                </div>
               </div>
             </Link>
           ))}

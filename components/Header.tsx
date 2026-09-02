@@ -11,16 +11,35 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ lang, setLang }) => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isScrollingDown, setIsScrollingDown] = useState(false);
+  const [lastScrollY, setLastScrollY] = useState(0);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
   const isHomePage = location.pathname === '/';
   const isServicePage = location.pathname.startsWith('/services/');
 
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 20);
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+
+      // Определяем, прокручено ли вниз
+      setIsScrolled(currentScrollY > 20);
+
+      // Определяем направление скролла
+      if (currentScrollY > lastScrollY && currentScrollY > 100) {
+        // Скроллим вниз
+        setIsScrollingDown(true);
+      } else {
+        // Скроллим вверх или в самом верху
+        setIsScrollingDown(false);
+      }
+
+      setLastScrollY(currentScrollY);
+    };
+
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [lastScrollY]);
 
   useEffect(() => {
     document.body.style.overflow = isMobileMenuOpen ? 'hidden' : '';
@@ -49,7 +68,7 @@ const Header: React.FC<HeaderProps> = ({ lang, setLang }) => {
     <>
     <header className="fixed top-0 left-0 right-0 z-50">
       {/* Top Bar - Contact Info */}
-      <div className="bg-gradient-to-r from-qatar-maroon/70 to-[#6B1F3D]/70 backdrop-blur-md border-b border-white/10">
+      <div className={`bg-gradient-to-r from-qatar-maroon/70 to-[#6B1F3D]/70 backdrop-blur-md border-b border-white/10 transition-all duration-500 ease-in-out overflow-hidden ${isScrollingDown ? 'max-h-0 opacity-0 border-b-0' : 'max-h-20 opacity-100'}`}>
         <div className="container mx-auto px-6">
           <div className="flex justify-between items-center py-1.5">
             {/* Contact Info - All devices */}
@@ -65,7 +84,7 @@ const Header: React.FC<HeaderProps> = ({ lang, setLang }) => {
                 <svg className="w-3.5 h-3.5 md:w-4 md:h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                 </svg>
-                <span className="whitespace-nowrap">+974 50 910 893</span>
+                <span className="whitespace-nowrap">+974 5091 0893</span>
               </a>
             </div>
 
@@ -82,7 +101,7 @@ const Header: React.FC<HeaderProps> = ({ lang, setLang }) => {
       </div>
 
       {/* Main Navigation */}
-      <div className="bg-gradient-to-r from-slate-900/75 to-slate-800/75 backdrop-blur-md shadow-lg">
+      <div className={`bg-gradient-to-r from-slate-900/75 to-slate-800/75 backdrop-blur-md transition-shadow duration-500 ease-in-out ${isScrolled ? 'shadow-2xl' : 'shadow-lg'}`}>
         <div className="container mx-auto px-6">
           <div className="flex justify-between items-center py-4">
             {/* Logo */}

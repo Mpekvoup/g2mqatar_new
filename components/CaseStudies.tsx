@@ -72,84 +72,96 @@ const CaseStudiesPage: React.FC<CaseStudiesPageProps> = ({ lang, setLang }) => {
         </section>
 
         {/* ──────────────────── CASE STUDY CARDS ──────────────────── */}
-        <section className="py-24 md:py-32 bg-[#FCFCFD]">
+        <section className="py-24 md:py-32 bg-gradient-to-b from-[#FCFCFD] to-white">
           <div className="container mx-auto px-6">
-            <div className="space-y-0">
+            <div className="space-y-8">
               {CASE_STUDIES.map((cs, idx) => (
                 <Link
                   key={cs.id}
                   to={`/case-studies/${cs.slug}`}
                   className="group block"
                 >
-                  <article className="border-t border-slate-200 pt-12 pb-16 md:pt-16 md:pb-20 transition-premium">
+                  <article className="relative bg-white border border-slate-200/60 rounded-3xl p-8 md:p-12 transition-all duration-500 hover:shadow-[0_20px_60px_-15px_rgba(114,28,36,0.15)] hover:border-qatar-maroon/20 hover:-translate-y-1 overflow-hidden">
 
-                    {/* Top row: number + industry + year */}
-                    <div className="flex items-center justify-between mb-10 md:mb-12">
-                      <div className="flex items-center gap-5">
-                        <span className="text-[11px] font-black text-qatar-maroon uppercase tracking-[0.3em]">
-                          {lang === 'en' ? 'Case' : 'Кейс'} {String(idx + 1).padStart(2, '0')}
-                        </span>
-                        <span className="inline-block px-4 py-1.5 rounded-full bg-qatar-maroon/5 text-qatar-maroon text-[11px] font-bold uppercase tracking-widest">
-                          {cs.industry[lang]}
-                        </span>
-                      </div>
-                      <span className="text-sm text-slate-300 font-bold tracking-wider hidden md:block">{cs.year}</span>
-                    </div>
+                    {/* Background gradient on hover */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-qatar-maroon/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
 
-                    {/* Main content row */}
-                    <div className="grid lg:grid-cols-12 gap-8 lg:gap-16 items-start">
+                    {/* Accent line */}
+                    <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-qatar-maroon to-qatar-maroon/20 transform scale-y-0 group-hover:scale-y-100 transition-transform duration-500 origin-top"></div>
 
-                      {/* Left: Company + subtitle */}
-                      <div className="lg:col-span-5">
-                        {cs.logo && (
-                          <div className="mb-5">
-                            <img
-                              src={cs.logo}
-                              alt={`${cs.company[lang]} - ${cs.industry[lang]} ${lang === 'en' ? 'case study by G2M International Qatar' : 'кейс от G2M International Qatar'}`}
-                              className="h-14 w-auto object-contain"
-                              loading="lazy"
-                              decoding="async"
-                            />
-                          </div>
-                        )}
-                        <h2 className="text-3xl md:text-4xl lg:text-[2.75rem] font-extrabold text-slate-900 leading-[1.15] mb-3 group-hover:text-qatar-maroon transition-colors">
-                          {cs.company[lang]}
-                        </h2>
-                        <p className="text-lg text-slate-400 font-semibold">
-                          {cs.subtitle[lang]}
-                        </p>
-                      </div>
-
-                      {/* Center: Context preview */}
-                      <div className="lg:col-span-5">
-                        <p className="text-slate-500 leading-[1.8] font-medium text-[15px] line-clamp-3">
-                          {cs.context[lang]}
-                        </p>
-                        {/* Results preview */}
-                        <div className="flex gap-8 mt-6">
-                          {cs.results[lang].slice(0, 3).map((result, i) => (
-                            <div key={i}>
-                              <div className="text-lg font-black text-qatar-maroon tracking-tight">{result.metric}</div>
-                              <div className="text-[11px] text-slate-400 font-semibold mt-0.5">{result.label}</div>
-                            </div>
-                          ))}
+                    <div className="relative z-10">
+                      {/* Top row: number + industry + year */}
+                      <div className="flex items-center justify-between mb-8 md:mb-10">
+                        <div className="flex items-center gap-4">
+                          <span className="text-xs font-black text-qatar-maroon uppercase tracking-[0.3em] bg-qatar-maroon/5 px-4 py-2 rounded-full">
+                            {lang === 'en' ? 'Case' : 'Кейс'} {String(idx + 1).padStart(2, '0')}
+                          </span>
+                          <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-slate-100 to-slate-50 text-slate-700 text-xs font-bold uppercase tracking-wider border border-slate-200/50 group-hover:border-qatar-maroon/20 transition-colors">
+                            <span className="w-1.5 h-1.5 rounded-full bg-qatar-maroon"></span>
+                            {cs.industry[lang]}
+                          </span>
                         </div>
+                        <span className="text-sm text-slate-300 font-bold tracking-wider hidden md:block group-hover:text-qatar-maroon/40 transition-colors">{cs.year}</span>
                       </div>
 
-                      {/* Right: Arrow */}
-                      <div className="lg:col-span-2 flex lg:justify-end items-start">
-                        <div className="w-14 h-14 rounded-full border-2 border-slate-200 flex items-center justify-center group-hover:border-qatar-maroon group-hover:bg-qatar-maroon transition-premium">
-                          <svg className="w-5 h-5 text-slate-400 group-hover:text-white transition-premium group-hover:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                          </svg>
+                      {/* Main content row */}
+                      <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+
+                        {/* Left: Company + subtitle */}
+                        <div className="lg:col-span-5">
+                          {cs.logo && (
+                            <div className="mb-6 p-4 bg-slate-50 rounded-2xl inline-block group-hover:bg-white group-hover:shadow-sm transition-all duration-300">
+                              <img
+                                src={cs.logo}
+                                alt={`${cs.company[lang]} - ${cs.industry[lang]} ${lang === 'en' ? 'case study by G2M International Qatar' : 'кейс от G2M International Qatar'}`}
+                                className="h-12 w-auto object-contain"
+                                loading="lazy"
+                                decoding="async"
+                              />
+                            </div>
+                          )}
+                          <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-slate-900 leading-[1.1] mb-4 group-hover:text-qatar-maroon transition-colors duration-300">
+                            {cs.company[lang]}
+                          </h2>
+                          <p className="text-lg text-slate-500 font-medium leading-relaxed">
+                            {cs.subtitle[lang]}
+                          </p>
+                        </div>
+
+                        {/* Center: Context preview */}
+                        <div className="lg:col-span-5">
+                          <p className="text-slate-600 leading-[1.8] font-medium text-base line-clamp-3 mb-8">
+                            {cs.context[lang]}
+                          </p>
+
+                          {/* Results preview - Enhanced design */}
+                          <div className="grid grid-cols-3 gap-6 p-6 bg-gradient-to-br from-slate-50 to-white rounded-2xl border border-slate-100 group-hover:border-qatar-maroon/10 group-hover:shadow-sm transition-all duration-300">
+                            {cs.results[lang].slice(0, 3).map((result, i) => (
+                              <div key={i} className="text-center">
+                                <div className="text-2xl md:text-3xl font-black bg-gradient-to-br from-qatar-maroon to-qatar-maroon/70 bg-clip-text text-transparent tracking-tight mb-1">
+                                  {result.metric}
+                                </div>
+                                <div className="text-[10px] text-slate-500 font-bold uppercase tracking-wide leading-tight">
+                                  {result.label}
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+
+                        {/* Right: Arrow */}
+                        <div className="lg:col-span-2 flex lg:justify-end items-start">
+                          <div className="w-16 h-16 rounded-full border-2 border-slate-200 flex items-center justify-center group-hover:border-qatar-maroon group-hover:bg-qatar-maroon group-hover:scale-110 transition-all duration-300 shadow-sm">
+                            <svg className="w-6 h-6 text-slate-400 group-hover:text-white transition-all duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}>
+                              <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                            </svg>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </article>
                 </Link>
               ))}
-              {/* Bottom border for last item */}
-              <div className="border-t border-slate-200"></div>
             </div>
           </div>
         </section>
