@@ -81,7 +81,7 @@ const ScrollToTop = () => {
 };
 
 const App: React.FC = () => {
-  const [lang, setLang] = useState<Language>('en');
+  const [lang, setLang] = useState<Language>('ru');
 
   // Initialize Meta Pixel
   useEffect(() => {
