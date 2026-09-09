@@ -9,10 +9,13 @@ const distServer = path.resolve(root, 'dist-server');
 
 const ROUTES = [
   '/',
+  '/business-consultation',
+  '/company-registration',
   '/case-studies',
   '/case-studies/caring-hands',
   '/case-studies/sidr-technology',
   '/case-studies/qalan',
+  '/services/b2b-lead-generation',
   '/services/business-intelligence',
   '/services/incorporation',
   '/services/business-matchmaking',

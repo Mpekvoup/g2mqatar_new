@@ -33,6 +33,133 @@ export interface ServiceDetail {
 
 export const SERVICES_DETAIL: ServiceDetail[] = [
   {
+    slug: 'b2b-lead-generation',
+    title: { en: 'B2B Lead Generation', ru: 'B2B генерация лидов' },
+    subtitle: {
+      en: 'Fill your pipeline with qualified meetings from GCC decision-makers',
+      ru: 'Наполните вашу воронку квалифицированными встречами с лицами, принимающими решения в GCC'
+    },
+    description: {
+      en: 'Breaking into the GCC market requires more than a good product — you need to get in front of the right people. Our B2B Lead Generation service builds targeted lists, runs personalized outbound campaigns across email, LinkedIn, and WhatsApp (the critical channel for GCC business), and books qualified meetings with decision-makers. You get warm leads ready to talk, not cold lists.',
+      ru: 'Прорыв на рынок GCC требует не только хорошего продукта — нужно выйти на правильных людей. Наш сервис B2B генерации лидов строит целевые списки, запускает персонализированные кампании через email, LinkedIn и WhatsApp (критический канал для бизнеса в GCC) и бронирует квалифицированные встречи с лицами, принимающими решения. Вы получаете тёплых лидов, готовых говорить, а не холодные списки.'
+    },
+    benefits: [
+      { en: 'Get qualified meetings booked, not just contact lists', ru: 'Получаете забронированные встречи, а не просто списки контактов' },
+      { en: 'Multi-channel outreach optimized for GCC (WhatsApp included)', ru: 'Мультиканальный охват, оптимизированный для GCC (включая WhatsApp)' },
+      { en: 'Transparent weekly reporting on pipeline impact', ru: 'Прозрачная еженедельная отчётность по воронке' },
+      { en: 'Focus on selling while we handle outbound prospecting', ru: 'Фокусируйтесь на продажах, пока мы ведём поиск клиентов' },
+      { en: 'Tested messaging that resonates with GCC decision-makers', ru: 'Проверенные сообщения, которые находят отклик у лиц, принимающих решения в GCC' }
+    ],
+    steps: [
+      {
+        title: { en: 'ICP & Target List Building', ru: 'ICP и построение списков' },
+        desc: { en: 'We define your ideal customer profile and build verified lists of decision-makers in target companies across GCC.', ru: 'Определяем ваш идеальный профиль клиента и строим проверенные списки лиц, принимающих решения в целевых компаниях GCC.' }
+      },
+      {
+        title: { en: 'Multi-Channel Outreach', ru: 'Мультиканальный охват' },
+        desc: { en: 'Personalized sequences across email, LinkedIn, and WhatsApp — the critical channel for GCC business communication.', ru: 'Персонализированные последовательности через email, LinkedIn и WhatsApp — критически важный канал для бизнес-коммуникации в GCC.' }
+      },
+      {
+        title: { en: 'Messaging & Sequence Design', ru: 'Дизайн сообщений' },
+        desc: { en: 'We craft compelling messaging that resonates with GCC decision-makers and test different approaches to optimize response rates.', ru: 'Создаём убедительные сообщения, которые находят отклик у лиц, принимающих решения в GCC, и тестируем разные подходы для оптимизации отклика.' }
+      },
+      {
+        title: { en: 'Meeting Booking & Handoff', ru: 'Бронирование встреч' },
+        desc: { en: 'We handle the entire funnel from first touch to booked meeting, then hand off warm, qualified leads to your sales team.', ru: 'Ведём всю воронку от первого касания до забронированной встречи, затем передаём тёплых, квалифицированных лидов вашей команде продаж.' }
+      },
+      {
+        title: { en: 'Weekly Pipeline Reporting', ru: 'Еженедельные отчёты' },
+        desc: { en: 'Transparent reporting on outreach volume, response rates, meetings booked, and pipeline impact every single week.', ru: 'Прозрачная отчётность по объёму охвата, уровню отклика, забронированным встречам и влиянию на воронку каждую неделю.' }
+      },
+    ],
+    examples: [
+      {
+        title: { en: 'SaaS Platform Qatar Market Entry', ru: 'Выход SaaS платформы на рынок Катара' },
+        description: {
+          en: 'A European HR tech platform wanted to break into Qatar corporate market. They had no local presence, no warm connections, and needed 10+ qualified demos per month.',
+          ru: 'Европейская HR tech платформа хотела выйти на корпоративный рынок Катара. У них не было локального присутствия, тёплых контактов, и нужно было 10+ квалифицированных демо в месяц.'
+        },
+        result: {
+          en: 'Built list of 300 HR directors at Qatar companies with 50+ employees. Ran personalized LinkedIn + WhatsApp outreach. Booked 14 qualified demos in first month, 3 converted to paid pilots within 90 days.',
+          ru: 'Построили список из 300 HR директоров в компаниях Катара с 50+ сотрудниками. Запустили персонализированный охват LinkedIn + WhatsApp. Забронировали 14 квалифицированных демо за первый месяц, 3 конвертировались в платные пилоты за 90 дней.'
+        }
+      },
+      {
+        title: { en: 'Manufacturing Equipment Supplier to GCC', ru: 'Поставщик оборудования для производства в GCC' },
+        description: {
+          en: 'A Central Asian manufacturing equipment supplier wanted to reach procurement managers at GCC industrial companies but had zero traction with cold outreach.',
+          ru: 'Поставщик производственного оборудования из Центральной Азии хотел выйти на закупщиков в промышленных компаниях GCC, но холодный охват не работал.'
+        },
+        result: {
+          en: 'Identified 180 procurement decision-makers across Qatar, UAE, and Kuwait. Created industry-specific messaging tested across email and WhatsApp. Generated 22 qualified meetings over 2 months, closed $340K in contracts.',
+          ru: 'Определили 180 лиц, принимающих решения по закупкам в Катаре, ОАЭ и Кувейте. Создали отраслевые сообщения, протестированные через email и WhatsApp. Сгенерировали 22 квалифицированные встречи за 2 месяца, закрыли контракты на $340K.'
+        }
+      }
+    ],
+    pricing: [
+      {
+        title: { en: 'Launch Package', ru: 'Стартовый пакет' },
+        price: { en: '$3,500/month', ru: '$3,500/месяц' },
+        features: [
+          { en: 'ICP definition & target list (up to 500 contacts)', ru: 'Определение ICP и целевой список (до 500 контактов)' },
+          { en: 'Email + LinkedIn outreach sequences', ru: 'Последовательности охвата Email + LinkedIn' },
+          { en: 'Up to 200 new contacts/month', ru: 'До 200 новых контактов/месяц' },
+          { en: 'Weekly pipeline reporting', ru: 'Еженедельная отчётность по воронке' },
+          { en: '3-month minimum commitment', ru: 'Минимум 3 месяца' }
+        ],
+        timeline: { en: '2 weeks setup + ongoing', ru: '2 недели настройка + постоянно' }
+      },
+      {
+        title: { en: 'Growth Package', ru: 'Пакет роста' },
+        price: { en: '$6,500/month', ru: '$6,500/месяц' },
+        features: [
+          { en: 'Everything in Launch Package', ru: 'Всё из стартового пакета' },
+          { en: 'WhatsApp outreach (critical for GCC)', ru: 'Охват через WhatsApp (критично для GCC)' },
+          { en: 'Up to 400 new contacts/month', ru: 'До 400 новых контактов/месяц' },
+          { en: 'A/B testing of messaging & sequences', ru: 'A/B тестирование сообщений и последовательностей' },
+          { en: 'Dedicated account manager', ru: 'Выделенный менеджер аккаунта' },
+          { en: '3-month minimum commitment', ru: 'Минимум 3 месяца' }
+        ],
+        timeline: { en: '2 weeks setup + ongoing', ru: '2 недели настройка + постоянно' }
+      },
+      {
+        title: { en: 'Enterprise Package', ru: 'Корпоративный пакет' },
+        price: { en: 'Custom pricing', ru: 'Цена по запросу' },
+        features: [
+          { en: 'Everything in Growth Package', ru: 'Всё из пакета роста' },
+          { en: 'Multi-market campaigns (Qatar, UAE, Kuwait, etc.)', ru: 'Мультирыночные кампании (Катар, ОАЭ, Кувейт и др.)' },
+          { en: 'Custom contact volume & targeting', ru: 'Индивидуальный объём контактов и таргетинг' },
+          { en: 'Integration with your CRM', ru: 'Интеграция с вашей CRM' },
+          { en: 'Dedicated outbound team', ru: 'Выделенная команда для охвата' },
+          { en: 'Flexible commitment terms', ru: 'Гибкие условия' }
+        ],
+        timeline: { en: '3-4 weeks setup + ongoing', ru: '3-4 недели настройка + постоянно' }
+      }
+    ],
+    faqs: [
+      {
+        question: { en: 'Why is WhatsApp important for GCC outreach?', ru: 'Почему WhatsApp важен для охвата в GCC?' },
+        answer: { en: 'WhatsApp is the primary business communication channel in GCC. Decision-makers check WhatsApp more frequently than email, and response rates are typically 2-3x higher. We include WhatsApp in Growth and Enterprise packages.', ru: 'WhatsApp — основной канал бизнес-коммуникации в GCC. Лица, принимающие решения, проверяют WhatsApp чаще, чем email, и отклик обычно в 2-3 раза выше. Мы включаем WhatsApp в пакеты роста и корпоративные.' }
+      },
+      {
+        question: { en: 'How many meetings should I expect per month?', ru: 'Сколько встреч ожидать в месяц?' },
+        answer: { en: 'Results vary by industry and offer, but clients typically see 6-12 qualified meetings per month on Growth Package, and 15-25 on Enterprise. First month is setup and testing, full volume starts month 2.', ru: 'Результаты зависят от отрасли и предложения, но клиенты обычно получают 6-12 квалифицированных встреч в месяц на пакете роста, и 15-25 на корпоративном. Первый месяц — настройка и тесты, полный объём со 2-го месяца.' }
+      },
+      {
+        question: { en: 'Do you build the lists or do I provide them?', ru: 'Вы строите списки или я предоставляю?' },
+        answer: { en: 'We build the target lists based on your ICP. You define who you want to reach (industry, company size, job titles, location), and we research and verify the contacts. You approve the list before outreach starts.', ru: 'Мы строим целевые списки на основе вашего ICP. Вы определяете, до кого хотите дотянуться (отрасль, размер компании, должности, локация), мы исследуем и проверяем контакты. Вы одобряете список перед началом охвата.' }
+      },
+      {
+        question: { en: 'What happens after a meeting is booked?', ru: 'Что происходит после бронирования встречи?' },
+        answer: { en: 'We add it to your calendar, brief you on the prospect (company background, conversation history), and hand off to your sales team. You own the relationship from that point. We track outcomes to optimize future campaigns.', ru: 'Добавляем в ваш календарь, брифуем по проспекту (бэкграунд компании, история общения) и передаём вашей команде продаж. С этого момента отношения — ваши. Отслеживаем результаты для оптимизации будущих кампаний.' }
+      },
+      {
+        question: { en: 'Can I pause or cancel the service?', ru: 'Могу ли я приостановить или отменить?' },
+        answer: { en: 'Yes, but there is a 3-month minimum commitment for Launch and Growth packages. After that, you can cancel with 30 days notice. Enterprise packages have custom terms negotiated upfront.', ru: 'Да, но есть минимальное обязательство 3 месяца для стартового пакета и пакета роста. После этого можно отменить с уведомлением за 30 дней. Корпоративные пакеты имеют индивидуальные условия.' }
+      }
+    ]
+  },
+  {
     slug: 'business-intelligence',
     title: { en: 'Business Intelligence', ru: 'Бизнес-аналитика' },
     subtitle: {

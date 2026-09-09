@@ -47,7 +47,7 @@ const Testimonials: React.FC<TestimonialsProps> = ({ lang }) => {
               {lang === 'en' ? 'Client Stories' : 'Истории клиентов'}
             </h2>
             <p className="text-4xl md:text-5xl font-extrabold text-slate-900 leading-tight">
-              {lang === 'en' ? 'Results that speak' : 'Результаты говорят'}
+              {lang === 'en' ? 'Results that speak' : 'Реальные результаты'}
             </p>
           </div>
           <Link

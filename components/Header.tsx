@@ -16,7 +16,7 @@ const Header: React.FC<HeaderProps> = ({ lang, setLang }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
   const isHomePage = location.pathname === '/';
-  const isServicePage = location.pathname.startsWith('/services/');
+  const isServicePage = location.pathname === '/business-consultation' || location.pathname === '/company-registration';
 
   useEffect(() => {
     const handleScroll = () => {
@@ -68,7 +68,7 @@ const Header: React.FC<HeaderProps> = ({ lang, setLang }) => {
     <>
     <header className="fixed top-0 left-0 right-0 z-50">
       {/* Top Bar - Contact Info */}
-      <div className={`bg-gradient-to-r from-qatar-maroon/70 to-[#6B1F3D]/70 backdrop-blur-md border-b border-white/10 transition-all duration-500 ease-in-out overflow-hidden ${isScrollingDown ? 'max-h-0 opacity-0 border-b-0' : 'max-h-20 opacity-100'}`}>
+      <div className={`bg-gradient-to-r from-qatar-maroon/70 to-[#6B1F3D]/70 backdrop-blur-md transition-all duration-500 ease-in-out overflow-hidden ${isScrollingDown ? 'max-h-0 opacity-0' : 'max-h-20 opacity-100'}`}>
         <div className="container mx-auto px-6">
           <div className="flex justify-between items-center py-1.5">
             {/* Contact Info - All devices */}
@@ -105,7 +105,7 @@ const Header: React.FC<HeaderProps> = ({ lang, setLang }) => {
         <div className="container mx-auto px-6">
           <div className="flex justify-between items-center py-4">
             {/* Logo */}
-            {isHomePage ? (
+            {(isHomePage || isServicePage) ? (
               <a
                 href="/"
                 onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
@@ -137,7 +137,7 @@ const Header: React.FC<HeaderProps> = ({ lang, setLang }) => {
                   >
                     {link.label[lang]}
                   </Link>
-                ) : isHomePage ? (
+                ) : (isHomePage || isServicePage) ? (
                   <a
                     key={link.id}
                     href={`#${link.id}`}
@@ -174,7 +174,7 @@ const Header: React.FC<HeaderProps> = ({ lang, setLang }) => {
               </div>
 
               {/* CTA Button */}
-              {isHomePage ? (
+              {(isHomePage || isServicePage) ? (
                 <a
                   href="#contacts"
                   onClick={(e) => scrollToSection(e, 'contacts')}
@@ -246,7 +246,7 @@ const Header: React.FC<HeaderProps> = ({ lang, setLang }) => {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                   </svg>
                 </Link>
-              ) : isHomePage ? (
+              ) : (isHomePage || isServicePage) ? (
                 <a
                   key={link.id}
                   href={`#${link.id}`}
