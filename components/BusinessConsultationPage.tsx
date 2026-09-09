@@ -35,14 +35,14 @@ const BusinessConsultationPage: React.FC<BusinessConsultationPageProps> = ({ lan
 
               <h1 className="text-5xl md:text-7xl font-extrabold text-slate-900 leading-[1.1] mb-8">
                 {lang === 'en'
-                  ? 'Business Consultation in Qatar'
-                  : 'Бизнес-консультация в Катаре'}
+                  ? 'Business Consultation in GCC'
+                  : 'Бизнес-консультация в GCC'}
               </h1>
 
               <p className="text-xl md:text-2xl text-slate-600 font-medium leading-relaxed mb-12">
                 {lang === 'en'
-                  ? 'Get expert guidance before making important decisions about establishing or expanding your business in Qatar.'
-                  : 'Получите экспертную поддержку перед принятием важных решений о создании или расширении вашего бизнеса в Катаре.'}
+                  ? 'Get expert guidance before making important decisions about establishing or expanding your business in GCC.'
+                  : 'Получите экспертную поддержку перед принятием важных решений о создании или расширении вашего бизнеса в GCC.'}
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4">

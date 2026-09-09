@@ -34,14 +34,14 @@ const CompanyRegistrationPage: React.FC<CompanyRegistrationPageProps> = ({ lang,
 
               <h1 className="text-5xl md:text-7xl font-extrabold text-slate-900 leading-[1.1] mb-8">
                 {lang === 'en'
-                  ? 'Company Registration in Qatar, Made Clear.'
-                  : 'Регистрация компании в Катаре — просто и понятно.'}
+                  ? 'Company Registration in GCC, Made Clear.'
+                  : 'Регистрация компании в GCC — просто и понятно.'}
               </h1>
 
               <p className="text-xl md:text-2xl text-slate-600 font-medium leading-relaxed mb-12">
                 {lang === 'en'
-                  ? 'Get practical guidance on setting up your business in Qatar — from understanding your options to navigating registration and licensing requirements.'
-                  : 'Получите практическую поддержку в открытии бизнеса в Катаре — от понимания вариантов до прохождения регистрации и лицензирования.'}
+                  ? 'Get practical guidance on setting up your business in GCC — from understanding your options to navigating registration and licensing requirements.'
+                  : 'Получите практическую поддержку в открытии бизнеса в GCC — от понимания вариантов до прохождения регистрации и лицензирования.'}
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4">
