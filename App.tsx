@@ -1,9 +1,10 @@
-import React, { useState, useEffect, lazy, Suspense } from 'react';
+import React, { useState, useEffect, useRef, lazy, Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { Language } from './types';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import Services from './components/Services';
+import InvestModal, { InvestModalRef } from './components/InvestModal';
 import Footer from './components/Footer';
 import WhatsAppWidget from './components/WhatsAppWidget';
 import ScrollToTopOnNavigate from './components/ScrollToTopOnNavigate';
@@ -27,12 +28,19 @@ const BusinessConsultationPage = lazy(() => import('./components/BusinessConsult
 const CompanyRegistrationPage = lazy(() => import('./components/CompanyRegistrationPage'));
 
 const HomePage: React.FC<{ lang: Language; setLang: (l: Language) => void }> = ({ lang, setLang }) => {
+  const investModalRef = useRef<InvestModalRef>(null);
+
+  const handleOpenInvestModal = () => {
+    investModalRef.current?.open();
+  };
+
   return (
     <div className="flex flex-col min-h-screen">
-      <Header lang={lang} setLang={setLang} />
+      <Header lang={lang} setLang={setLang} onOpenInvestModal={handleOpenInvestModal} />
       <main className="flex-grow">
         <Hero lang={lang} />
         <Services lang={lang} />
+        <InvestModal ref={investModalRef} lang={lang} />
         <Suspense fallback={<div className="min-h-screen" />}>
           <QatarBenefits lang={lang} />
           <BusinessGoals lang={lang} />

@@ -7,9 +7,10 @@ import { NAV_LINKS } from '../constants';
 interface HeaderProps {
   lang: Language;
   setLang: (l: Language) => void;
+  onOpenInvestModal?: () => void;
 }
 
-const Header: React.FC<HeaderProps> = ({ lang, setLang }) => {
+const Header: React.FC<HeaderProps> = ({ lang, setLang, onOpenInvestModal }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isScrollingDown, setIsScrollingDown] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
@@ -173,23 +174,34 @@ const Header: React.FC<HeaderProps> = ({ lang, setLang }) => {
                 </button>
               </div>
 
-              {/* CTA Button */}
-              {(isHomePage || isServicePage) ? (
-                <a
-                  href="#contacts"
-                  onClick={(e) => scrollToSection(e, 'contacts')}
-                  className="bg-qatar-maroon hover:bg-[#6B1F3D] text-white px-6 py-2.5 rounded-md font-semibold transition-all shadow-lg hover:shadow-xl whitespace-nowrap"
-                >
-                  {lang === 'en' ? 'Book Consultation' : 'Консультация'}
-                </a>
-              ) : (
-                <Link
-                  to="/#contacts"
-                  className="bg-qatar-maroon hover:bg-[#6B1F3D] text-white px-6 py-2.5 rounded-md font-semibold transition-all shadow-lg hover:shadow-xl whitespace-nowrap"
-                >
-                  {lang === 'en' ? 'Book Consultation' : 'Консультация'}
-                </Link>
-              )}
+              {/* CTA Buttons */}
+              <div className="flex items-center gap-3">
+                {(isHomePage || isServicePage) ? (
+                  <a
+                    href="#contacts"
+                    onClick={(e) => scrollToSection(e, 'contacts')}
+                    className="bg-qatar-maroon hover:bg-[#6B1F3D] text-white px-6 py-2.5 rounded-md font-semibold transition-all shadow-lg hover:shadow-xl whitespace-nowrap"
+                  >
+                    {lang === 'en' ? 'Book Consultation' : 'Консультация'}
+                  </a>
+                ) : (
+                  <Link
+                    to="/#contacts"
+                    className="bg-qatar-maroon hover:bg-[#6B1F3D] text-white px-6 py-2.5 rounded-md font-semibold transition-all shadow-lg hover:shadow-xl whitespace-nowrap"
+                  >
+                    {lang === 'en' ? 'Book Consultation' : 'Консультация'}
+                  </Link>
+                )}
+
+                {onOpenInvestModal && (
+                  <button
+                    onClick={onOpenInvestModal}
+                    className="bg-qatar-maroon hover:bg-[#6B1F3D] text-white px-6 py-2.5 rounded-md font-semibold transition-all shadow-lg hover:shadow-xl whitespace-nowrap"
+                  >
+                    {lang === 'en' ? 'Invest in Qatar 🇶🇦' : 'Инвестиции в Катар 🇶🇦'}
+                  </button>
+                )}
+              </div>
             </nav>
 
             {/* Mobile Menu Toggle */}
