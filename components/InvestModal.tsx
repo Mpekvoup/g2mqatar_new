@@ -210,9 +210,7 @@ const InvestModal = forwardRef<InvestModalRef, InvestModalProps>(({ lang }, ref)
   }));
 
   const sendFormData = async (data: typeof formData) => {
-    const apiUrl = import.meta.env.DEV
-      ? 'http://localhost:3002/api/contact'
-      : '/api/contact';
+    const apiUrl = '/api/contact';
 
     const budgetLabel = content.budgetOptions.find(opt => opt.value === data.budget)?.label[lang] || data.budget;
     const sectorLabel = content.sectorOptions.find(opt => opt.value === data.sector)?.label[lang] || data.sector;

@@ -41,48 +41,16 @@ const ContactForm: React.FC<ContactFormProps> = ({ lang }) => {
 
   // Функция отправки в Telegram
   const sendToTelegram = async (data: typeof formData) => {
-    const botToken = '8840974420:AAHtYHhZXWnobVwMR0GpQ15Q1qFEKZ7mID8';
-    const chatId = '-1004304606289';
-
-    const regionLabels = {
-      qatar: { en: 'Qatar', ru: 'Катар' },
-      uae: { en: 'UAE', ru: 'ОАЭ' },
-      kazakhstan: { en: 'Kazakhstan', ru: 'Казахстан' },
-      russia: { en: 'Russia', ru: 'Россия' },
-      uzbekistan: { en: 'Uzbekistan', ru: 'Узбекистан' },
-      other: { en: 'Other', ru: 'Другая страна' }
-    };
-
-    const message = `
-🆕 <b>Новая заявка с сайта!</b>
-
-👤 <b>Имя:</b> ${data.name}
-📱 <b>Контакт:</b> ${data.contact}
-🌍 <b>Регион:</b> ${regionLabels[data.region as keyof typeof regionLabels]?.en || data.region}
-💬 <b>Сообщение:</b>
-${data.message}
-
-⏰ <i>${new Date().toLocaleString('ru-RU', { timeZone: 'Asia/Qatar' })}</i>
-🌐 <i>go2market.qa</i>
-    `.trim();
-
-    const response = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+    const response = await fetch('/api/contact', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        chat_id: chatId,
-        text: message,
-        parse_mode: 'HTML'
-      })
+      body: JSON.stringify(data),
     });
-
-    if (!response.ok) {
-      const errorData = await response.json();
-      console.error('Telegram API error:', errorData);
-      throw new Error(`Telegram API error: ${JSON.stringify(errorData)}`);
+    const result = await response.json();
+    if (!response.ok || result.ok !== true) {
+      throw new Error(result.error || 'Failed to send enquiry');
     }
-
-    return response.json();
+    return result;
   };
 
   // Восстановление cooldown при загрузке
