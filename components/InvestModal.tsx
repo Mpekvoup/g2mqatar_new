@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef, useImperativeHandle, forwardRef } from 'react';
 import { Language } from '../types';
+import { postContact } from '../src/contact-client';
 
 interface InvestModalProps {
   lang: Language;
@@ -35,6 +36,7 @@ function getDailyCount(): number {
 const InvestModal = forwardRef<InvestModalRef, InvestModalProps>(({ lang }, ref) => {
   const [isOpen, setIsOpen] = useState(false);
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error' | 'limited'>('idle');
+  const [errorMessage, setErrorMessage] = useState('');
   const [cooldown, setCooldown] = useState(0);
   const [confirmName, setConfirmName] = useState('');
   const [formData, setFormData] = useState({
@@ -210,7 +212,7 @@ const InvestModal = forwardRef<InvestModalRef, InvestModalProps>(({ lang }, ref)
   }));
 
   const sendFormData = async (data: typeof formData) => {
-    const apiUrl = '/api/contact';
+
 
     const budgetLabel = content.budgetOptions.find(opt => opt.value === data.budget)?.label[lang] || data.budget;
     const sectorLabel = content.sectorOptions.find(opt => opt.value === data.sector)?.label[lang] || data.sector;
@@ -224,25 +226,7 @@ const InvestModal = forwardRef<InvestModalRef, InvestModalProps>(({ lang }, ref)
       `${content.form.intent[lang]}: ${intentLabel}`,
     ].join('\n');
 
-    const response = await fetch(apiUrl, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        name: data.name,
-        contact: data.contact,
-        region: 'qatar',
-        message: message,
-        source: 'Invest in Qatar Form'
-      })
-    });
-
-    if (!response.ok) {
-      const errorData = await response.json();
-      console.error('API error:', errorData);
-      throw new Error(errorData.error || 'Failed to send message');
-    }
-
-    return response.json();
+    return postContact({ name: data.name, contact: data.contact, region: 'qatar', message, source: 'Invest in Qatar Form' }, lang);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -319,6 +303,7 @@ const InvestModal = forwardRef<InvestModalRef, InvestModalProps>(({ lang }, ref)
       }, 1000);
 
     } catch (error) {
+      setErrorMessage(error instanceof Error ? error.message : '');
       console.error('Form submission error:', error);
       setStatus('error');
     }
@@ -402,7 +387,7 @@ const InvestModal = forwardRef<InvestModalRef, InvestModalProps>(({ lang }, ref)
                     {content.confirm.error.title[lang]}
                   </h3>
                   <p className="text-slate-600 leading-relaxed mb-6">
-                    {content.confirm.error.message[lang]}
+                    {errorMessage || content.confirm.error.message[lang]}
                   </p>
                   <button
                     onClick={() => setStatus('idle')}

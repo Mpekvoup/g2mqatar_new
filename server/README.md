@@ -16,9 +16,10 @@ values, or add them to frontend code. Publish the updated source and redeploy
 after setting the variables. The bot must have permission to send to the chat.
 
 For local development (Node 22+), add the values to the ignored `.env.local`.
-Run `npm run dev:api` and `npm run dev` in separate terminals. Vite proxies `/api`
-to localhost:3002. `vite preview` is for static previews; use `npm start` to test
-the complete production build.
+Run `npm run dev`. Vite handles `/api/contact` in the same process and reads
+server-only variables from `.env.local`. `vite preview` also includes the API.
+Railway variables are not automatically available locally. Restart Vite after
+changing local credentials. `dev:api` remains available for standalone API work.
 
 Run `npm run test:contact` for HTTP tests with a mocked Telegram transport.
 Tests do not send any messages. Run `npm run build` before production startup.

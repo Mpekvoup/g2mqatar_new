@@ -4,6 +4,13 @@ import { createServer } from 'node:http';
 import { createContactHandler } from './contact.mjs';
 
 const valid = { name: 'Тест <b>name</b>', contact: 'test@example.com', region: 'qatar', message: 'Проверка <tag> & text' };
+test('accepts formatted and pasted phones without accepting arbitrary text', async t => {
+  const f = await fixture(t);
+  for (const contact of ['+7 (777) 123-45-67', '+7 (777) 123–45–67', '\u200e+974 1234 5678\u200f', '+٩٧٤ ١٢٣٤ ٥٦٧٨', ' name@example.com ']) {
+    assert.equal((await f.request({ ...valid, contact })).status, 200, contact);
+  }
+  for (const contact of ['abc', '123', '@username']) assert.equal((await f.request({ ...valid, contact })).status, 400);
+});
 async function fixture(t, overrides = {}) {
   const sent = [];
   const handler = createContactHandler({ token: 'test-secret', chatId: 'test-chat', fetchImpl: async (url, options) => {

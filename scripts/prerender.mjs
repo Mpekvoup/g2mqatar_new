@@ -31,7 +31,10 @@ async function prerender() {
 
   for (const route of ROUTES) {
     try {
-      const appHtml = render(route);
+      const appHtml = await render(route);
+      if (appHtml.includes('<!--$!-->') || !appHtml.includes('<h1')) {
+        throw new Error('Incomplete pre-rendered page');
+      }
       const html = template.replace(
         '<div id="root"></div>',
         `<div id="root">${appHtml}</div>`
@@ -46,6 +49,7 @@ async function prerender() {
       await fs.writeFile(filePath, html, 'utf-8');
       console.log(`✓  ${route}`);
     } catch (err) {
+      process.exitCode = 1;
       console.error(`✗  ${route}:`, err.message);
     }
   }

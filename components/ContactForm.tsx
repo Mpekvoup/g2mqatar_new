@@ -1,5 +1,7 @@
+import { isValidContact, normalizeContact } from '../src/contact-validation.mjs';
 import React, { useState, useRef } from 'react';
 import { Language } from '../types';
+import { postContact } from '../src/contact-client';
 
 interface ContactFormProps {
   lang: Language;
@@ -29,6 +31,8 @@ function getDailyCount(): number {
 
 const ContactForm: React.FC<ContactFormProps> = ({ lang }) => {
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error' | 'limited'>('idle');
+  const [contactError, setContactError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
   const [cooldown, setCooldown] = useState(0); // Initialize with 0 to avoid SSR mismatch
   const [currentStep, setCurrentStep] = useState(0);
   const [formData, setFormData] = useState({
@@ -40,18 +44,7 @@ const ContactForm: React.FC<ContactFormProps> = ({ lang }) => {
   const cooldownIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
   // Функция отправки в Telegram
-  const sendToTelegram = async (data: typeof formData) => {
-    const response = await fetch('/api/contact', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data),
-    });
-    const result = await response.json();
-    if (!response.ok || result.ok !== true) {
-      throw new Error(result.error || 'Failed to send enquiry');
-    }
-    return result;
-  };
+  const sendToTelegram = (data: typeof formData) => postContact(data, lang);
 
   // Восстановление cooldown при загрузке
   React.useEffect(() => {
@@ -113,7 +106,12 @@ const ContactForm: React.FC<ContactFormProps> = ({ lang }) => {
     if (e) e.preventDefault();
 
     const currentField = steps[currentStep].field;
-    if (!formData[currentField]) return;
+    if (!formData[currentField].trim()) return;
+    if (currentField === 'contact' && !isValidContact(formData.contact)) {
+      setContactError(true);
+      return;
+    }
+    setContactError(false);
 
     if (currentStep < steps.length - 1) {
       setCurrentStep(prev => prev + 1);
@@ -128,10 +126,21 @@ const ContactForm: React.FC<ContactFormProps> = ({ lang }) => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (currentStep < steps.length - 1) {
+      handleNext();
+      return;
+    }
+    if (status === 'loading') return;
 
     // Проверяем что все обязательные поля заполнены
     if (!formData.name || !formData.contact || !formData.message) {
       console.error('Not all required fields are filled');
+      return;
+    }
+
+    if (!isValidContact(formData.contact)) {
+      setCurrentStep(1);
+      setContactError(true);
       return;
     }
 
@@ -146,7 +155,7 @@ const ContactForm: React.FC<ContactFormProps> = ({ lang }) => {
 
     try {
       // Отправляем данные в Telegram
-      const result = await sendToTelegram(formData);
+      const result = await sendToTelegram({ ...formData, contact: normalizeContact(formData.contact) });
       console.log('Telegram success:', result);
 
       setStatus('success');
@@ -198,7 +207,8 @@ const ContactForm: React.FC<ContactFormProps> = ({ lang }) => {
       }, 1000);
 
     } catch (error) {
-      console.error('EmailJS error:', error);
+      console.error('Contact delivery failed:', error);
+      setErrorMessage(error instanceof Error ? error.message : '');
       setStatus('error');
     }
   };
@@ -226,12 +236,15 @@ const ContactForm: React.FC<ContactFormProps> = ({ lang }) => {
 
         {step.type === 'text' || step.type === 'tel' ? (
           <input
+            aria-invalid={step.field === 'contact' && contactError}
+            aria-describedby={step.field === 'contact' ? 'contact-format-hint' : undefined}
             type={step.type}
             value={value}
-            onChange={(e) => updateField(step.field, e.target.value)}
+            onChange={(e) => { updateField(step.field, e.target.value); setContactError(false); }}
             onKeyDown={(e) => {
-              if (e.key === 'Enter' && value) {
-                handleNext();
+              if (e.key === 'Enter' && !e.nativeEvent.isComposing) {
+                e.preventDefault();
+                if (value.trim()) handleNext();
               }
             }}
             placeholder={step.placeholder}

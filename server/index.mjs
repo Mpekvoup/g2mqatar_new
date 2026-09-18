@@ -18,8 +18,8 @@ const server = createServer(async (req, res) => {
     }
     await serveHandler(req, res, { ...config, public: `${root}dist` });
   } catch {
-    if (!res.headersSent) res.writeHead(500);
-    res.end();
+    if (!res.headersSent) res.writeHead(500, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' });
+    res.end(JSON.stringify({ error: 'Service unavailable' }));
   }
 });
 server.requestTimeout = 15_000;

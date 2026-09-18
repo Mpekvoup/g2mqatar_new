@@ -1,10 +1,10 @@
 import React from 'react';
-import { renderToString } from 'react-dom/server';
+import { renderHtml } from './render-html';
 import { StaticRouter } from 'react-router-dom';
 import App from '../App';
 
-export function render(url: string): string {
-  return renderToString(
+export function render(url: string): Promise<string> {
+  return renderHtml(
     <StaticRouter location={url}>
       <App />
     </StaticRouter>
