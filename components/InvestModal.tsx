@@ -227,6 +227,7 @@ const InvestModal = forwardRef<InvestModalRef, InvestModalProps>(({ lang }, ref)
       `${content.form.intent[lang]}: ${intentLabel}`,
     ].join('\n');
 
+    // InvestModal always uses explicit investment_qatar type regardless of page
     const context = collectLeadContext({ leadType: 'investment_qatar', language: lang });
     return postContact({ name: data.name, contact: data.contact, region: 'qatar', message, source: 'Invest in Qatar Form', context }, lang);
   };

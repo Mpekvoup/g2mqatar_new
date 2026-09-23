@@ -26,6 +26,7 @@ export interface LeadContext {
 
 const UTM_STORAGE_KEY = 'g2m_utm';
 const MAX_STRING_LENGTH = 200;
+const SLUG_REGEX = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 
 /** Sanitize string: trim, limit length, remove control characters */
 function sanitize(value: string | null | undefined, maxLen = MAX_STRING_LENGTH): string | undefined {
@@ -33,12 +34,12 @@ function sanitize(value: string | null | undefined, maxLen = MAX_STRING_LENGTH):
   const cleaned = value
     .trim()
     .slice(0, maxLen)
-    // Remove control characters except space
+    // Remove control characters including \r \n \t and null byte
     .replace(/[\x00-\x1F\x7F]/g, '');
   return cleaned || undefined;
 }
 
-/** Extract hostname from referrer, return undefined for same-origin */
+/** Extract hostname from referrer, return undefined for same-origin or invalid */
 function sanitizeReferrer(referrer: string | null | undefined): string | undefined {
   if (!referrer) return undefined;
   try {
@@ -47,10 +48,50 @@ function sanitizeReferrer(referrer: string | null | undefined): string | undefin
     if (typeof window !== 'undefined' && url.hostname === window.location.hostname) {
       return undefined;
     }
+    // Skip go2market.qa
+    if (url.hostname === 'go2market.qa' || url.hostname.endsWith('.go2market.qa')) {
+      return undefined;
+    }
+    // Return only hostname (no pathname, query, hash, credentials)
     return sanitize(url.hostname);
   } catch {
     return undefined;
   }
+}
+
+/**
+ * Resolve lead type based on pathname.
+ * Pure function for easy testing.
+ */
+export function resolveLeadType(pathname: string): LeadType {
+  const normalized = pathname.toLowerCase();
+
+  // Company formation paths
+  if (normalized === '/company-registration' || normalized === '/services/incorporation') {
+    return 'company_formation';
+  }
+
+  // Reach clients paths
+  if (normalized === '/services/b2b-lead-generation' || normalized === '/services/business-matchmaking') {
+    return 'reach_clients';
+  }
+
+  // All other paths including /, /business-consultation, etc.
+  return 'general';
+}
+
+/**
+ * Extract service slug from pathname.
+ * Returns undefined if not a service page.
+ * Pure function for easy testing.
+ */
+export function resolveServiceSlug(pathname: string): string | undefined {
+  const match = pathname.match(/^\/services\/([a-z0-9]+(?:-[a-z0-9]+)*)$/i);
+  if (!match) return undefined;
+  const slug = match[1].toLowerCase();
+  // Validate slug format
+  if (!SLUG_REGEX.test(slug)) return undefined;
+  return slug;
 }
 
 interface UtmParams {
@@ -77,7 +118,7 @@ function collectUtmParams(): UtmParams {
 
   const hasNewUtm = utmSource || utmMedium || utmCampaign || utmTerm || utmContent;
 
-  // If URL has UTM params, save them
+  // If URL has UTM params, save them (replaces any existing)
   if (hasNewUtm) {
     const utmData: UtmParams = {};
     if (utmSource) utmData.utmSource = utmSource;
@@ -115,19 +156,27 @@ function collectUtmParams(): UtmParams {
 }
 
 export interface CollectContextOptions {
-  leadType: LeadType;
+  /** Override automatic leadType detection. Use for InvestModal. */
+  leadType?: LeadType;
   language: Language;
-  serviceSlug?: string;
 }
 
 /** Collect full lead context for form submission */
 export function collectLeadContext(options: CollectContextOptions): LeadContext {
-  const { leadType, language, serviceSlug } = options;
+  const { language } = options;
 
   // SSR guard for browser APIs
-  const sourcePage = typeof window !== 'undefined'
-    ? sanitize(window.location.pathname) || '/'
+  const pathname = typeof window !== 'undefined'
+    ? window.location.pathname
     : '/';
+
+  const sourcePage = sanitize(pathname) || '/';
+
+  // Use provided leadType or auto-detect from pathname
+  const leadType = options.leadType ?? resolveLeadType(pathname);
+
+  // Auto-detect serviceSlug from pathname
+  const serviceSlug = resolveServiceSlug(pathname);
 
   const referrer = typeof document !== 'undefined'
     ? sanitizeReferrer(document.referrer)
@@ -141,7 +190,7 @@ export function collectLeadContext(options: CollectContextOptions): LeadContext 
     language,
   };
 
-  if (serviceSlug) context.serviceSlug = sanitize(serviceSlug);
+  if (serviceSlug) context.serviceSlug = serviceSlug;
   if (referrer) context.referrer = referrer;
   if (utmParams.utmSource) context.utmSource = utmParams.utmSource;
   if (utmParams.utmMedium) context.utmMedium = utmParams.utmMedium;

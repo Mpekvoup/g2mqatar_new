@@ -46,7 +46,8 @@ const ContactForm: React.FC<ContactFormProps> = ({ lang }) => {
 
   // Функция отправки в Telegram
   const sendToTelegram = (data: typeof formData) => {
-    const context = collectLeadContext({ leadType: 'general', language: lang });
+    // leadType and serviceSlug are auto-detected from current pathname
+    const context = collectLeadContext({ language: lang });
     return postContact({ ...data, context }, lang);
   };
 
