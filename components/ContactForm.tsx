@@ -2,6 +2,7 @@ import { isValidContact, normalizeContact } from '../src/contact-validation.mjs'
 import React, { useState, useRef } from 'react';
 import { Language } from '../types';
 import { postContact } from '../src/contact-client';
+import { collectLeadContext } from '../src/lead-context';
 
 interface ContactFormProps {
   lang: Language;
@@ -44,7 +45,10 @@ const ContactForm: React.FC<ContactFormProps> = ({ lang }) => {
   const cooldownIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
   // Функция отправки в Telegram
-  const sendToTelegram = (data: typeof formData) => postContact(data, lang);
+  const sendToTelegram = (data: typeof formData) => {
+    const context = collectLeadContext({ leadType: 'general', language: lang });
+    return postContact({ ...data, context }, lang);
+  };
 
   // Восстановление cooldown при загрузке
   React.useEffect(() => {

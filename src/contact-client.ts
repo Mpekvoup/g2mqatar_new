@@ -1,6 +1,16 @@
 import type { Language } from '../types';
+import type { LeadContext } from './lead-context';
 
-export async function postContact(data: Record<string, string>, lang: Language) {
+export interface ContactPayload {
+  name: string;
+  contact: string;
+  region: string;
+  message: string;
+  source?: string;
+  context?: LeadContext;
+}
+
+export async function postContact(data: ContactPayload, lang: Language) {
   const message = (ru: string, en: string) => lang === 'ru' ? ru : en;
   let response: Response;
   try {

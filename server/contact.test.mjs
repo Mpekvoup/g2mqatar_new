@@ -71,3 +71,49 @@ test('rate limits requests without trusting forwarded headers', async t => {
   assert.equal((await f.request(valid, { headers: { 'Content-Type': 'application/json', 'X-Forwarded-For': 'different' } })).status, 429);
   assert.equal(f.sent.length, 10);
 });
+test('accepts valid context and includes it in Telegram message', async t => {
+  const f = await fixture(t);
+  const context = {
+    leadType: 'investment_qatar',
+    language: 'ru',
+    sourcePage: '/',
+    serviceSlug: 'incorporation',
+    referrer: 'google.com',
+    utmSource: 'google',
+    utmMedium: 'cpc',
+    utmCampaign: 'spring2026'
+  };
+  const r = await f.request({ ...valid, context });
+  assert.equal(r.status, 200);
+  const text = f.sent[0].body.text;
+  assert.match(text, /Lead type: investment_qatar/);
+  assert.match(text, /Page: \//);
+  assert.match(text, /Language: ru/);
+  assert.match(text, /Service: incorporation/);
+  assert.match(text, /Referrer: google\.com/);
+  assert.match(text, /UTM: src=google \| med=cpc \| cmp=spring2026/);
+});
+test('rejects invalid context.leadType', async t => {
+  const f = await fixture(t);
+  const r = await f.request({ ...valid, context: { leadType: 'invalid', language: 'en', sourcePage: '/' } });
+  assert.equal(r.status, 400);
+  assert.deepEqual(await r.json(), { error: 'Invalid context.leadType' });
+});
+test('rejects invalid context.language', async t => {
+  const f = await fixture(t);
+  const r = await f.request({ ...valid, context: { leadType: 'general', language: 'de', sourcePage: '/' } });
+  assert.equal(r.status, 400);
+  assert.deepEqual(await r.json(), { error: 'Invalid context.language' });
+});
+test('rejects invalid context.sourcePage', async t => {
+  const f = await fixture(t);
+  const r = await f.request({ ...valid, context: { leadType: 'general', language: 'en', sourcePage: '' } });
+  assert.equal(r.status, 400);
+  assert.deepEqual(await r.json(), { error: 'Invalid context.sourcePage' });
+});
+test('rejects oversized context fields', async t => {
+  const f = await fixture(t);
+  const r = await f.request({ ...valid, context: { leadType: 'general', language: 'en', sourcePage: '/', utmSource: 'x'.repeat(201) } });
+  assert.equal(r.status, 400);
+  assert.deepEqual(await r.json(), { error: 'Invalid context.utmSource' });
+});

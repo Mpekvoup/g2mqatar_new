@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, useImperativeHandle, forwardRef } from 'react';
 import { Language } from '../types';
 import { postContact } from '../src/contact-client';
+import { collectLeadContext } from '../src/lead-context';
 
 interface InvestModalProps {
   lang: Language;
@@ -226,7 +227,8 @@ const InvestModal = forwardRef<InvestModalRef, InvestModalProps>(({ lang }, ref)
       `${content.form.intent[lang]}: ${intentLabel}`,
     ].join('\n');
 
-    return postContact({ name: data.name, contact: data.contact, region: 'qatar', message, source: 'Invest in Qatar Form' }, lang);
+    const context = collectLeadContext({ leadType: 'investment_qatar', language: lang });
+    return postContact({ name: data.name, contact: data.contact, region: 'qatar', message, source: 'Invest in Qatar Form', context }, lang);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {

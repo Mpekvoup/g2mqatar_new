@@ -58,8 +58,77 @@ export function createContactHandler({ token, chatId, fetchImpl = fetch, now = D
     if (!isValidContact(fields.contact)) {
       return reply(400, { error: 'Enter a valid phone number or email' });
     }
+
+    // Validate optional context
+    const VALID_LEAD_TYPES = ['general', 'company_formation', 'reach_clients', 'investment_qatar'];
+    const VALID_LANGUAGES = ['en', 'ru'];
+    let context = null;
+    if (data.context && typeof data.context === 'object' && !Array.isArray(data.context)) {
+      const ctx = data.context;
+      // Validate leadType
+      if (!ctx.leadType || !VALID_LEAD_TYPES.includes(ctx.leadType)) {
+        return reply(400, { error: 'Invalid context.leadType' });
+      }
+      // Validate language
+      if (!ctx.language || !VALID_LANGUAGES.includes(ctx.language)) {
+        return reply(400, { error: 'Invalid context.language' });
+      }
+      // Validate sourcePage
+      if (typeof ctx.sourcePage !== 'string' || !ctx.sourcePage.trim() || ctx.sourcePage.length > 200) {
+        return reply(400, { error: 'Invalid context.sourcePage' });
+      }
+      context = {
+        leadType: ctx.leadType,
+        language: ctx.language,
+        sourcePage: ctx.sourcePage.trim().slice(0, 200),
+      };
+      // Optional fields with length limits
+      const optionalStringFields = [
+        ['serviceSlug', 100],
+        ['referrer', 200],
+        ['utmSource', 200],
+        ['utmMedium', 200],
+        ['utmCampaign', 200],
+        ['utmTerm', 200],
+        ['utmContent', 200],
+      ];
+      for (const [field, max] of optionalStringFields) {
+        if (ctx[field] !== undefined) {
+          if (typeof ctx[field] !== 'string' || ctx[field].length > max) {
+            return reply(400, { error: `Invalid context.${field}` });
+          }
+          const trimmed = ctx[field].trim();
+          if (trimmed) context[field] = trimmed;
+        }
+      }
+    }
+
     const source = data.source === 'Invest in Qatar Form' ? 'Investment enquiry' : 'Contact form';
-    const text = ['New enquiry — go2market.qa', `Source: ${source}`, `Name: ${fields.name}`, `Contact: ${fields.contact}`, `Region: ${fields.region}`, '', fields.message].join('\n');
+
+    // Build Telegram message
+    const lines = [
+      'New enquiry — go2market.qa',
+      `Source: ${source}`,
+      `Name: ${fields.name}`,
+      `Contact: ${fields.contact}`,
+      `Region: ${fields.region}`,
+    ];
+    if (context) {
+      lines.push(`Lead type: ${context.leadType}`);
+      lines.push(`Page: ${context.sourcePage}`);
+      lines.push(`Language: ${context.language}`);
+      if (context.serviceSlug) lines.push(`Service: ${context.serviceSlug}`);
+      if (context.referrer) lines.push(`Referrer: ${context.referrer}`);
+      const utmParts = [];
+      if (context.utmSource) utmParts.push(`src=${context.utmSource}`);
+      if (context.utmMedium) utmParts.push(`med=${context.utmMedium}`);
+      if (context.utmCampaign) utmParts.push(`cmp=${context.utmCampaign}`);
+      if (context.utmTerm) utmParts.push(`trm=${context.utmTerm}`);
+      if (context.utmContent) utmParts.push(`cnt=${context.utmContent}`);
+      if (utmParts.length) lines.push(`UTM: ${utmParts.join(' | ')}`);
+    }
+    lines.push('', fields.message);
+    const text = lines.join('\n');
     try {
       const response = await fetchImpl(`https://api.telegram.org/bot${token}/sendMessage`, {
         method: 'POST',
