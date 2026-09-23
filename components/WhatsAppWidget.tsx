@@ -11,7 +11,7 @@ const WhatsAppWidget: React.FC<{ lang: Language; photoUrl?: string }> = ({ lang,
   const instagram = 'https://www.instagram.com/mullaumm';
 
   const t = {
-    name: lang === 'en' ? 'Begarys' : 'Бег',
+    name: lang === 'en' ? 'Begarys' : 'Бегарыс',
     role: lang === 'en' ? 'Consultant, G2M International' : 'Консультант, G2M International',
     greeting: lang === 'en'
       ? 'How can I help?\nAsk your question in the way that suits you'
