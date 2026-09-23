@@ -267,12 +267,12 @@ export const SERVICES_DETAIL: ServiceDetail[] = [
     slug: 'incorporation',
     title: { en: 'Company Incorporation', ru: 'Регистрация компании' },
     subtitle: {
-      en: 'Register your business in Qatar, Oman, or Kuwait with full legal and visa support',
-      ru: 'Регистрируйте бизнес в Катаре, Омане или Кувейте с полной юридической поддержкой и визами'
+      en: 'Register your business in Qatar with full legal and visa support',
+      ru: 'Регистрируйте бизнес в Катаре с полной юридической поддержкой и визами'
     },
     description: {
-      en: 'Setting up a company in the GCC involves paperwork, licenses, approvals, and residency permits. We handle the entire incorporation process through QFC, Madayn, or Kuwait free zones. You get a registered entity, commercial license, visas for your team, and a corporate bank account — without dealing with bureaucracy yourself.',
-      ru: 'Открытие компании в GCC — это документы, лицензии, согласования и резидентство. Мы ведём весь процесс регистрации через QFC, Madayn или свободные зоны Кувейта. Вы получаете зарегистрированную компанию, коммерческую лицензию, визы для команды и корпоративный счёт — без бюрократии.'
+      en: 'Setting up a company in Qatar involves paperwork, licenses, approvals, and residency permits. We handle the entire incorporation process through QFC. You get a registered entity, commercial license, visas for your team, and a corporate bank account — without dealing with bureaucracy yourself.',
+      ru: 'Открытие компании в Катаре — это документы, лицензии, согласования и резидентство. Мы ведём весь процесс регистрации через QFC. Вы получаете зарегистрированную компанию, коммерческую лицензию, визы для команды и корпоративный счёт — без бюрократии.'
     },
     benefits: [
       { en: '0% corporate tax in free zones', ru: '0% налог на прибыль в свободных зонах' },
@@ -316,14 +316,14 @@ export const SERVICES_DETAIL: ServiceDetail[] = [
         }
       },
       {
-        title: { en: 'Trading Company in Madayn', ru: 'Торговая компания в Madayn' },
+        title: { en: 'Trading Company in Qatar Free Zone', ru: 'Торговая компания в свободной зоне Катара' },
         description: {
-          en: 'Russian trading company needed Omani entity for import/export operations with preferential GCC trade agreements.',
-          ru: 'Российская торговая компания нуждалась в оманской компании для импорта/экспорта с преференциальными соглашениями GCC.'
+          en: 'Russian trading company needed Qatar entity for import/export operations with preferential GCC trade agreements.',
+          ru: 'Российская торговая компания нуждалась в катарской компании для импорта/экспорта с преференциальными соглашениями GCC.'
         },
         result: {
-          en: 'Set up Madayn free zone company with import/export license, arranged office space, secured 4 employee visas. First shipment cleared customs within 30 days of incorporation.',
-          ru: 'Открыли компанию в свободной зоне Madayn с лицензией на импорт/экспорт, арендовали офис, получили 4 визы сотрудникам. Первая партия прошла таможню через 30 дней после регистрации.'
+          en: 'Set up Qatar free zone company with import/export license, arranged office space, secured 4 employee visas. First shipment cleared customs within 30 days of incorporation.',
+          ru: 'Открыли компанию в свободной зоне Катара с лицензией на импорт/экспорт, арендовали офис, получили 4 визы сотрудникам. Первая партия прошла таможню через 30 дней после регистрации.'
         }
       }
     ],

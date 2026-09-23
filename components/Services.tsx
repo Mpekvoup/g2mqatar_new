@@ -406,7 +406,7 @@ const Services: React.FC<ServicesProps> = ({ lang }) => {
                 {/* Key Benefits */}
                 <div className="space-y-3">
                   {[
-                    { en: 'QFC, Madayn & Kuwait zones', ru: 'QFC, Madayn и зоны Кувейта' },
+                    { en: 'QFC free zone', ru: 'Свободная зона QFC' },
                     { en: 'Visa & residency included', ru: 'Виза и резидентство включены' },
                     { en: 'Bank account setup', ru: 'Открытие банковского счёта' },
                   ].map((benefit, i) => (
@@ -436,7 +436,7 @@ const Services: React.FC<ServicesProps> = ({ lang }) => {
                   </p>
                   <div className="space-y-3">
                     {[
-                      { en: 'Company registration in QFC/Madayn', ru: 'Регистрация компании в QFC/Madayn' },
+                      { en: 'Company registration in QFC', ru: 'Регистрация компании в QFC' },
                       { en: 'Commercial license & approvals', ru: 'Коммерческая лицензия и согласования' },
                       { en: 'Resident visa for founders', ru: 'Резидентская виза для основателей' },
                       { en: 'Corporate bank account setup', ru: 'Открытие корпоративного счёта' },

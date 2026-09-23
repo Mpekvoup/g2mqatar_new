@@ -27,7 +27,7 @@ const About: React.FC<AboutProps> = ({ lang }) => {
               </picture>
             </div>
             <div className="absolute -bottom-6 -right-6 bg-white p-8 rounded-3xl shadow-2xl z-20 hidden md:block border border-slate-50">
-              <div className="text-xs font-bold text-qatar-maroon uppercase tracking-widest mb-2">QFC & Madayn</div>
+              <div className="text-xs font-bold text-qatar-maroon uppercase tracking-widest mb-2">QFC</div>
               <div className="text-sm font-bold text-slate-900">
                 {lang === 'en' ? 'Official Partner' : 'Официальный партнёр'}
               </div>

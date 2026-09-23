@@ -39,8 +39,8 @@ export const SERVICES: Service[] = [
   {
     title: { en: 'Incorporation', ru: 'Регистрация компании' },
     desc: {
-      en: 'Company setup through QFC, Madayn or Kuwait free zones. We handle the paperwork, licensing and residency so you do not have to.',
-      ru: 'Открываем компанию через QFC, Madayn или свободные зоны Кувейта. Берём на себя документы, лицензии и резидентство.'
+      en: 'Company setup through QFC. We handle the paperwork, licensing and residency so you do not have to.',
+      ru: 'Открываем компанию через QFC. Берём на себя документы, лицензии и резидентство.'
     },
     steps: [
       { title: { en: 'First Call', ru: 'Первый звонок' }, desc: { en: 'You tell us your plans and we tell you what actually works in Qatar.', ru: 'Вы рассказываете о планах, мы говорим, что реально работает в Катаре.' } },
