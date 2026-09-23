@@ -1,6 +1,9 @@
+import { telegramErrorCode } from './telegram-error.mjs';
 import { isValidContact, normalizeContact } from '../src/contact-validation.mjs';
 
-export function createContactHandler({ token, chatId, fetchImpl = fetch, now = Date.now }) {
+export function createContactHandler({ token, chatId, fetchImpl = fetch, now = Date.now, logError = code => console.error('[contact-delivery]', code) }) {
+  token = token?.trim();
+  chatId = chatId?.trim();
   const attempts = new Map();
   return async (req, res) => {
     const reply = (status, body) => {
@@ -65,11 +68,17 @@ export function createContactHandler({ token, chatId, fetchImpl = fetch, now = D
         signal: AbortSignal.timeout(10_000),
       });
       const result = await response.json();
-      if (!response.ok || result.ok !== true) throw new Error('Delivery failed');
+      if (!response.ok || result.ok !== true) {
+        const code = telegramErrorCode(response.status, result);
+        logError(code);
+        return reply(502, { error: 'Could not deliver your enquiry. Please try again later.', code });
+      }
       return reply(200, { ok: true });
-    } catch {
+    } catch (error) {
+      const code = error?.name === 'TimeoutError' || error?.name === 'AbortError' ? 'TG_TIMEOUT' : 'TG_NETWORK_OR_RESPONSE';
+      logError(code);
       // Never expose upstream URLs, tokens, messages or Telegram responses.
-      return reply(502, { error: 'Could not deliver your enquiry. Please try again later.' });
+      return reply(502, { error: 'Could not deliver your enquiry. Please try again later.', code });
     }
   };
 }

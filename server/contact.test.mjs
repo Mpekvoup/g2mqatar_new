@@ -55,6 +55,16 @@ test('rejects Telegram ok:false even with HTTP 200', async t => {
   const f = await fixture(t, { fetchImpl: async () => ({ ok: true, json: async () => ({ ok: false }) }) });
   assert.equal((await f.request()).status, 502);
 });
+test('reports safe authentication failure without exposing upstream details', async t => {
+  const logs = [];
+  const f = await fixture(t, { logError: code => logs.push(code), fetchImpl: async () => ({ ok: false, status: 401, json: async () => ({ ok: false, error_code: 401, description: 'private upstream details test-secret' }) }) });
+  const r = await f.request();
+  assert.equal(r.status, 502);
+  const body = await r.json();
+  assert.equal(body.code, 'TG_AUTH');
+  assert.deepEqual(logs, ['TG_AUTH']);
+  assert.doesNotMatch(JSON.stringify(body), /test-secret|private upstream/);
+});
 test('rate limits requests without trusting forwarded headers', async t => {
   const f = await fixture(t);
   for (let i = 0; i < 10; i++) assert.equal((await f.request()).status, 200);
