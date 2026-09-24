@@ -6,8 +6,6 @@
 /** Route patterns for React Router */
 export const PATHS = {
   home: '/',
-  businessConsultation: '/business-consultation',
-  companyRegistration: '/company-registration',
   caseStudies: '/case-studies',
   caseStudyDetail: '/case-studies/:slug',
   serviceDetail: '/services/:slug',

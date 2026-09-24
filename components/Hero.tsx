@@ -1,7 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { Language } from '../types';
-import { PATHS } from '../src/routes/paths';
 
 interface HeroProps {
   lang: Language;
@@ -85,18 +83,18 @@ const Hero: React.FC<HeroProps> = ({ lang }) => {
 
           {/* CTA buttons */}
           <div className="flex flex-col sm:flex-row gap-4">
-            <Link
-              to={PATHS.companyRegistration}
+            <a
+              href="https://registration.go2market.qa/"
               className="inline-flex items-center justify-center px-7 py-4 bg-qatar-maroon hover:bg-qatar-maroon-dark text-white font-bold text-base rounded-xl shadow-lg shadow-qatar-maroon/30 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 min-h-[48px]"
             >
               {content.primaryCta[lang]}
-            </Link>
-            <Link
-              to={PATHS.businessConsultation}
+            </a>
+            <a
+              href="https://consulting.go2market.qa/"
               className="inline-flex items-center justify-center px-7 py-4 bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/30 text-white font-bold text-base rounded-xl transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 min-h-[48px]"
             >
               {content.secondaryCta[lang]}
-            </Link>
+            </a>
           </div>
         </div>
       </div>

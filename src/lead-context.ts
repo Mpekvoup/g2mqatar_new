@@ -67,7 +67,7 @@ export function resolveLeadType(pathname: string): LeadType {
   const normalized = pathname.toLowerCase();
 
   // Company formation paths
-  if (normalized === '/company-registration' || normalized === '/services/incorporation') {
+  if (normalized === '/services/incorporation') {
     return 'company_formation';
   }
 
@@ -76,7 +76,7 @@ export function resolveLeadType(pathname: string): LeadType {
     return 'reach_clients';
   }
 
-  // All other paths including /, /business-consultation, etc.
+  // All other paths
   return 'general';
 }
 

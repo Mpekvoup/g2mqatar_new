@@ -25,8 +25,6 @@ export interface RouteManifestEntry {
 /** Static routes that don't depend on data */
 const STATIC_ROUTES: RouteManifestEntry[] = [
   { path: PATHS.home, prerender: true, sitemap: true, priority: 1.0, changefreq: 'weekly' },
-  { path: PATHS.businessConsultation, prerender: true, sitemap: true, priority: 0.9, changefreq: 'monthly' },
-  { path: PATHS.companyRegistration, prerender: true, sitemap: true, priority: 0.9, changefreq: 'monthly' },
   { path: PATHS.caseStudies, prerender: true, sitemap: true, priority: 0.8, changefreq: 'monthly' },
   { path: PATHS.privacy, prerender: true, sitemap: true, priority: 0.3, changefreq: 'yearly' },
   { path: PATHS.terms, prerender: true, sitemap: true, priority: 0.3, changefreq: 'yearly' },

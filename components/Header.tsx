@@ -17,7 +17,6 @@ const Header: React.FC<HeaderProps> = ({ lang, setLang, onOpenInvestModal }) => 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
   const isHomePage = location.pathname === '/';
-  const isServicePage = location.pathname === '/business-consultation' || location.pathname === '/company-registration';
 
   useEffect(() => {
     const handleScroll = () => {
@@ -106,7 +105,7 @@ const Header: React.FC<HeaderProps> = ({ lang, setLang, onOpenInvestModal }) => 
         <div className="container mx-auto px-6">
           <div className="flex justify-between items-center py-4">
             {/* Logo */}
-            {(isHomePage || isServicePage) ? (
+            {isHomePage ? (
               <a
                 href="/"
                 onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
@@ -138,7 +137,7 @@ const Header: React.FC<HeaderProps> = ({ lang, setLang, onOpenInvestModal }) => 
                   >
                     {link.label[lang]}
                   </Link>
-                ) : (isHomePage || isServicePage) ? (
+                ) : isHomePage ? (
                   <a
                     key={link.id}
                     href={`#${link.id}`}
@@ -176,7 +175,7 @@ const Header: React.FC<HeaderProps> = ({ lang, setLang, onOpenInvestModal }) => 
 
               {/* CTA Buttons */}
               <div className="flex items-center gap-3">
-                {(isHomePage || isServicePage) ? (
+                {isHomePage ? (
                   <a
                     href="#contacts"
                     onClick={(e) => scrollToSection(e, 'contacts')}
@@ -258,7 +257,7 @@ const Header: React.FC<HeaderProps> = ({ lang, setLang, onOpenInvestModal }) => 
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                   </svg>
                 </Link>
-              ) : (isHomePage || isServicePage) ? (
+              ) : isHomePage ? (
                 <a
                   key={link.id}
                   href={`#${link.id}`}

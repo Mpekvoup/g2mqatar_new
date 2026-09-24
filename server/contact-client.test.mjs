@@ -48,11 +48,6 @@ test('resolveLeadType returns general for /', async t => {
   assert.equal(resolveLeadType('/'), 'general');
 });
 
-test('resolveLeadType returns company_formation for /company-registration', async t => {
-  const { resolveLeadType } = await import(`data:text/javascript;base64,${Buffer.from(leadContextCode + '\n//1').toString('base64')}`);
-  assert.equal(resolveLeadType('/company-registration'), 'company_formation');
-});
-
 test('resolveLeadType returns company_formation for /services/incorporation', async t => {
   const { resolveLeadType } = await import(`data:text/javascript;base64,${Buffer.from(leadContextCode + '\n//2').toString('base64')}`);
   assert.equal(resolveLeadType('/services/incorporation'), 'company_formation');
@@ -70,7 +65,6 @@ test('resolveLeadType returns reach_clients for /services/business-matchmaking',
 
 test('resolveLeadType returns general for unknown paths', async t => {
   const { resolveLeadType } = await import(`data:text/javascript;base64,${Buffer.from(leadContextCode + '\n//5').toString('base64')}`);
-  assert.equal(resolveLeadType('/business-consultation'), 'general');
   assert.equal(resolveLeadType('/case-studies'), 'general');
   assert.equal(resolveLeadType('/privacy'), 'general');
 });
@@ -86,7 +80,6 @@ test('resolveServiceSlug returns slug for service pages', async t => {
 test('resolveServiceSlug returns undefined for non-service pages', async t => {
   const { resolveServiceSlug } = await import(`data:text/javascript;base64,${Buffer.from(leadContextCode + '\n//7').toString('base64')}`);
   assert.equal(resolveServiceSlug('/'), undefined);
-  assert.equal(resolveServiceSlug('/company-registration'), undefined);
   assert.equal(resolveServiceSlug('/case-studies'), undefined);
 });
 

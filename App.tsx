@@ -25,8 +25,6 @@ const ServiceDetailPage = lazy(() => import('./components/ServiceDetailPage'));
 const PrivacyPage = lazy(() => import('./components/PrivacyPage'));
 const TermsPage = lazy(() => import('./components/TermsPage'));
 const NotFoundPage = lazy(() => import('./components/NotFoundPage'));
-const BusinessConsultationPage = lazy(() => import('./components/BusinessConsultationPage'));
-const CompanyRegistrationPage = lazy(() => import('./components/CompanyRegistrationPage'));
 
 const HomePage: React.FC<{ lang: Language; setLang: (l: Language) => void }> = ({ lang, setLang }) => {
   const investModalRef = useRef<InvestModalRef>(null);
@@ -128,8 +126,6 @@ const App: React.FC = () => {
       <Suspense fallback={<div className="min-h-screen flex items-center justify-center"><div className="w-8 h-8 border-4 border-qatar-maroon border-t-transparent rounded-full animate-spin"></div></div>}>
         <Routes>
           <Route path={PATHS.home} element={<HomePage lang={lang} setLang={setLang} />} />
-          <Route path={PATHS.businessConsultation} element={<BusinessConsultationPage lang={lang} setLang={setLang} />} />
-          <Route path={PATHS.companyRegistration} element={<CompanyRegistrationPage lang={lang} setLang={setLang} />} />
           <Route path={PATHS.caseStudies} element={<CaseStudiesPage lang={lang} setLang={setLang} />} />
           <Route path={PATHS.caseStudyDetail} element={<CaseStudyDetail lang={lang} setLang={setLang} />} />
           <Route path={PATHS.serviceDetail} element={<ServiceDetailPage lang={lang} setLang={setLang} />} />
