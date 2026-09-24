@@ -162,6 +162,82 @@ export interface CollectContextOptions {
 }
 
 /** Collect full lead context for form submission */
+/** Allowed attribution parameters for cross-domain forwarding */
+const ATTRIBUTION_PARAMS = [
+  'utm_source',
+  'utm_medium',
+  'utm_campaign',
+  'utm_content',
+  'utm_term',
+  'gclid',
+  'fbclid',
+] as const;
+
+/**
+ * Get attribution query string from current URL.
+ * Returns only allowed params, properly encoded.
+ * SSR-safe: returns empty string during server render.
+ * Pure function for easy testing when search string is provided.
+ */
+export function getAttributionQueryString(search?: string): string {
+  // SSR guard - use provided search or window.location.search
+  const searchString = search ?? (typeof window !== 'undefined' ? window.location.search : '');
+
+  if (!searchString) return '';
+
+  // Strip leading ? if present (URLSearchParams doesn't handle it)
+  const cleanSearch = searchString.startsWith('?') ? searchString.slice(1) : searchString;
+  if (!cleanSearch) return '';
+
+  const sourceParams = new URLSearchParams(cleanSearch);
+  const result = new URLSearchParams();
+
+  for (const param of ATTRIBUTION_PARAMS) {
+    const value = sourceParams.get(param);
+    if (value) {
+      // Sanitize: trim, limit length, remove control characters
+      const sanitized = sanitize(value);
+      if (sanitized) {
+        result.set(param, sanitized);
+      }
+    }
+  }
+
+  const queryString = result.toString();
+  return queryString ? `?${queryString}` : '';
+}
+
+/**
+ * Build URL with attribution params appended.
+ * Preserves any existing query params in the base URL.
+ * SSR-safe.
+ */
+export function buildUrlWithAttribution(baseUrl: string, search?: string): string {
+  const attribution = getAttributionQueryString(search);
+  if (!attribution) return baseUrl;
+
+  // If base URL already has query params, merge them
+  if (baseUrl.includes('?')) {
+    const questionIndex = baseUrl.indexOf('?');
+    const path = baseUrl.slice(0, questionIndex);
+    const existingQuery = baseUrl.slice(questionIndex + 1);
+    const baseParams = new URLSearchParams(existingQuery);
+    const attrParams = new URLSearchParams(attribution.slice(1)); // Remove leading ?
+
+    // Attribution params should not overwrite existing params
+    for (const param of ATTRIBUTION_PARAMS) {
+      const value = attrParams.get(param);
+      if (value && !baseParams.has(param)) {
+        baseParams.set(param, value);
+      }
+    }
+
+    return `${path}?${baseParams.toString()}`;
+  }
+
+  return baseUrl + attribution;
+}
+
 export function collectLeadContext(options: CollectContextOptions): LeadContext {
   const { language } = options;
 

@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { Language } from '../types';
+import { buildUrlWithAttribution } from '../src/lead-context';
 
 interface HeroProps {
   lang: Language;
@@ -29,6 +30,29 @@ const content = {
 };
 
 const Hero: React.FC<HeroProps> = ({ lang }) => {
+  /**
+   * Handle CTA click: forward attribution params to subdomain.
+   * Only intercepts standard left-clicks; middle-click and context menu use static href.
+   */
+  const handleCtaClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>) => {
+    // Don't intercept modified clicks (ctrl, meta, shift, middle-click)
+    if (e.ctrlKey || e.metaKey || e.shiftKey || e.button !== 0) {
+      return;
+    }
+
+    const href = e.currentTarget.href;
+    const urlWithAttribution = buildUrlWithAttribution(href);
+
+    // If URL unchanged (no attribution params), let default behavior work
+    if (urlWithAttribution === href) {
+      return;
+    }
+
+    // Navigate with attribution params
+    e.preventDefault();
+    window.location.href = urlWithAttribution;
+  }, []);
+
   return (
     <section className="relative min-h-[520px] md:min-h-[560px] lg:min-h-[600px] flex items-center overflow-hidden pt-16 md:pt-20 lg:pt-24">
       {/* Background image */}
@@ -85,12 +109,14 @@ const Hero: React.FC<HeroProps> = ({ lang }) => {
           <div className="flex flex-col sm:flex-row gap-4">
             <a
               href="https://registration.go2market.qa/"
+              onClick={handleCtaClick}
               className="inline-flex items-center justify-center px-7 py-4 bg-qatar-maroon hover:bg-qatar-maroon-dark text-white font-bold text-base rounded-xl shadow-lg shadow-qatar-maroon/30 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 min-h-[48px]"
             >
               {content.primaryCta[lang]}
             </a>
             <a
               href="https://consulting.go2market.qa/"
+              onClick={handleCtaClick}
               className="inline-flex items-center justify-center px-7 py-4 bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/30 text-white font-bold text-base rounded-xl transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 min-h-[48px]"
             >
               {content.secondaryCta[lang]}

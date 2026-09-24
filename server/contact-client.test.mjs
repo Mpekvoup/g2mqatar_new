@@ -287,3 +287,100 @@ test('postContact can send payload without context', async t => {
   assert.equal(sentBody.name, 'Test');
   assert.equal(sentBody.context, undefined);
 });
+
+// === getAttributionQueryString tests ===
+test('getAttributionQueryString returns empty string without params', async t => {
+  const freshCode = leadContextCode + `\n//attr-empty-${Date.now()}`;
+  const { getAttributionQueryString } = await import(`data:text/javascript;base64,${Buffer.from(freshCode).toString('base64')}`);
+  assert.equal(getAttributionQueryString(''), '');
+  assert.equal(getAttributionQueryString('?foo=bar'), '');
+});
+
+test('getAttributionQueryString forwards single UTM param', async t => {
+  const freshCode = leadContextCode + `\n//attr-single-${Date.now()}`;
+  const { getAttributionQueryString } = await import(`data:text/javascript;base64,${Buffer.from(freshCode).toString('base64')}`);
+  assert.equal(getAttributionQueryString('?utm_source=google'), '?utm_source=google');
+});
+
+test('getAttributionQueryString forwards all allowed params', async t => {
+  const freshCode = leadContextCode + `\n//attr-all-${Date.now()}`;
+  const { getAttributionQueryString } = await import(`data:text/javascript;base64,${Buffer.from(freshCode).toString('base64')}`);
+  const result = getAttributionQueryString('?utm_source=google&utm_medium=cpc&utm_campaign=spring&utm_content=hero&utm_term=qatar&gclid=abc123&fbclid=fb456');
+  const params = new URLSearchParams(result);
+  assert.equal(params.get('utm_source'), 'google');
+  assert.equal(params.get('utm_medium'), 'cpc');
+  assert.equal(params.get('utm_campaign'), 'spring');
+  assert.equal(params.get('utm_content'), 'hero');
+  assert.equal(params.get('utm_term'), 'qatar');
+  assert.equal(params.get('gclid'), 'abc123');
+  assert.equal(params.get('fbclid'), 'fb456');
+});
+
+test('getAttributionQueryString filters out disallowed params', async t => {
+  const freshCode = leadContextCode + `\n//attr-filter-${Date.now()}`;
+  const { getAttributionQueryString } = await import(`data:text/javascript;base64,${Buffer.from(freshCode).toString('base64')}`);
+  const result = getAttributionQueryString('?utm_source=google&secret=password&token=abc&utm_medium=cpc');
+  const params = new URLSearchParams(result);
+  assert.equal(params.get('utm_source'), 'google');
+  assert.equal(params.get('utm_medium'), 'cpc');
+  assert.equal(params.has('secret'), false);
+  assert.equal(params.has('token'), false);
+});
+
+test('getAttributionQueryString encodes special characters', async t => {
+  const freshCode = leadContextCode + `\n//attr-encode-${Date.now()}`;
+  const { getAttributionQueryString } = await import(`data:text/javascript;base64,${Buffer.from(freshCode).toString('base64')}`);
+  const result = getAttributionQueryString('?utm_source=google%20ads&utm_campaign=spring%26summer');
+  const params = new URLSearchParams(result);
+  assert.equal(params.get('utm_source'), 'google ads');
+  assert.equal(params.get('utm_campaign'), 'spring&summer');
+});
+
+test('getAttributionQueryString skips empty values', async t => {
+  const freshCode = leadContextCode + `\n//attr-empty-val-${Date.now()}`;
+  const { getAttributionQueryString } = await import(`data:text/javascript;base64,${Buffer.from(freshCode).toString('base64')}`);
+  const result = getAttributionQueryString('?utm_source=&utm_medium=cpc&utm_campaign=');
+  assert.equal(result, '?utm_medium=cpc');
+});
+
+test('getAttributionQueryString is SSR-safe without window', async t => {
+  const freshCode = leadContextCode + `\n//attr-ssr-${Date.now()}`;
+  const { getAttributionQueryString } = await import(`data:text/javascript;base64,${Buffer.from(freshCode).toString('base64')}`);
+  // Without window, should return empty string
+  assert.equal(getAttributionQueryString(), '');
+  // With explicit search param, should work
+  assert.equal(getAttributionQueryString('?utm_source=test'), '?utm_source=test');
+});
+
+// === buildUrlWithAttribution tests ===
+test('buildUrlWithAttribution returns base URL without params', async t => {
+  const freshCode = leadContextCode + `\n//build-empty-${Date.now()}`;
+  const { buildUrlWithAttribution } = await import(`data:text/javascript;base64,${Buffer.from(freshCode).toString('base64')}`);
+  assert.equal(buildUrlWithAttribution('https://example.com/', ''), 'https://example.com/');
+});
+
+test('buildUrlWithAttribution appends attribution params', async t => {
+  const freshCode = leadContextCode + `\n//build-append-${Date.now()}`;
+  const { buildUrlWithAttribution } = await import(`data:text/javascript;base64,${Buffer.from(freshCode).toString('base64')}`);
+  const result = buildUrlWithAttribution('https://registration.go2market.qa/', '?utm_source=google&utm_campaign=spring');
+  assert.equal(result, 'https://registration.go2market.qa/?utm_source=google&utm_campaign=spring');
+});
+
+test('buildUrlWithAttribution preserves existing query params in base URL', async t => {
+  const freshCode = leadContextCode + `\n//build-preserve-${Date.now()}`;
+  const { buildUrlWithAttribution } = await import(`data:text/javascript;base64,${Buffer.from(freshCode).toString('base64')}`);
+  const result = buildUrlWithAttribution('https://example.com/?existing=value', '?utm_source=google');
+  const url = new URL(result);
+  assert.equal(url.searchParams.get('existing'), 'value');
+  assert.equal(url.searchParams.get('utm_source'), 'google');
+});
+
+test('buildUrlWithAttribution does not overwrite existing params with same name', async t => {
+  const freshCode = leadContextCode + `\n//build-no-overwrite-${Date.now()}`;
+  const { buildUrlWithAttribution } = await import(`data:text/javascript;base64,${Buffer.from(freshCode).toString('base64')}`);
+  // If base URL already has utm_source, attribution should not overwrite it
+  const result = buildUrlWithAttribution('https://example.com/?utm_source=original', '?utm_source=new&utm_medium=cpc');
+  const url = new URL(result);
+  assert.equal(url.searchParams.get('utm_source'), 'original');
+  assert.equal(url.searchParams.get('utm_medium'), 'cpc');
+});
