@@ -1,223 +1,102 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import { Link } from 'react-router-dom';
 import { Language } from '../types';
-import { CLIENTS } from '../constants';
+import { PATHS } from '../src/routes/paths';
 
 interface HeroProps {
   lang: Language;
 }
 
-// Moved outside the component: a literal defined inside the component body is a new
-// object reference on every render, which was needlessly re-triggering the effect below
-// (it's in the effect's dependency array) and could desync the country/image cycle.
-const countries = [
-  {
-    name: { en: 'Qatar', ru: 'Катаре' },
-    image: '/images/hero/qatar.jpg',
-    avif: '/images/hero/qatar.avif',
-    altText: {
-      en: 'Qatar skyline - Modern business district in Doha for company registration and business setup',
-      ru: 'Панорама Катара - Современный бизнес-район в Дохе для регистрации компаний и открытия бизнеса'
-    }
+const content = {
+  badge: {
+    en: 'Business in Qatar',
+    ru: 'Бизнес в Катаре',
   },
-  {
-    name: { en: 'Oman', ru: 'Омане' },
-    image: '/images/hero/oman.jpg',
-    avif: '/images/hero/oman.avif',
-    altText: {
-      en: 'Oman business district - GCC market entry opportunities with G2M International',
-      ru: 'Бизнес-район Омана - Возможности выхода на рынок GCC с G2M International'
-    }
+  title: {
+    en: 'Your Gateway to Business in Qatar',
+    ru: 'Ваш выход на рынок Катара',
   },
-  {
-    name: { en: 'Kuwait', ru: 'Кувейте' },
-    image: '/images/hero/kuwait.jpg',
-    avif: '/images/hero/kuwait.avif',
-    altText: {
-      en: 'Kuwait City skyline - Business expansion and company formation in GCC region',
-      ru: 'Панорама Кувейта - Расширение бизнеса и регистрация компаний в регионе GCC'
-    }
+  description: {
+    en: 'Set up your company, reach the right clients and explore investment opportunities with local expertise in Qatar.',
+    ru: 'Откройте компанию, найдите подходящих клиентов и изучите инвестиционные возможности при поддержке местных экспертов в Катаре.',
   },
-  {
-    name: { en: 'UAE', ru: 'ОАЭ' },
-    image: '/images/hero/UAE.jpeg',
-    altText: {
-      en: 'UAE Dubai Marina - Gulf region business opportunities and market entry services',
-      ru: 'ОАЭ Дубай Марина - Бизнес-возможности в регионе Залива и услуги выхода на рынок'
-    }
-    // No avif field yet — until an /images/hero/UAE.avif file actually exists,
-    // don't reference one (see <picture> below for why).
+  primaryCta: {
+    en: 'Start Your Business',
+    ru: 'Открыть компанию',
   },
-];
+  secondaryCta: {
+    en: 'Book a Consultation',
+    ru: 'Получить консультацию',
+  },
+};
 
 const Hero: React.FC<HeroProps> = ({ lang }) => {
-  const [currentCountryIndex, setCurrentCountryIndex] = useState(0);
-  const [displayedText, setDisplayedText] = useState('');
-  const [isDeleting, setIsDeleting] = useState(false);
-  const [isPaused, setIsPaused] = useState(false);
-  const [imageFade, setImageFade] = useState(true);
-
-
-  useEffect(() => {
-    const currentCountry = countries[currentCountryIndex].name[lang];
-
-    if (isPaused) {
-      const pauseTimer = setTimeout(() => {
-        setIsPaused(false);
-        setIsDeleting(true);
-      }, 750); // 3.5 seconds pause
-      return () => clearTimeout(pauseTimer);
-    }
-
-    const typingSpeed = isDeleting ? 50 : 100; // Faster deletion, slower typing
-
-    const timer = setTimeout(() => {
-      if (isDeleting) {
-        // Deleting characters
-        if (displayedText.length > 0) {
-          setDisplayedText(currentCountry.substring(0, displayedText.length - 1));
-        } else {
-          // Finished deleting, fade out image and move to next country
-          setImageFade(false);
-          setTimeout(() => {
-            setIsDeleting(false);
-            setCurrentCountryIndex((prev) => (prev + 1) % countries.length);
-            setImageFade(true);
-          }, 300);
-        }
-      } else {
-        // Typing characters
-        if (displayedText.length < currentCountry.length) {
-          setDisplayedText(currentCountry.substring(0, displayedText.length + 1));
-        } else {
-          // Finished typing, pause before deleting
-          setIsPaused(true);
-        }
-      }
-    }, typingSpeed);
-
-    return () => clearTimeout(timer);
-  }, [displayedText, isDeleting, isPaused, currentCountryIndex, lang]);
-
-  const content = {
-    titlePrefix: {
-      en: "Launch Your Business in ",
-      ru: "Запустите бизнес в "
-    },
-    subtitle: {
-      en: "We help companies register, find investors, and enter the GCC market. Based in Doha, working with businesses from around the world.",
-      ru: "Помогаем компаниям регистрироваться, находить инвесторов и выходить на рынок GCC. Работаем из Дохи с бизнесом со всего мира."
-    },
-    cta: {
-      en: "Start Consultation",
-      ru: "Начать консультацию"
-    }
-  };
-
-  const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
-    e.preventDefault();
-    const element = document.getElementById(id);
-    if (element) {
-      const offset = 40;
-      const bodyRect = document.body.getBoundingClientRect().top;
-      const elementRect = element.getBoundingClientRect().top;
-      const elementPosition = elementRect - bodyRect;
-      const offsetPosition = elementPosition - offset;
-
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth'
-      });
-    }
-  };
-
   return (
-    <section className="relative min-h-[90vh] flex items-center pt-32 pb-12 overflow-hidden bg-white">
-      {/* Decorative background */}
-      <div className="absolute top-0 right-0 w-1/3 h-full bg-slate-50/50 -skew-x-6 transform translate-x-1/4 z-0"></div>
-      <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-slate-50 to-transparent z-0"></div>
+    <section className="relative min-h-[520px] md:min-h-[560px] lg:min-h-[600px] flex items-center overflow-hidden pt-16 md:pt-20 lg:pt-24">
+      {/* Background image */}
+      <picture className="absolute inset-0 w-full h-full">
+        <img
+          src="/images/hero/hero-main.jpeg"
+          alt=""
+          className="w-full h-full object-cover object-[75%_center] md:object-[70%_center] lg:object-center"
+          width="1920"
+          height="1080"
+          fetchPriority="high"
+          decoding="async"
+        />
+      </picture>
 
-      <div className="container mx-auto px-6 relative z-10">
-        <div className="flex flex-col lg:flex-row items-center gap-16">
-          <div className="lg:w-3/5 space-y-10">
-            <h1 className="text-5xl md:text-7xl font-extrabold text-slate-900 leading-[1.05] tracking-tight text-balance">
-              {content.titlePrefix[lang]}
-              <span className="inline-block min-w-[200px] md:min-w-[300px] text-qatar-maroon">
-                {displayedText}
-                <span className="animate-pulse">_</span>
-              </span>
-            </h1>
-            
-            <p className="text-xl text-slate-500 max-w-xl leading-relaxed font-medium">
-              {content.subtitle[lang]}
-            </p>
-            
-            <div className="pt-4">
-              <a
-                href="#contacts"
-                onClick={(e) => scrollToSection(e, 'contacts')}
-                className="inline-flex items-center justify-center gap-2 bg-qatar-maroon hover:bg-qatar-maroon/90 text-white px-10 py-5 rounded-2xl font-bold text-lg shadow-2xl shadow-qatar-maroon/30 transition-premium hover:scale-[1.02] active:scale-95"
-              >
-                {lang === 'en' ? 'Send Request' : 'Оставить заявку'}
-                <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                </svg>
-              </a>
-            </div>
+      {/* Dark overlay - base layer */}
+      <div
+        className="absolute inset-0 bg-slate-900/40"
+        aria-hidden="true"
+      />
 
-            <div className="flex items-center gap-8 pt-6 border-t border-slate-100">
-              <div className="flex -space-x-3">
-                {[CLIENTS[0], CLIENTS[1], CLIENTS[3], CLIENTS[5]].map((client, i) => (
-                  <div key={i} className="w-[67px] h-[67px] rounded-full border-2 border-slate-200 bg-white p-2 flex items-center justify-center shadow-lg">
-                    <img src={client.logo} className="w-full h-full object-contain" alt={client.altText?.[lang] || client.name} loading="eager" decoding="async" />
-                  </div>
-                ))}
-              </div>
-              <div className="text-sm">
-                <span className="font-bold text-slate-900">20+</span>
-                <span className="text-slate-500 ml-1 font-medium">
-                  {lang === 'en' ? 'Companies registered' : 'Компаний зарегистрировано'}
-                </span>
-              </div>
-            </div>
+      {/* Gradient overlay - stronger on left, enhanced for mobile */}
+      <div
+        className="absolute inset-0 bg-gradient-to-r from-slate-900/90 via-slate-900/60 to-slate-900/20 md:from-slate-900/85 md:via-slate-900/50 md:to-slate-900/15"
+        aria-hidden="true"
+      />
+      {/* Additional top gradient for mobile text readability */}
+      <div
+        className="absolute inset-0 bg-gradient-to-b from-slate-900/40 via-transparent to-transparent md:hidden"
+        aria-hidden="true"
+      />
+
+      {/* Content container */}
+      <div className="container mx-auto px-6 relative z-10 py-16 md:py-20 lg:py-24">
+        <div className="max-w-[640px] lg:max-w-[720px]">
+          {/* Badge */}
+          <div className="inline-block mb-5 md:mb-6">
+            <span className="inline-flex items-center px-4 py-2 rounded-full bg-white/20 backdrop-blur-sm border border-white/30 text-white text-sm font-semibold tracking-wide shadow-sm">
+              {content.badge[lang]}
+            </span>
           </div>
-          
-          <div className="lg:w-2/5 relative hidden lg:block">
-            <div className="relative z-10 rounded-[2.5rem] overflow-hidden shadow-[0_32px_64px_-16px_rgba(0,0,0,0.1)] border-8 border-white">
-              <picture>
-                {countries[currentCountryIndex].avif && (
-                  <source
-                    srcSet={countries[currentCountryIndex].avif}
-                    type="image/avif"
-                  />
-                )}
-                <img
-                  src={countries[currentCountryIndex].image}
-                  alt={countries[currentCountryIndex].altText?.[lang] || `${countries[currentCountryIndex].name.en} Business District`}
-                  className="w-full aspect-[4/5] object-cover"
-                  fetchPriority={currentCountryIndex === 0 ? 'high' : 'low'}
-                  loading="eager"
-                  decoding="async"
-                  width="800"
-                  height="1000"
-                  style={{
-                    opacity: imageFade ? 1 : 0,
-                    transition: 'opacity 300ms ease-in-out'
-                  }}
-                />
-              </picture>
-            </div>
-            {/* Floating stats card */}
-            <div className="absolute -bottom-6 -left-12 glass p-6 rounded-3xl shadow-xl z-20 border border-white/50 backdrop-blur-xl animate-bounce-subtle hidden xl:block">
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 bg-green-500/10 rounded-2xl flex items-center justify-center text-green-600">
-                   <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" /></svg>
-                </div>
-                <div>
-                  <div className="text-xs font-bold text-slate-400 uppercase tracking-widest">{lang === 'en' ? 'Tax Rate' : 'Налоговая ставка'}</div>
-                  <div className="text-2xl font-black text-slate-900">0% <span className="text-sm font-bold text-slate-400">Income</span></div>
-                </div>
-              </div>
-            </div>
+
+          {/* H1 */}
+          <h1 className="text-3xl sm:text-4xl md:text-[2.75rem] lg:text-5xl xl:text-6xl font-extrabold text-white leading-[1.1] tracking-tight mb-5 md:mb-6">
+            {content.title[lang]}
+          </h1>
+
+          {/* Description */}
+          <p className="text-[15px] sm:text-lg md:text-xl text-white/90 leading-[1.55] sm:leading-normal mb-14 md:mb-12 max-w-[540px]">
+            {content.description[lang]}
+          </p>
+
+          {/* CTA buttons */}
+          <div className="flex flex-col sm:flex-row gap-4">
+            <Link
+              to={PATHS.companyRegistration}
+              className="inline-flex items-center justify-center px-7 py-4 bg-qatar-maroon hover:bg-qatar-maroon-dark text-white font-bold text-base rounded-xl shadow-lg shadow-qatar-maroon/30 transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 min-h-[48px]"
+            >
+              {content.primaryCta[lang]}
+            </Link>
+            <Link
+              to={PATHS.businessConsultation}
+              className="inline-flex items-center justify-center px-7 py-4 bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/30 text-white font-bold text-base rounded-xl transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 min-h-[48px]"
+            >
+              {content.secondaryCta[lang]}
+            </Link>
           </div>
         </div>
       </div>
