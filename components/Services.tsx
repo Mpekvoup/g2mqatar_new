@@ -59,7 +59,7 @@ const Services: React.FC<ServicesProps> = ({ lang }) => {
         {/* Header */}
         <div className="max-w-2xl mx-auto text-center mb-16 space-y-5">
           <h2 className="text-xs font-black text-qatar-maroon uppercase tracking-[0.4em]">
-            {lang === 'en' ? 'Start here' : 'Начните отсюда'}
+            {lang === 'en' ? "Let's talk" : 'Обсудим вашу задачу'}
           </h2>
           <p className="text-4xl md:text-5xl font-extrabold text-slate-900 leading-tight">
             {lang === 'en' ? 'Book a consultation with the managing partner' : 'Консультация с управляющим партнёром'}

@@ -4,6 +4,7 @@ import { Language } from './types';
 import { PATHS } from './src/routes/paths';
 import Header from './components/Header';
 import Hero from './components/Hero';
+import StartHere from './components/StartHere';
 import Services from './components/Services';
 import InvestModal, { InvestModalRef } from './components/InvestModal';
 import Footer from './components/Footer';
@@ -38,6 +39,7 @@ const HomePage: React.FC<{ lang: Language; setLang: (l: Language) => void }> = (
       <Header lang={lang} setLang={setLang} onOpenInvestModal={handleOpenInvestModal} />
       <main className="flex-grow">
         <Hero lang={lang} />
+        <StartHere lang={lang} onOpenInvestModal={handleOpenInvestModal} />
         <Services lang={lang} />
         <InvestModal ref={investModalRef} lang={lang} />
         <Suspense fallback={<div className="min-h-screen" />}>
