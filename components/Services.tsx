@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Language } from '../types';
 import { SERVICES } from '../constants';
-import ServicesConsultationPanel from './ServicesConsultationPanel';
 import ServicesProcess from './ServicesProcess';
 
 interface ServicesProps {
@@ -31,28 +30,22 @@ const Services: React.FC<ServicesProps> = ({ lang }) => {
   return (
     <section id="services" className="py-32 bg-[#FCFCFD] relative">
       <div className="container mx-auto px-6">
-        {/* Header */}
-        <div className="max-w-2xl mx-auto text-center mb-16 space-y-5">
-          <h2 className="text-xs font-black text-qatar-maroon uppercase tracking-[0.4em]">
-            {lang === 'en' ? "Let's talk" : 'Обсудим вашу задачу'}
-          </h2>
-          <p className="text-4xl md:text-5xl font-extrabold text-slate-900 leading-tight">
-            {lang === 'en' ? 'Book a consultation with the managing partner' : 'Консультация с управляющим партнёром'}
-          </p>
-          <p className="text-lg text-slate-500 font-medium">
+        {/* Header - Asymmetric two-column on desktop */}
+        <div className="grid items-end gap-4 lg:gap-8 lg:grid-cols-[1.1fr_0.9fr] mb-10 lg:mb-12">
+          <div>
+            <p className="text-xs font-black text-qatar-maroon uppercase tracking-[0.3em] mb-3">
+              {lang === 'en' ? 'Our Services' : 'Наши услуги'}
+            </p>
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 leading-tight">
+              {lang === 'en' ? 'How we help you enter Qatar' : 'Как мы помогаем выйти на рынок Катара'}
+            </h2>
+          </div>
+          <p className="text-base text-slate-600 leading-relaxed lg:pb-1">
             {lang === 'en'
-              ? 'One 1-hour call to map out your market entry, registration, or trading deal.'
-              : '1 час, чтобы разобрать выход на рынок, регистрацию компании или сделку.'}
+              ? 'From company registration to investor introductions — practical help at every step.'
+              : 'От регистрации компании до знакомства с инвесторами — практическая помощь на каждом шаге.'}
           </p>
         </div>
-
-        {/* Consultation panel — sits first, above the services grid */}
-        <ServicesConsultationPanel lang={lang} />
-
-        {/* Services grid — restored original interactive cards, topics covered on the call */}
-        <p className="text-[10px] font-black text-qatar-maroon uppercase tracking-[0.4em] mb-6 text-center">
-          {lang === 'en' ? "What we'll cover" : 'Что обсудим на консультации'}
-        </p>
 
         {/* B2B LEAD GENERATION — Premium Wide Card */}
         <div

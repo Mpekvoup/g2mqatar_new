@@ -33,7 +33,7 @@ const ServicesConsultationPanel: React.FC<ServicesConsultationPanelProps> = ({ l
   ];
 
   return (
-    <div className="max-w-6xl mx-auto rounded-[2.5rem] overflow-hidden shadow-[0_24px_80px_-16px_rgba(141,27,61,0.25)] border border-qatar-maroon/10 flex flex-col lg:flex-row mb-20">
+    <div className="max-w-6xl mx-auto rounded-[2.5rem] overflow-hidden shadow-[0_24px_80px_-16px_rgba(141,27,61,0.25)] border border-qatar-maroon/10 flex flex-col lg:flex-row">
       {/* Left: who you're talking to + price + CTA */}
       <div className="lg:w-[36%] bg-gradient-to-br from-qatar-maroon to-[#5e1128] p-10 md:p-12 flex flex-col justify-between relative overflow-hidden">
         <div className="absolute -top-20 -right-20 w-64 h-64 rounded-full bg-white/5 pointer-events-none" />

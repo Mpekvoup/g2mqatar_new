@@ -14,7 +14,7 @@ import ScrollToTopOnNavigate from './components/ScrollToTopOnNavigate';
 // Lazy load components below the fold for better performance
 const Team = lazy(() => import('./components/Team'));
 const Principles = lazy(() => import('./components/Principles'));
-const Strategy = lazy(() => import('./components/Strategy'));
+const ServicesConsultationPanel = lazy(() => import('./components/ServicesConsultationPanel'));
 const ContactForm = lazy(() => import('./components/ContactForm'));
 const Partners = lazy(() => import('./components/Partners'));
 const Testimonials = lazy(() => import('./components/Testimonials'));
@@ -45,13 +45,32 @@ const HomePage: React.FC<{ lang: Language; setLang: (l: Language) => void }> = (
         <Suspense fallback={<div className="min-h-screen" />}>
           <QatarBenefits lang={lang} />
           <BusinessGoals lang={lang} />
-          <Team lang={lang} />
-          <Testimonials lang={lang} />
-          {/* <OurInsights lang={lang} /> */}
           <Principles lang={lang} />
-          <Strategy lang={lang} />
-          <ContactForm lang={lang} />
+          <Testimonials lang={lang} />
+          <Team lang={lang} />
           <Partners lang={lang} />
+          <section className="py-12 md:py-16 lg:py-20 bg-white">
+            <div className="container mx-auto px-6">
+              {/* Header - Asymmetric two-column on desktop */}
+              <div className="grid items-end gap-4 lg:gap-8 lg:grid-cols-[1.1fr_0.9fr] mb-10 lg:mb-12">
+                <div>
+                  <p className="text-xs font-black text-qatar-maroon uppercase tracking-[0.3em] mb-3">
+                    {lang === 'en' ? "Let's talk" : 'Обсудим вашу задачу'}
+                  </p>
+                  <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 leading-tight">
+                    {lang === 'en' ? 'Book a consultation with the managing partner' : 'Консультация с управляющим партнёром'}
+                  </h2>
+                </div>
+                <p className="text-base text-slate-600 leading-relaxed lg:pb-1">
+                  {lang === 'en'
+                    ? 'One 1-hour call to map out your market entry, registration, or trading deal.'
+                    : '1 час, чтобы разобрать выход на рынок, регистрацию компании или сделку.'}
+                </p>
+              </div>
+              <ServicesConsultationPanel lang={lang} />
+            </div>
+          </section>
+          <ContactForm lang={lang} />
         </Suspense>
       </main>
       <Footer lang={lang} />
