@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Language } from '../types';
 import { NAV_LINKS } from '../constants';
+import { ThemeToggle } from './ThemeToggle';
 
 interface HeaderProps {
   lang: Language;
@@ -184,6 +185,9 @@ const Header: React.FC<HeaderProps> = ({ lang, setLang, onOpenInvestModal }) => 
                 </button>
               </div>
 
+              {/* Theme Toggle */}
+              <ThemeToggle lang={lang} />
+
               {/* CTA Buttons */}
               <div className="flex items-center gap-3">
                 {isHomePage ? (
@@ -282,6 +286,11 @@ const Header: React.FC<HeaderProps> = ({ lang, setLang, onOpenInvestModal }) => 
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               </svg>
             </button>
+          </div>
+
+          {/* Theme Toggle in Mobile Menu */}
+          <div className="px-8 pt-4">
+            <ThemeToggle lang={lang} variant="menu" />
           </div>
 
           {/* Links */}

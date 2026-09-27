@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef, lazy, Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { Language } from './types';
 import { PATHS } from './src/routes/paths';
+import { ThemeProvider } from '@/src/theme/ThemeContext';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import StartHere from './components/StartHere';
@@ -141,7 +142,7 @@ const App: React.FC = () => {
   }, []);
 
   return (
-    <>
+    <ThemeProvider>
       <ScrollToTop />
       <ScrollToTopOnNavigate />
       <Suspense fallback={<div className="min-h-screen flex items-center justify-center"><div className="w-8 h-8 border-4 border-qatar-maroon border-t-transparent rounded-full animate-spin"></div></div>}>
@@ -155,7 +156,7 @@ const App: React.FC = () => {
           <Route path="*" element={<NotFoundPage lang={lang} setLang={setLang} />} />
         </Routes>
       </Suspense>
-    </>
+    </ThemeProvider>
   );
 };
 
