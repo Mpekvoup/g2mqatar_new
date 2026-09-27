@@ -8,23 +8,23 @@ interface PrinciplesProps {
 
 const Principles: React.FC<PrinciplesProps> = ({ lang }) => {
   return (
-    <section id="about" className="py-12 md:py-16 lg:py-20 bg-white relative overflow-hidden">
+    <section id="about" className="py-12 md:py-16 lg:py-20 bg-white dark:bg-slate-950 relative overflow-hidden transition-colors duration-200">
       {/* Background decoration */}
-      <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-qatar-maroon opacity-5 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/2"></div>
-      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-qatar-maroon opacity-[0.03] rounded-full blur-[80px]"></div>
+      <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-qatar-maroon opacity-5 dark:opacity-[0.03] rounded-full blur-[120px] -translate-y-1/2 translate-x-1/2"></div>
+      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-qatar-maroon opacity-[0.03] dark:opacity-[0.02] rounded-full blur-[80px]"></div>
 
       <div className="container mx-auto px-6 relative z-10">
         {/* Header - Asymmetric two-column on desktop */}
         <div className="grid items-end gap-4 lg:gap-8 lg:grid-cols-[1.1fr_0.9fr] mb-10 lg:mb-12">
           <div>
-            <p className="text-xs font-black text-qatar-maroon uppercase tracking-[0.3em] mb-3">
+            <p className="text-xs font-black text-qatar-maroon dark:text-[#d85b7d] uppercase tracking-[0.3em] mb-3">
               {lang === 'en' ? 'How we work' : 'Как мы работаем'}
             </p>
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 leading-tight">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 dark:text-white leading-tight">
               {lang === 'en' ? 'Simple principles' : 'Простые принципы'}
             </h2>
           </div>
-          <p className="text-base text-slate-600 leading-relaxed lg:pb-1">
+          <p className="text-base text-slate-600 dark:text-slate-300 leading-relaxed lg:pb-1">
             {lang === 'en'
               ? 'Three things that matter most when working with clients.'
               : 'Три вещи, которые важнее всего в работе с клиентами.'}

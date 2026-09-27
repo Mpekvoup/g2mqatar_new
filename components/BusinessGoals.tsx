@@ -30,7 +30,7 @@ const BusinessGoals: React.FC<BusinessGoalsProps> = ({ lang }) => {
   const [tagsRef, tagsVisible] = useReveal<HTMLDivElement>();
 
   return (
-    <section className="py-14 md:py-20 lg:py-24 bg-white">
+    <section className="py-14 md:py-20 lg:py-24 bg-white dark:bg-qatar-night transition-colors duration-200">
       <div className="container mx-auto px-6 xl:px-8">
         {/* max-w-6xl prevents overlap with fixed WhatsApp widget at 1365-1440px */}
         <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
@@ -41,7 +41,7 @@ const BusinessGoals: React.FC<BusinessGoalsProps> = ({ lang }) => {
               imageVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-6'
             }`}
           >
-            <div className="relative rounded-2xl overflow-hidden shadow-xl border border-slate-200 group">
+            <div className="relative rounded-2xl overflow-hidden shadow-xl dark:shadow-2xl dark:shadow-black/30 border border-slate-200 dark:border-slate-700/50 group">
               <img
                 src="/images/about/office_imgg.jpg"
                 alt={lang === 'en' ? 'Business meeting in Qatar' : 'Деловая встреча в Катаре'}
@@ -76,13 +76,13 @@ const BusinessGoals: React.FC<BusinessGoalsProps> = ({ lang }) => {
                 contentVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'
               }`}
             >
-              <p className="text-xs font-black text-qatar-maroon uppercase tracking-[0.3em] mb-4">
+              <p className="text-xs font-black text-qatar-maroon dark:text-[#d85b7d] uppercase tracking-[0.3em] mb-4">
                 {lang === 'en' ? 'Expertise' : 'Экспертиза'}
               </p>
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 leading-tight mb-5">
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 dark:text-white leading-tight mb-5">
                 {lang === 'en' ? 'Industries We Support' : 'Отрасли, с которыми мы работаем'}
               </h2>
-              <p className="text-base lg:text-lg text-slate-600 leading-relaxed mb-10 max-w-lg">
+              <p className="text-base lg:text-lg text-slate-600 dark:text-slate-300 leading-relaxed mb-10 max-w-lg">
                 {lang === 'en'
                   ? 'Our goal is simple: to be your long-term partner in financial clarity, compliance, and growth. So you can focus on your business vision while we handle the rest.'
                   : 'Наша цель проста: быть вашим долгосрочным партнером в финансовой ясности, соблюдении требований и росте. Чтобы вы могли сосредоточиться на своём бизнесе, пока мы занимаемся остальным.'}
@@ -103,9 +103,9 @@ const BusinessGoals: React.FC<BusinessGoalsProps> = ({ lang }) => {
                     style={{ transitionDelay: tagsVisible ? `${idx * 60}ms` : '0ms' }}
                   >
                     {/* Inner tag: hover effects only, no inline delay */}
-                    <div className="group inline-flex items-center gap-2.5 bg-slate-50 hover:bg-qatar-maroon/5 border border-slate-200 hover:border-qatar-maroon/30 px-4 py-2.5 rounded-xl transition-all duration-200 hover:-translate-y-0.5 motion-reduce:hover:translate-y-0">
-                      <Icon className="w-[18px] h-[18px] lg:w-5 lg:h-5 text-qatar-maroon flex-shrink-0 group-hover:scale-105 transition-transform duration-200" />
-                      <span className="text-sm lg:text-base font-semibold text-slate-700 whitespace-nowrap">
+                    <div className="group inline-flex items-center gap-2.5 bg-slate-50 dark:bg-slate-800 hover:bg-qatar-maroon/5 dark:hover:bg-qatar-maroon/10 border border-slate-200 dark:border-slate-700 hover:border-qatar-maroon/30 dark:hover:border-qatar-maroon/50 px-4 py-2.5 rounded-xl transition-all duration-200 hover:-translate-y-0.5 motion-reduce:hover:translate-y-0">
+                      <Icon className="w-[18px] h-[18px] lg:w-5 lg:h-5 text-qatar-maroon dark:text-[#d85b7d] flex-shrink-0 group-hover:scale-105 transition-transform duration-200" />
+                      <span className="text-sm lg:text-base font-semibold text-slate-700 dark:text-slate-200 whitespace-nowrap">
                         {industry.label[lang]}
                       </span>
                     </div>

@@ -128,22 +128,22 @@ const Team: React.FC<TeamProps> = ({ lang }) => {
   };
 
   return (
-    <section id="team" className="py-32 bg-gradient-to-b from-white to-slate-50 relative overflow-hidden">
+    <section id="team" className="py-32 bg-gradient-to-b from-white to-slate-50 dark:from-qatar-night dark:to-slate-950 relative overflow-hidden transition-colors duration-200">
       {/* Background decoration */}
-      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-qatar-maroon opacity-[0.02] rounded-full blur-3xl"></div>
+      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-qatar-maroon opacity-[0.02] dark:opacity-[0.01] rounded-full blur-3xl"></div>
 
       <div className="container mx-auto px-6 relative z-10">
         {/* Header */}
         <div className="flex flex-col lg:flex-row justify-between items-start gap-8 mb-20">
           <div className="max-w-2xl space-y-5">
-            <h2 className="text-xs font-black text-qatar-maroon uppercase tracking-[0.4em]">
+            <h2 className="text-xs font-black text-qatar-maroon dark:text-[#d85b7d] uppercase tracking-[0.4em]">
               {lang === 'en' ? 'Leadership' : 'Руководство'}
             </h2>
-            <p className="text-4xl md:text-5xl font-extrabold text-slate-900 leading-tight">
+            <p className="text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white leading-tight">
               {lang === 'en' ? 'Meet our team' : 'Наша команда'}
             </p>
           </div>
-          <p className="text-lg text-slate-500 font-medium max-w-md leading-relaxed">
+          <p className="text-lg text-slate-500 dark:text-slate-400 font-medium max-w-md leading-relaxed">
             {lang === 'en'
               ? 'Experienced professionals helping businesses navigate the GCC market with local expertise and international connections.'
               : 'Опытные специалисты помогают бизнесу ориентироваться на рынке GCC с местным опытом и международными связями.'}
@@ -157,10 +157,10 @@ const Team: React.FC<TeamProps> = ({ lang }) => {
               {/* Compact Card */}
               <button
                 onClick={() => toggleMember(idx)}
-                className={`w-full flex items-center gap-6 bg-white p-6 md:p-8 rounded-[2rem] border transition-all duration-300 ${
+                className={`w-full flex items-center gap-6 bg-white dark:bg-slate-900 p-6 md:p-8 rounded-[2rem] border transition-all duration-300 ${
                   expandedMember === idx
-                    ? 'border-qatar-maroon shadow-xl'
-                    : 'border-slate-100 hover:border-qatar-maroon/30 hover:shadow-lg'
+                    ? 'border-qatar-maroon shadow-xl dark:shadow-xl dark:shadow-black/30'
+                    : 'border-slate-100 dark:border-slate-700/50 hover:border-qatar-maroon/30 dark:hover:border-qatar-maroon/50 hover:shadow-lg dark:hover:shadow-lg dark:hover:shadow-black/20'
                 }`}
               >
                 {/* Avatar */}
@@ -176,10 +176,10 @@ const Team: React.FC<TeamProps> = ({ lang }) => {
 
                 {/* Name & Role */}
                 <div className="flex-grow text-left">
-                  <h3 className="text-xl md:text-2xl font-bold text-slate-900 mb-1">
+                  <h3 className="text-xl md:text-2xl font-bold text-slate-900 dark:text-white mb-1">
                     {member.name[lang]}
                   </h3>
-                  <p className="text-sm md:text-base text-slate-600 font-medium">
+                  <p className="text-sm md:text-base text-slate-600 dark:text-slate-300 font-medium">
                     {member.role[lang]}
                   </p>
                   <p className="text-xs md:text-sm text-slate-400 font-medium mt-1">
@@ -204,7 +204,7 @@ const Team: React.FC<TeamProps> = ({ lang }) => {
 
               {/* Expanded Details */}
               {expandedMember === idx && (
-                <div className="mt-6 bg-white rounded-[2rem] p-8 md:p-12 border border-qatar-maroon/10 shadow-lg animate-in">
+                <div className="mt-6 bg-white dark:bg-slate-900 rounded-[2rem] p-8 md:p-12 border border-qatar-maroon/10 dark:border-qatar-maroon/30 shadow-lg dark:shadow-xl dark:shadow-black/30 animate-in">
                   <div className="grid lg:grid-cols-3 gap-8">
                     {/* Left: Photo & Contact */}
                     <div className="lg:col-span-1 space-y-6">
@@ -234,7 +234,7 @@ const Team: React.FC<TeamProps> = ({ lang }) => {
                             href={member.linkedin}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="flex items-center justify-center gap-2 px-4 py-3 bg-slate-900 text-white rounded-xl hover:bg-slate-800 transition-colors font-medium text-sm"
+                            className="flex items-center justify-center gap-2 px-4 py-3 bg-slate-900 dark:bg-slate-700 text-white rounded-xl hover:bg-slate-800 dark:hover:bg-slate-600 transition-colors font-medium text-sm"
                           >
                             <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                               <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
@@ -249,27 +249,27 @@ const Team: React.FC<TeamProps> = ({ lang }) => {
                     <div className="lg:col-span-2 space-y-8">
                       {/* Name, Role, Location */}
                       <div>
-                        <h3 className="text-3xl md:text-4xl font-bold text-slate-900 mb-2">
+                        <h3 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-2">
                           {member.name[lang]}
                         </h3>
-                        <p className="text-lg text-slate-700 font-semibold mb-1">
+                        <p className="text-lg text-slate-700 dark:text-slate-300 font-semibold mb-1">
                           {member.role[lang]}
                         </p>
-                        <p className="text-sm text-slate-500 font-medium">
+                        <p className="text-sm text-slate-500 dark:text-slate-400 font-medium">
                           {member.location[lang]}
                         </p>
                       </div>
 
                       {/* Areas of Focus */}
                       <div>
-                        <h4 className="text-xs font-black text-qatar-maroon uppercase tracking-widest mb-4">
+                        <h4 className="text-xs font-black text-qatar-maroon dark:text-[#d85b7d] uppercase tracking-widest mb-4">
                           {lang === 'en' ? 'Areas of Focus' : 'Области фокуса'}
                         </h4>
                         <div className="flex flex-wrap gap-2">
                           {member.areasOfFocus[lang].map((area, areaIdx) => (
                             <span
                               key={areaIdx}
-                              className="px-4 py-2 bg-slate-50 border border-slate-200 rounded-full text-xs font-semibold text-slate-700 hover:bg-qatar-maroon hover:text-white hover:border-qatar-maroon transition-colors"
+                              className="px-4 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-full text-xs font-semibold text-slate-700 dark:text-slate-200 hover:bg-qatar-maroon hover:text-white hover:border-qatar-maroon transition-colors"
                             >
                               {area}
                             </span>
@@ -279,20 +279,20 @@ const Team: React.FC<TeamProps> = ({ lang }) => {
 
                       {/* Education */}
                       <div>
-                        <h4 className="text-xs font-black text-qatar-maroon uppercase tracking-widest mb-3">
+                        <h4 className="text-xs font-black text-qatar-maroon dark:text-[#d85b7d] uppercase tracking-widest mb-3">
                           {lang === 'en' ? 'Education' : 'Образование'}
                         </h4>
-                        <p className="text-sm text-slate-700 font-medium leading-relaxed">
+                        <p className="text-sm text-slate-700 dark:text-slate-300 font-medium leading-relaxed">
                           {member.education[lang]}
                         </p>
                       </div>
 
                       {/* Biography */}
                       <div>
-                        <h4 className="text-xs font-black text-qatar-maroon uppercase tracking-widest mb-4">
+                        <h4 className="text-xs font-black text-qatar-maroon dark:text-[#d85b7d] uppercase tracking-widest mb-4">
                           {lang === 'en' ? 'Biography' : 'Биография'}
                         </h4>
-                        <p className="text-base text-slate-600 leading-relaxed">
+                        <p className="text-base text-slate-600 dark:text-slate-300 leading-relaxed">
                           {member.bio[lang]}
                         </p>
                       </div>
