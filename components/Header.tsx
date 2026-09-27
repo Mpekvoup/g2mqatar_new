@@ -126,17 +126,28 @@ const Header: React.FC<HeaderProps> = ({ lang, setLang, onOpenInvestModal }) => 
             <nav className="hidden lg:flex items-center space-x-8">
               {NAV_LINKS.map((link) => (
                 link.href ? (
-                  <Link
-                    key={link.id}
-                    to={link.href}
-                    className={`text-sm font-semibold transition-colors uppercase ${
-                      location.pathname === link.href
-                        ? 'text-qatar-maroon'
-                        : 'text-white hover:text-qatar-maroon'
-                    }`}
-                  >
-                    {link.label[lang]}
-                  </Link>
+                  link.href === '/' && isHomePage ? (
+                    <a
+                      key={link.id}
+                      href="/"
+                      onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+                      className="text-sm font-semibold text-qatar-maroon transition-colors uppercase cursor-pointer"
+                    >
+                      {link.label[lang]}
+                    </a>
+                  ) : (
+                    <Link
+                      key={link.id}
+                      to={link.href}
+                      className={`text-sm font-semibold transition-colors uppercase ${
+                        location.pathname === link.href
+                          ? 'text-qatar-maroon'
+                          : 'text-white hover:text-qatar-maroon'
+                      }`}
+                    >
+                      {link.label[lang]}
+                    </Link>
+                  )
                 ) : isHomePage ? (
                   <a
                     key={link.id}
@@ -277,20 +288,37 @@ const Header: React.FC<HeaderProps> = ({ lang, setLang, onOpenInvestModal }) => 
           <nav className="flex flex-col px-8 py-8 gap-1 flex-grow">
             {NAV_LINKS.map((link, idx) => (
               link.href ? (
-                <Link
-                  key={link.id}
-                  to={link.href}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className={`flex items-center justify-between py-4 border-b border-white/5 group ${location.pathname === link.href ? 'text-qatar-maroon' : 'text-white'}`}
-                >
-                  <div className="flex items-center gap-4">
-                    <span className="text-xs font-black text-white/20 w-5">{String(idx + 1).padStart(2, '0')}</span>
-                    <span className="text-lg font-extrabold tracking-tight">{link.label[lang]}</span>
-                  </div>
-                  <svg className="w-4 h-4 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all text-qatar-maroon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                  </svg>
-                </Link>
+                link.href === '/' && isHomePage ? (
+                  <a
+                    key={link.id}
+                    href="/"
+                    onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); setIsMobileMenuOpen(false); }}
+                    className="flex items-center justify-between py-4 border-b border-white/5 text-qatar-maroon group"
+                  >
+                    <div className="flex items-center gap-4">
+                      <span className="text-xs font-black text-white/20 w-5">{String(idx + 1).padStart(2, '0')}</span>
+                      <span className="text-lg font-extrabold tracking-tight">{link.label[lang]}</span>
+                    </div>
+                    <svg className="w-4 h-4 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all text-qatar-maroon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </a>
+                ) : (
+                  <Link
+                    key={link.id}
+                    to={link.href}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className={`flex items-center justify-between py-4 border-b border-white/5 group ${location.pathname === link.href ? 'text-qatar-maroon' : 'text-white'}`}
+                  >
+                    <div className="flex items-center gap-4">
+                      <span className="text-xs font-black text-white/20 w-5">{String(idx + 1).padStart(2, '0')}</span>
+                      <span className="text-lg font-extrabold tracking-tight">{link.label[lang]}</span>
+                    </div>
+                    <svg className="w-4 h-4 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all text-qatar-maroon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </Link>
+                )
               ) : isHomePage ? (
                 <a
                   key={link.id}

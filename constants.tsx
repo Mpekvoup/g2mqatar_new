@@ -1,6 +1,7 @@
 import { NavLink, Service, Principle, Step, Partner } from './types';
 
 export const NAV_LINKS: NavLink[] = [
+  { id: 'home', label: { en: 'Home', ru: 'Главная' }, href: '/' },
   { id: 'about', label: { en: 'About us', ru: 'О нас' } },
   { id: 'services', label: { en: 'Our services', ru: 'Что мы делаем' } },
   { id: 'case-studies', label: { en: 'Case Studies', ru: 'Кейсы' }, href: '/case-studies' },
