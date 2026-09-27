@@ -112,19 +112,19 @@ const Header: React.FC<HeaderProps> = ({ lang, setLang, onOpenInvestModal }) => 
                 onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
                 className="flex items-center space-x-3 group cursor-pointer"
               >
-                <img src="/images/logo/logo.webp" alt="G2M International Consulting" className="h-10 w-auto object-contain group-hover:scale-105 transition-transform brightness-0 invert" width="269" height="101" fetchPriority="high" />
+                <img src="/images/logo/logo.webp" alt="G2M International Consulting" className="h-10 w-auto object-contain group-hover:scale-105 transition-transform brightness-0 invert flex-shrink-0" width="269" height="101" fetchPriority="high" />
               </a>
             ) : (
               <Link
                 to="/"
                 className="flex items-center space-x-3 group cursor-pointer"
               >
-                <img src="/images/logo/logo.webp" alt="G2M International Consulting" className="h-10 w-auto object-contain group-hover:scale-105 transition-transform brightness-0 invert" width="269" height="101" fetchPriority="high" />
+                <img src="/images/logo/logo.webp" alt="G2M International Consulting" className="h-10 w-auto object-contain group-hover:scale-105 transition-transform brightness-0 invert flex-shrink-0" width="269" height="101" fetchPriority="high" />
               </Link>
             )}
 
             {/* Desktop Nav */}
-            <nav className="hidden lg:flex items-center space-x-8">
+            <nav className="hidden xl:flex items-center space-x-4 2xl:space-x-6">
               {NAV_LINKS.map((link) => (
                 link.href ? (
                   link.href === '/' && isHomePage ? (
@@ -132,7 +132,7 @@ const Header: React.FC<HeaderProps> = ({ lang, setLang, onOpenInvestModal }) => 
                       key={link.id}
                       href="/"
                       onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
-                      className="text-sm font-semibold text-qatar-maroon transition-colors uppercase cursor-pointer"
+                      className="text-sm font-semibold text-qatar-maroon transition-colors uppercase cursor-pointer whitespace-nowrap"
                     >
                       {link.label[lang]}
                     </a>
@@ -140,7 +140,7 @@ const Header: React.FC<HeaderProps> = ({ lang, setLang, onOpenInvestModal }) => 
                     <Link
                       key={link.id}
                       to={link.href}
-                      className={`text-sm font-semibold transition-colors uppercase ${
+                      className={`text-sm font-semibold transition-colors uppercase whitespace-nowrap ${
                         location.pathname === link.href
                           ? 'text-qatar-maroon'
                           : 'text-white hover:text-qatar-maroon'
@@ -154,7 +154,7 @@ const Header: React.FC<HeaderProps> = ({ lang, setLang, onOpenInvestModal }) => 
                     key={link.id}
                     href={`#${link.id}`}
                     onClick={(e) => scrollToSection(e, link.id)}
-                    className="text-sm font-semibold text-white hover:text-qatar-maroon transition-colors uppercase"
+                    className="text-sm font-semibold text-white hover:text-qatar-maroon transition-colors uppercase whitespace-nowrap"
                   >
                     {link.label[lang]}
                   </a>
@@ -162,7 +162,7 @@ const Header: React.FC<HeaderProps> = ({ lang, setLang, onOpenInvestModal }) => 
                   <Link
                     key={link.id}
                     to={`/#${link.id}`}
-                    className="text-sm font-semibold text-white hover:text-qatar-maroon transition-colors uppercase"
+                    className="text-sm font-semibold text-white hover:text-qatar-maroon transition-colors uppercase whitespace-nowrap"
                   >
                     {link.label[lang]}
                   </Link>
@@ -189,19 +189,19 @@ const Header: React.FC<HeaderProps> = ({ lang, setLang, onOpenInvestModal }) => 
               <ThemeToggle lang={lang} />
 
               {/* CTA Buttons */}
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2 2xl:gap-3 flex-shrink-0">
                 {isHomePage ? (
                   <a
                     href="#contacts"
                     onClick={(e) => scrollToSection(e, 'contacts')}
-                    className="bg-qatar-maroon hover:bg-[#6B1F3D] text-white px-6 py-2.5 rounded-md font-semibold transition-all shadow-lg hover:shadow-xl whitespace-nowrap"
+                    className="bg-qatar-maroon hover:bg-[#6B1F3D] text-white px-4 2xl:px-5 py-2.5 rounded-md font-semibold transition-all shadow-lg hover:shadow-xl whitespace-nowrap text-sm"
                   >
                     {lang === 'en' ? 'Book Consultation' : 'Консультация'}
                   </a>
                 ) : (
                   <Link
                     to="/#contacts"
-                    className="bg-qatar-maroon hover:bg-[#6B1F3D] text-white px-6 py-2.5 rounded-md font-semibold transition-all shadow-lg hover:shadow-xl whitespace-nowrap"
+                    className="bg-qatar-maroon hover:bg-[#6B1F3D] text-white px-4 2xl:px-5 py-2.5 rounded-md font-semibold transition-all shadow-lg hover:shadow-xl whitespace-nowrap text-sm"
                   >
                     {lang === 'en' ? 'Book Consultation' : 'Консультация'}
                   </Link>
@@ -210,7 +210,7 @@ const Header: React.FC<HeaderProps> = ({ lang, setLang, onOpenInvestModal }) => 
                 {onOpenInvestModal && (
                   <button
                     onClick={onOpenInvestModal}
-                    className="bg-qatar-maroon hover:bg-[#6B1F3D] text-white px-6 py-2.5 rounded-md font-semibold transition-all shadow-lg hover:shadow-xl whitespace-nowrap"
+                    className="bg-qatar-maroon hover:bg-[#6B1F3D] text-white px-4 2xl:px-5 py-2.5 rounded-md font-semibold transition-all shadow-lg hover:shadow-xl whitespace-nowrap text-sm"
                   >
                     {lang === 'en' ? 'Invest in Qatar 🇶🇦' : 'Инвестиции в Катар 🇶🇦'}
                   </button>
@@ -219,7 +219,7 @@ const Header: React.FC<HeaderProps> = ({ lang, setLang, onOpenInvestModal }) => 
             </nav>
 
             {/* Mobile Controls: Language Switcher + Menu Toggle */}
-            <div className="lg:hidden flex items-center gap-2">
+            <div className="xl:hidden flex items-center gap-2">
               {/* Mobile Language Switcher */}
               <div className="flex items-center bg-white/10 p-0.5 rounded-md">
                 <button
@@ -268,7 +268,7 @@ const Header: React.FC<HeaderProps> = ({ lang, setLang, onOpenInvestModal }) => 
     </header>
 
       {/* Mobile Menu Overlay - outside header to avoid stacking context issues */}
-      <div className={`md:hidden fixed inset-0 z-[200] transition-all duration-500 ${isMobileMenuOpen ? 'visible' : 'invisible'}`}>
+      <div className={`xl:hidden fixed inset-0 z-[200] transition-all duration-500 ${isMobileMenuOpen ? 'visible' : 'invisible'}`}>
         {/* Backdrop */}
         <div
           className={`absolute inset-0 bg-black/40 backdrop-blur-sm transition-opacity duration-500 ${isMobileMenuOpen ? 'opacity-100' : 'opacity-0'}`}
