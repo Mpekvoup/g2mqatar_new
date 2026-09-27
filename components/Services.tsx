@@ -28,19 +28,19 @@ const Services: React.FC<ServicesProps> = ({ lang }) => {
   };
 
   return (
-    <section id="services" className="py-32 bg-[#FCFCFD] relative">
+    <section id="services" className="py-32 bg-[#FCFCFD] dark:bg-qatar-night relative transition-colors duration-200">
       <div className="container mx-auto px-6">
         {/* Header - Asymmetric two-column on desktop */}
         <div className="grid items-end gap-4 lg:gap-8 lg:grid-cols-[1.1fr_0.9fr] mb-10 lg:mb-12">
           <div>
-            <p className="text-xs font-black text-qatar-maroon uppercase tracking-[0.3em] mb-3">
+            <p className="text-xs font-black text-qatar-maroon dark:text-[#d85b7d] uppercase tracking-[0.3em] mb-3">
               {lang === 'en' ? 'Our Services' : 'Наши услуги'}
             </p>
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 leading-tight">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 dark:text-white leading-tight">
               {lang === 'en' ? 'How we help you enter Qatar' : 'Как мы помогаем выйти на рынок Катара'}
             </h2>
           </div>
-          <p className="text-base text-slate-600 leading-relaxed lg:pb-1">
+          <p className="text-base text-slate-600 dark:text-slate-300 leading-relaxed lg:pb-1">
             {lang === 'en'
               ? 'From company registration to investor introductions — practical help at every step.'
               : 'От регистрации компании до знакомства с инвесторами — практическая помощь на каждом шаге.'}
@@ -102,10 +102,10 @@ const Services: React.FC<ServicesProps> = ({ lang }) => {
             </div>
 
             {/* Right: White side with details & CTA */}
-            <div className="flex-1 bg-white p-10 lg:p-12 flex flex-col justify-between">
+            <div className="flex-1 bg-white dark:bg-slate-900 p-10 lg:p-12 flex flex-col justify-between">
               {/* Top section */}
               <div>
-                <p className="text-[10px] font-black text-qatar-maroon uppercase tracking-[0.4em] mb-6">
+                <p className="text-[10px] font-black text-qatar-maroon dark:text-[#d85b7d] uppercase tracking-[0.4em] mb-6">
                   {lang === 'en' ? 'What you get' : 'Что входит'}
                 </p>
 
@@ -117,7 +117,7 @@ const Services: React.FC<ServicesProps> = ({ lang }) => {
                     { value: '100%', label: { en: 'outreach delivered', ru: 'охват' } },
                   ].map((stat, i) => (
                     <div key={i} className="text-center">
-                      <p className="text-3xl font-black text-qatar-maroon leading-none mb-2">{stat.value}</p>
+                      <p className="text-3xl font-black text-qatar-maroon dark:text-[#d85b7d] leading-none mb-2">{stat.value}</p>
                       <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wide leading-tight">
                         {stat.label[lang]}
                       </p>
@@ -126,8 +126,8 @@ const Services: React.FC<ServicesProps> = ({ lang }) => {
                 </div>
 
                 {/* What's Included */}
-                <div className="bg-slate-50/70 rounded-2xl p-6 mb-6">
-                  <p className="text-xs font-bold text-slate-900 mb-4">
+                <div className="bg-slate-50/70 dark:bg-slate-800/50 rounded-2xl p-6 mb-6">
+                  <p className="text-xs font-bold text-slate-900 dark:text-white mb-4">
                     {lang === 'en' ? "What's included:" : 'Что включено:'}
                   </p>
                   <div className="space-y-3">
@@ -139,10 +139,10 @@ const Services: React.FC<ServicesProps> = ({ lang }) => {
                       { en: 'Weekly pipeline reporting', ru: 'Еженедельная отчетность по воронке' },
                     ].map((item, i) => (
                       <div key={i} className="flex items-start gap-3">
-                        <svg className="w-4 h-4 text-qatar-maroon flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg className="w-4 h-4 text-qatar-maroon dark:text-[#d85b7d] flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                         </svg>
-                        <span className="text-slate-700 text-xs font-semibold leading-relaxed">{item[lang]}</span>
+                        <span className="text-slate-700 dark:text-slate-300 text-xs font-semibold leading-relaxed">{item[lang]}</span>
                       </div>
                     ))}
                   </div>
@@ -231,16 +231,16 @@ const Services: React.FC<ServicesProps> = ({ lang }) => {
             </div>
 
             {/* Right: White side with details & CTA */}
-            <div className="flex-1 bg-white p-10 lg:p-12 flex flex-col justify-between">
+            <div className="flex-1 bg-white dark:bg-slate-900 p-10 lg:p-12 flex flex-col justify-between">
               {/* Top section */}
               <div>
-                <p className="text-[10px] font-black text-qatar-maroon uppercase tracking-[0.4em] mb-6">
+                <p className="text-[10px] font-black text-qatar-maroon dark:text-[#d85b7d] uppercase tracking-[0.4em] mb-6">
                   {lang === 'en' ? 'What you get' : 'Что входит'}
                 </p>
 
                 {/* What's Included */}
-                <div className="bg-slate-50/70 rounded-2xl p-6 mb-6">
-                  <p className="text-xs font-bold text-slate-900 mb-4">
+                <div className="bg-slate-50/70 dark:bg-slate-800/50 rounded-2xl p-6 mb-6">
+                  <p className="text-xs font-bold text-slate-900 dark:text-white mb-4">
                     {lang === 'en' ? "What's included:" : 'Что включено:'}
                   </p>
                   <div className="space-y-3">
@@ -252,10 +252,10 @@ const Services: React.FC<ServicesProps> = ({ lang }) => {
                       { en: 'Ongoing compliance support', ru: 'Постоянная поддержка по compliance' },
                     ].map((item, i) => (
                       <div key={i} className="flex items-start gap-3">
-                        <svg className="w-4 h-4 text-qatar-maroon flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg className="w-4 h-4 text-qatar-maroon dark:text-[#d85b7d] flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                         </svg>
-                        <span className="text-slate-700 text-xs font-semibold leading-relaxed">{item[lang]}</span>
+                        <span className="text-slate-700 dark:text-slate-300 text-xs font-semibold leading-relaxed">{item[lang]}</span>
                       </div>
                     ))}
                   </div>
@@ -301,38 +301,38 @@ const Services: React.FC<ServicesProps> = ({ lang }) => {
               <button
                 key={idx}
                 onClick={() => handleCardClick(idx)}
-                className={`group text-left bg-white p-10 rounded-[2.5rem] border transition-all duration-200 flex flex-col h-full cursor-pointer active:scale-[0.98] ${
+                className={`group text-left bg-white dark:bg-slate-900/80 p-10 rounded-[2.5rem] border transition-all duration-200 flex flex-col h-full cursor-pointer active:scale-[0.98] ${
                   activeIdx === idx
-                    ? 'shadow-[0_24px_64px_-10px_rgba(141,27,61,0.22)] border-qatar-maroon -translate-y-2'
-                    : 'shadow-[0_4px_24px_rgba(0,0,0,0.06)] border-slate-100 hover:shadow-[0_24px_48px_-10px_rgba(0,0,0,0.13)] hover:-translate-y-2 hover:border-qatar-maroon/30'
+                    ? 'shadow-[0_24px_64px_-10px_rgba(141,27,61,0.22)] dark:shadow-[0_24px_64px_-10px_rgba(141,27,61,0.35)] border-qatar-maroon -translate-y-2'
+                    : 'shadow-[0_4px_24px_rgba(0,0,0,0.06)] dark:shadow-lg dark:shadow-black/20 border-slate-100 dark:border-slate-700/50 hover:shadow-[0_24px_48px_-10px_rgba(0,0,0,0.13)] dark:hover:shadow-[0_24px_48px_-10px_rgba(0,0,0,0.4)] hover:-translate-y-2 hover:border-qatar-maroon/30 dark:hover:border-qatar-maroon/60'
                 }`}
               >
                 <div className="flex items-start justify-between mb-8">
                   <div className={`w-16 h-16 rounded-[1.25rem] flex items-center justify-center transition-all duration-300 ${
                     activeIdx === idx
                       ? 'bg-qatar-maroon text-white'
-                      : 'bg-slate-50 text-slate-900 group-hover:bg-qatar-maroon group-hover:text-white'
+                      : 'bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white group-hover:bg-qatar-maroon group-hover:text-white'
                   }`}>
                     {ICONS[idx]}
                   </div>
                   <span className={`text-3xl font-black tabular-nums leading-none transition-colors duration-300 ${
-                    activeIdx === idx ? 'text-qatar-maroon/30' : 'text-slate-100 group-hover:text-qatar-maroon/20'
+                    activeIdx === idx ? 'text-qatar-maroon/30' : 'text-slate-100 dark:text-slate-700 group-hover:text-qatar-maroon/20'
                   }`}>
                     {String(displayNumber).padStart(2, '0')}
                   </span>
                 </div>
                 <h3 className={`text-xl font-bold mb-4 transition-colors leading-tight ${
-                  activeIdx === idx ? 'text-qatar-maroon' : 'text-slate-900 group-hover:text-qatar-maroon'
+                  activeIdx === idx ? 'text-qatar-maroon' : 'text-slate-900 dark:text-white group-hover:text-qatar-maroon'
                 }`}>
                   {service.title[lang]}
                 </h3>
-                <p className="text-slate-500 leading-relaxed font-medium flex-grow text-sm">
+                <p className="text-slate-500 dark:text-slate-400 leading-relaxed font-medium flex-grow text-sm">
                   {service.desc[lang]}
                 </p>
                 <div className={`mt-6 self-start flex items-center gap-1.5 text-xs font-bold px-4 py-2 rounded-full border transition-all duration-200 ${
                   activeIdx === idx
                     ? 'bg-qatar-maroon text-white border-qatar-maroon'
-                    : 'bg-slate-50 text-slate-600 border-slate-200 group-hover:bg-qatar-maroon group-hover:text-white group-hover:border-qatar-maroon'
+                    : 'bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-600 group-hover:bg-qatar-maroon group-hover:text-white group-hover:border-qatar-maroon'
                 }`}>
                   <span>
                     {activeIdx === idx
@@ -361,8 +361,8 @@ const Services: React.FC<ServicesProps> = ({ lang }) => {
                           )}
                         </div>
                         <div className={`text-left ${stepIdx < service.steps.length - 1 ? 'pb-5' : ''}`}>
-                          <h5 className="font-bold text-slate-900 mb-1 text-sm pt-1 leading-tight">{step.title[lang]}</h5>
-                          <p className="text-slate-500 text-xs leading-relaxed">{step.desc[lang]}</p>
+                          <h5 className="font-bold text-slate-900 dark:text-white mb-1 text-sm pt-1 leading-tight">{step.title[lang]}</h5>
+                          <p className="text-slate-500 dark:text-slate-400 text-xs leading-relaxed">{step.desc[lang]}</p>
                         </div>
                       </div>
                     ))}

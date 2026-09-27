@@ -22,7 +22,7 @@ const ICONS = [
 
 const ServicesProcess: React.FC<ServicesProcessProps> = ({ lang, activeIdx }) => {
   return (
-    <div className="hidden lg:flex mt-8 rounded-[2.5rem] overflow-hidden shadow-[0_16px_64px_rgba(141,27,61,0.13)] animate-steps-in border border-qatar-maroon/10">
+    <div className="hidden lg:flex mt-8 rounded-[2.5rem] overflow-hidden shadow-[0_16px_64px_rgba(141,27,61,0.13)] dark:shadow-[0_16px_64px_rgba(0,0,0,0.4)] animate-steps-in border border-qatar-maroon/10 dark:border-slate-700/50">
       {/* Left: service info */}
       <div className="w-80 flex-shrink-0 bg-gradient-to-br from-qatar-maroon to-[#5e1128] p-10 flex flex-col">
         <div className="w-14 h-14 bg-white/15 rounded-2xl flex items-center justify-center text-white mb-8">
@@ -47,8 +47,8 @@ const ServicesProcess: React.FC<ServicesProcessProps> = ({ lang, activeIdx }) =>
       </div>
 
       {/* Right: steps timeline */}
-      <div className="flex-1 bg-white p-10">
-        <p className="text-[10px] font-black text-qatar-maroon uppercase tracking-[0.4em] mb-8">
+      <div className="flex-1 bg-white dark:bg-slate-900 p-10">
+        <p className="text-[10px] font-black text-qatar-maroon dark:text-[#d85b7d] uppercase tracking-[0.4em] mb-8">
           {lang === 'en' ? 'How it works' : 'Как это работает'}
         </p>
         <div>
@@ -65,10 +65,10 @@ const ServicesProcess: React.FC<ServicesProcessProps> = ({ lang, activeIdx }) =>
               </div>
               {/* Text */}
               <div className={stepIdx < SERVICES[activeIdx].steps.length - 1 ? 'pb-6' : ''}>
-                <h5 className="font-bold text-slate-900 text-sm mb-1 pt-1.5 leading-tight">
+                <h5 className="font-bold text-slate-900 dark:text-white text-sm mb-1 pt-1.5 leading-tight">
                   {step.title[lang]}
                 </h5>
-                <p className="text-slate-500 text-xs leading-relaxed">
+                <p className="text-slate-500 dark:text-slate-400 text-xs leading-relaxed">
                   {step.desc[lang]}
                 </p>
               </div>

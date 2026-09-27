@@ -117,19 +117,19 @@ const StartHere: React.FC<StartHereProps> = ({ lang, onOpenInvestModal }) => {
   }, []);
 
   return (
-    <section id="start-here" className="py-12 md:py-16 lg:py-20 bg-slate-50">
+    <section id="start-here" className="py-12 md:py-16 lg:py-20 bg-slate-50 dark:bg-slate-950 transition-colors duration-200">
       <div className="container mx-auto px-6">
         {/* Header - Asymmetric two-column on desktop */}
         <div className="grid items-end gap-4 lg:gap-8 lg:grid-cols-[1.1fr_0.9fr] mb-10 lg:mb-12">
           <div>
-            <p className="text-xs font-black text-qatar-maroon uppercase tracking-[0.3em] mb-3">
+            <p className="text-xs font-black text-qatar-maroon dark:text-[#d85b7d] uppercase tracking-[0.3em] mb-3">
               {content.eyebrow[lang]}
             </p>
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 leading-tight">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 dark:text-white leading-tight">
               {content.title[lang]}
             </h2>
           </div>
-          <p className="text-base text-slate-600 leading-relaxed lg:pb-1">
+          <p className="text-base text-slate-600 dark:text-slate-300 leading-relaxed lg:pb-1">
             {content.description[lang]}
           </p>
         </div>
@@ -137,7 +137,7 @@ const StartHere: React.FC<StartHereProps> = ({ lang, onOpenInvestModal }) => {
         {/* Cards Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6">
           {/* Card 1: Company Formation */}
-          <div className="group bg-white rounded-xl border border-slate-200 shadow-sm hover:shadow-md hover:border-qatar-maroon/40 hover:-translate-y-0.5 motion-reduce:hover:translate-y-0 transition-all duration-200 flex flex-col h-full overflow-hidden">
+          <div className="group bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-700/50 shadow-sm dark:shadow-lg dark:shadow-black/20 hover:shadow-md dark:hover:shadow-xl dark:hover:shadow-black/30 hover:border-qatar-maroon/40 dark:hover:border-qatar-maroon/60 hover:-translate-y-0.5 motion-reduce:hover:translate-y-0 transition-all duration-200 flex flex-col h-full overflow-hidden">
             {/* Top maroon line */}
             <div className="h-0.5 bg-qatar-maroon/30 group-hover:bg-qatar-maroon transition-colors duration-200" />
 
@@ -145,28 +145,28 @@ const StartHere: React.FC<StartHereProps> = ({ lang, onOpenInvestModal }) => {
               {/* Header row: Icon + Number/Category */}
               <div className="flex items-start justify-between mb-5">
                 {/* Icon - outline style */}
-                <div className="w-11 h-11 rounded-lg border border-qatar-maroon/30 flex items-center justify-center">
-                  <Building2 className="w-5 h-5 text-qatar-maroon" aria-hidden="true" />
+                <div className="w-11 h-11 rounded-lg border border-qatar-maroon/30 dark:border-qatar-maroon/50 flex items-center justify-center">
+                  <Building2 className="w-5 h-5 text-qatar-maroon dark:text-[#d85b7d]" aria-hidden="true" />
                 </div>
 
                 {/* Number + Category */}
                 <div className="text-right">
-                  <span className="block text-2xl font-bold text-slate-200 leading-none">
+                  <span className="block text-2xl font-bold text-slate-200 dark:text-slate-700 leading-none">
                     {content.cards.companyFormation.number}
                   </span>
-                  <span className="text-[10px] font-bold text-qatar-maroon uppercase tracking-[0.15em]">
+                  <span className="text-[10px] font-bold text-qatar-maroon dark:text-[#d85b7d] uppercase tracking-[0.15em]">
                     {content.cards.companyFormation.category[lang]}
                   </span>
                 </div>
               </div>
 
               {/* Title */}
-              <h3 className="text-lg font-bold text-slate-900 mb-2">
+              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-50 mb-2">
                 {content.cards.companyFormation.title[lang]}
               </h3>
 
               {/* Description */}
-              <p className="text-slate-600 text-sm leading-relaxed mb-4">
+              <p className="text-slate-600 dark:text-slate-300 text-sm leading-relaxed mb-4">
                 {content.cards.companyFormation.description[lang]}
               </p>
 
@@ -175,7 +175,7 @@ const StartHere: React.FC<StartHereProps> = ({ lang, onOpenInvestModal }) => {
                 {content.cards.companyFormation.benefits[lang].map((benefit, idx) => (
                   <li key={idx} className="flex items-start gap-2">
                     <svg
-                      className="w-3.5 h-3.5 text-qatar-maroon flex-shrink-0 mt-0.5"
+                      className="w-3.5 h-3.5 text-qatar-maroon dark:text-[#d85b7d] flex-shrink-0 mt-0.5"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -183,7 +183,7 @@ const StartHere: React.FC<StartHereProps> = ({ lang, onOpenInvestModal }) => {
                     >
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
                     </svg>
-                    <span className="text-slate-600 text-[13px] leading-snug">{benefit}</span>
+                    <span className="text-slate-600 dark:text-slate-400 text-[13px] leading-snug">{benefit}</span>
                   </li>
                 ))}
               </ul>
@@ -208,7 +208,7 @@ const StartHere: React.FC<StartHereProps> = ({ lang, onOpenInvestModal }) => {
           </div>
 
           {/* Card 2: Reach Clients in Qatar */}
-          <div className="group bg-white rounded-xl border border-slate-200 shadow-sm hover:shadow-md hover:border-qatar-maroon/40 hover:-translate-y-0.5 motion-reduce:hover:translate-y-0 transition-all duration-200 flex flex-col h-full overflow-hidden">
+          <div className="group bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-700/50 shadow-sm dark:shadow-lg dark:shadow-black/20 hover:shadow-md dark:hover:shadow-xl dark:hover:shadow-black/30 hover:border-qatar-maroon/40 dark:hover:border-qatar-maroon/60 hover:-translate-y-0.5 motion-reduce:hover:translate-y-0 transition-all duration-200 flex flex-col h-full overflow-hidden">
             {/* Top maroon line */}
             <div className="h-0.5 bg-qatar-maroon/30 group-hover:bg-qatar-maroon transition-colors duration-200" />
 
@@ -216,28 +216,28 @@ const StartHere: React.FC<StartHereProps> = ({ lang, onOpenInvestModal }) => {
               {/* Header row: Icon + Number/Category */}
               <div className="flex items-start justify-between mb-5">
                 {/* Icon - outline style */}
-                <div className="w-11 h-11 rounded-lg border border-qatar-maroon/30 flex items-center justify-center">
-                  <Users className="w-5 h-5 text-qatar-maroon" aria-hidden="true" />
+                <div className="w-11 h-11 rounded-lg border border-qatar-maroon/30 dark:border-qatar-maroon/50 flex items-center justify-center">
+                  <Users className="w-5 h-5 text-qatar-maroon dark:text-[#d85b7d]" aria-hidden="true" />
                 </div>
 
                 {/* Number + Category */}
                 <div className="text-right">
-                  <span className="block text-2xl font-bold text-slate-200 leading-none">
+                  <span className="block text-2xl font-bold text-slate-200 dark:text-slate-700 leading-none">
                     {content.cards.reachClients.number}
                   </span>
-                  <span className="text-[10px] font-bold text-qatar-maroon uppercase tracking-[0.15em]">
+                  <span className="text-[10px] font-bold text-qatar-maroon dark:text-[#d85b7d] uppercase tracking-[0.15em]">
                     {content.cards.reachClients.category[lang]}
                   </span>
                 </div>
               </div>
 
               {/* Title */}
-              <h3 className="text-lg font-bold text-slate-900 mb-2">
+              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-50 mb-2">
                 {content.cards.reachClients.title[lang]}
               </h3>
 
               {/* Description */}
-              <p className="text-slate-600 text-sm leading-relaxed mb-4">
+              <p className="text-slate-600 dark:text-slate-300 text-sm leading-relaxed mb-4">
                 {content.cards.reachClients.description[lang]}
               </p>
 
@@ -246,7 +246,7 @@ const StartHere: React.FC<StartHereProps> = ({ lang, onOpenInvestModal }) => {
                 {content.cards.reachClients.benefits[lang].map((benefit, idx) => (
                   <li key={idx} className="flex items-start gap-2">
                     <svg
-                      className="w-3.5 h-3.5 text-qatar-maroon flex-shrink-0 mt-0.5"
+                      className="w-3.5 h-3.5 text-qatar-maroon dark:text-[#d85b7d] flex-shrink-0 mt-0.5"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -254,7 +254,7 @@ const StartHere: React.FC<StartHereProps> = ({ lang, onOpenInvestModal }) => {
                     >
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
                     </svg>
-                    <span className="text-slate-600 text-[13px] leading-snug">{benefit}</span>
+                    <span className="text-slate-600 dark:text-slate-400 text-[13px] leading-snug">{benefit}</span>
                   </li>
                 ))}
               </ul>
@@ -278,7 +278,7 @@ const StartHere: React.FC<StartHereProps> = ({ lang, onOpenInvestModal }) => {
           </div>
 
           {/* Card 3: Invest in Qatar */}
-          <div className="group bg-white rounded-xl border border-slate-200 shadow-sm hover:shadow-md hover:border-qatar-maroon/40 hover:-translate-y-0.5 motion-reduce:hover:translate-y-0 transition-all duration-200 flex flex-col h-full overflow-hidden md:col-span-2 lg:col-span-1">
+          <div className="group bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-700/50 shadow-sm dark:shadow-lg dark:shadow-black/20 hover:shadow-md dark:hover:shadow-xl dark:hover:shadow-black/30 hover:border-qatar-maroon/40 dark:hover:border-qatar-maroon/60 hover:-translate-y-0.5 motion-reduce:hover:translate-y-0 transition-all duration-200 flex flex-col h-full overflow-hidden md:col-span-2 lg:col-span-1">
             {/* Top maroon line */}
             <div className="h-0.5 bg-qatar-maroon/30 group-hover:bg-qatar-maroon transition-colors duration-200" />
 
@@ -286,28 +286,28 @@ const StartHere: React.FC<StartHereProps> = ({ lang, onOpenInvestModal }) => {
               {/* Header row: Icon + Number/Category */}
               <div className="flex items-start justify-between mb-5">
                 {/* Icon - outline style */}
-                <div className="w-11 h-11 rounded-lg border border-qatar-maroon/30 flex items-center justify-center">
-                  <TrendingUp className="w-5 h-5 text-qatar-maroon" aria-hidden="true" />
+                <div className="w-11 h-11 rounded-lg border border-qatar-maroon/30 dark:border-qatar-maroon/50 flex items-center justify-center">
+                  <TrendingUp className="w-5 h-5 text-qatar-maroon dark:text-[#d85b7d]" aria-hidden="true" />
                 </div>
 
                 {/* Number + Category */}
                 <div className="text-right">
-                  <span className="block text-2xl font-bold text-slate-200 leading-none">
+                  <span className="block text-2xl font-bold text-slate-200 dark:text-slate-700 leading-none">
                     {content.cards.investQatar.number}
                   </span>
-                  <span className="text-[10px] font-bold text-qatar-maroon uppercase tracking-[0.15em]">
+                  <span className="text-[10px] font-bold text-qatar-maroon dark:text-[#d85b7d] uppercase tracking-[0.15em]">
                     {content.cards.investQatar.category[lang]}
                   </span>
                 </div>
               </div>
 
               {/* Title */}
-              <h3 className="text-lg font-bold text-slate-900 mb-2">
+              <h3 className="text-lg font-bold text-slate-900 dark:text-slate-50 mb-2">
                 {content.cards.investQatar.title[lang]}
               </h3>
 
               {/* Description */}
-              <p className="text-slate-600 text-sm leading-relaxed mb-4">
+              <p className="text-slate-600 dark:text-slate-300 text-sm leading-relaxed mb-4">
                 {content.cards.investQatar.description[lang]}
               </p>
 
@@ -316,7 +316,7 @@ const StartHere: React.FC<StartHereProps> = ({ lang, onOpenInvestModal }) => {
                 {content.cards.investQatar.benefits[lang].map((benefit, idx) => (
                   <li key={idx} className="flex items-start gap-2">
                     <svg
-                      className="w-3.5 h-3.5 text-qatar-maroon flex-shrink-0 mt-0.5"
+                      className="w-3.5 h-3.5 text-qatar-maroon dark:text-[#d85b7d] flex-shrink-0 mt-0.5"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -324,7 +324,7 @@ const StartHere: React.FC<StartHereProps> = ({ lang, onOpenInvestModal }) => {
                     >
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
                     </svg>
-                    <span className="text-slate-600 text-[13px] leading-snug">{benefit}</span>
+                    <span className="text-slate-600 dark:text-slate-400 text-[13px] leading-snug">{benefit}</span>
                   </li>
                 ))}
               </ul>

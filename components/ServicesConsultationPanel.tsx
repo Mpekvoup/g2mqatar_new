@@ -33,7 +33,7 @@ const ServicesConsultationPanel: React.FC<ServicesConsultationPanelProps> = ({ l
   ];
 
   return (
-    <div className="max-w-6xl mx-auto rounded-[2.5rem] overflow-hidden shadow-[0_24px_80px_-16px_rgba(141,27,61,0.25)] border border-qatar-maroon/10 flex flex-col lg:flex-row">
+    <div className="max-w-6xl mx-auto rounded-[2.5rem] overflow-hidden shadow-[0_24px_80px_-16px_rgba(141,27,61,0.25)] dark:shadow-[0_24px_80px_-16px_rgba(0,0,0,0.5)] border border-qatar-maroon/10 dark:border-slate-700/50 flex flex-col lg:flex-row">
       {/* Left: who you're talking to + price + CTA */}
       <div className="lg:w-[36%] bg-gradient-to-br from-qatar-maroon to-[#5e1128] p-10 md:p-12 flex flex-col justify-between relative overflow-hidden">
         <div className="absolute -top-20 -right-20 w-64 h-64 rounded-full bg-white/5 pointer-events-none" />
@@ -112,8 +112,8 @@ const ServicesConsultationPanel: React.FC<ServicesConsultationPanelProps> = ({ l
       </div>
 
       {/* Right: how it works + trust stats + FAQ */}
-      <div className="flex-1 bg-white p-10 md:p-12">
-        <p className="text-[10px] font-black text-qatar-maroon uppercase tracking-[0.4em] mb-7">
+      <div className="flex-1 bg-white dark:bg-slate-900 p-10 md:p-12">
+        <p className="text-[10px] font-black text-qatar-maroon dark:text-[#d85b7d] uppercase tracking-[0.4em] mb-7">
           {lang === 'en' ? 'How it works' : 'Как это проходит'}
         </p>
         <div>
@@ -128,10 +128,10 @@ const ServicesConsultationPanel: React.FC<ServicesConsultationPanelProps> = ({ l
                 )}
               </div>
               <div className={idx < steps.length - 1 ? 'pb-6' : ''}>
-                <h5 className="font-bold text-slate-900 text-sm mb-1 pt-1.5 leading-tight">
+                <h5 className="font-bold text-slate-900 dark:text-white text-sm mb-1 pt-1.5 leading-tight">
                   {step.title[lang]}
                 </h5>
-                <p className="text-slate-500 text-xs leading-relaxed">
+                <p className="text-slate-500 dark:text-slate-400 text-xs leading-relaxed">
                   {step.desc[lang]}
                 </p>
               </div>
@@ -140,14 +140,14 @@ const ServicesConsultationPanel: React.FC<ServicesConsultationPanelProps> = ({ l
         </div>
 
         {/* Trust stats */}
-        <div className="grid grid-cols-3 gap-4 py-7 my-8 border-y border-slate-100">
+        <div className="grid grid-cols-3 gap-4 py-7 my-8 border-y border-slate-100 dark:border-slate-700">
           {[
             { value: '20+', label: { en: 'Companies helped', ru: 'Компаний\u00A0сопроводили' } },
             { value: 'QFC', label: { en: 'Licensed in Qatar', ru: 'Лицензия\u00A0в\u00A0Катаре' } },
             { value: '1:1', label: { en: 'Direct, no hand-offs', ru: 'Без\u00A0передачи\u00A0менеджеру' } },
           ].map((stat, i) => (
             <div key={i} className="text-center">
-              <p className="text-2xl font-black text-qatar-maroon leading-none">{stat.value}</p>
+              <p className="text-2xl font-black text-qatar-maroon dark:text-[#d85b7d] leading-none">{stat.value}</p>
               <p className="text-[10px] text-slate-400 font-semibold uppercase tracking-wide mt-2 leading-tight">
                 {stat.label[lang]}
               </p>
@@ -157,7 +157,7 @@ const ServicesConsultationPanel: React.FC<ServicesConsultationPanelProps> = ({ l
 
         {/* Mini FAQ */}
         <div>
-          <p className="text-[10px] font-black text-qatar-maroon uppercase tracking-[0.4em] mb-5">
+          <p className="text-[10px] font-black text-qatar-maroon dark:text-[#d85b7d] uppercase tracking-[0.4em] mb-5">
             {lang === 'en' ? 'FAQ' : 'Частые вопросы'}
           </p>
           <div className="space-y-5">
@@ -185,8 +185,8 @@ const ServicesConsultationPanel: React.FC<ServicesConsultationPanelProps> = ({ l
               },
             ].map((item, i) => (
               <div key={i}>
-                <p className="text-sm font-bold text-slate-900 mb-1">{item.q[lang]}</p>
-                <p className="text-xs text-slate-500 leading-relaxed">{item.a[lang]}</p>
+                <p className="text-sm font-bold text-slate-900 dark:text-white mb-1">{item.q[lang]}</p>
+                <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">{item.a[lang]}</p>
               </div>
             ))}
           </div>

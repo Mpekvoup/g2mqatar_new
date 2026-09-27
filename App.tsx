@@ -50,19 +50,19 @@ const HomePage: React.FC<{ lang: Language; setLang: (l: Language) => void }> = (
           <Testimonials lang={lang} />
           <Team lang={lang} />
           <Partners lang={lang} />
-          <section className="py-12 md:py-16 lg:py-20 bg-white">
+          <section className="py-12 md:py-16 lg:py-20 bg-white dark:bg-qatar-night transition-colors duration-200">
             <div className="container mx-auto px-6">
               {/* Header - Asymmetric two-column on desktop */}
               <div className="grid items-end gap-4 lg:gap-8 lg:grid-cols-[1.1fr_0.9fr] mb-10 lg:mb-12">
                 <div>
-                  <p className="text-xs font-black text-qatar-maroon uppercase tracking-[0.3em] mb-3">
+                  <p className="text-xs font-black text-qatar-maroon dark:text-[#d85b7d] uppercase tracking-[0.3em] mb-3">
                     {lang === 'en' ? "Let's talk" : 'Обсудим вашу задачу'}
                   </p>
-                  <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 leading-tight">
+                  <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 dark:text-white leading-tight">
                     {lang === 'en' ? 'Book a consultation with the managing partner' : 'Консультация с управляющим партнёром'}
                   </h2>
                 </div>
-                <p className="text-base text-slate-600 leading-relaxed lg:pb-1">
+                <p className="text-base text-slate-600 dark:text-slate-300 leading-relaxed lg:pb-1">
                   {lang === 'en'
                     ? 'One 1-hour call to map out your market entry, registration, or trading deal.'
                     : '1 час, чтобы разобрать выход на рынок, регистрацию компании или сделку.'}
