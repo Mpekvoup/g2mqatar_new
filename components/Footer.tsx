@@ -41,7 +41,7 @@ const Footer: React.FC<FooterProps> = ({ lang }) => {
       <div className="border-b border-white/5">
         <div className="container mx-auto px-6 py-16 flex flex-col md:flex-row items-center justify-between gap-8">
           <div>
-            <p className="text-xs font-black text-qatar-maroon uppercase tracking-[0.4em] mb-3">
+            <p className="text-xs font-black text-[#d85b7d] uppercase tracking-[0.4em] mb-3">
               {lang === 'en' ? 'Ready to start?' : 'Готовы начать?'}
             </p>
             <h3 className="text-3xl md:text-4xl font-extrabold text-white leading-tight">
@@ -154,7 +154,7 @@ const Footer: React.FC<FooterProps> = ({ lang }) => {
                 </a>
               </li>
               <li>
-                <a href="mailto:ceo@go2market.qa " className="text-qatar-maroon hover:text-white transition-colors font-semibold">
+                <a href="mailto:ceo@go2market.qa" className="text-[#d85b7d] hover:text-white transition-colors font-semibold">
                   Info@go2market.qa
                 </a>
               </li>

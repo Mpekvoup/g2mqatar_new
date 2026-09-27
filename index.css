@@ -80,3 +80,18 @@ body {
 .animate-steps-in {
   animation: stepsIn 0.35s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
 }
+
+/* Dark mode autofill override */
+.dark input:-webkit-autofill,
+.dark input:-webkit-autofill:hover,
+.dark input:-webkit-autofill:focus,
+.dark select:-webkit-autofill,
+.dark select:-webkit-autofill:hover,
+.dark select:-webkit-autofill:focus,
+.dark textarea:-webkit-autofill,
+.dark textarea:-webkit-autofill:hover,
+.dark textarea:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0 1000px #1e293b inset !important;
+  -webkit-text-fill-color: #fff !important;
+  caret-color: #fff !important;
+}

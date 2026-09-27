@@ -315,7 +315,7 @@ const InvestModal = forwardRef<InvestModalRef, InvestModalProps>(({ lang }, ref)
   return (
     <>
       {/* Trigger Section */}
-      <section className="py-20 lg:py-32 bg-white relative overflow-hidden">
+      <section className="py-20 lg:py-32 bg-white dark:bg-slate-950 relative overflow-hidden transition-colors duration-200">
         <div className="container mx-auto px-6">
           <div className="relative bg-gradient-to-br from-[#101B27] to-[#182636] rounded-2xl p-12 lg:p-16 overflow-hidden border-l-4 border-qatar-maroon">
             <div className="relative z-10 max-w-2xl">
@@ -342,11 +342,11 @@ const InvestModal = forwardRef<InvestModalRef, InvestModalProps>(({ lang }, ref)
           className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-6"
           onClick={(e) => e.target === e.currentTarget && handleClose()}
         >
-          <div className="w-full max-w-5xl max-h-[92vh] overflow-y-auto bg-[#F7F4EE] rounded-xl grid lg:grid-cols-2 relative">
+          <div className="w-full max-w-5xl max-h-[92vh] overflow-y-auto bg-[#F7F4EE] dark:bg-slate-900 rounded-xl grid lg:grid-cols-2 relative">
             <button
               onClick={handleClose}
-              className="absolute top-4 right-4 w-9 h-9 rounded-full border border-slate-900/10 hover:bg-black/5 flex items-center justify-center text-slate-900 z-10"
-              aria-label="Close"
+              className="absolute top-4 right-4 w-10 h-10 rounded-full border border-slate-900/10 dark:border-slate-700 hover:bg-black/5 dark:hover:bg-white/10 flex items-center justify-center text-slate-900 dark:text-white z-10 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-qatar-maroon dark:focus-visible:ring-rose-400 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-slate-900"
+              aria-label={lang === 'en' ? 'Close' : 'Закрыть'}
             >
               ✕
             </button>
@@ -368,48 +368,48 @@ const InvestModal = forwardRef<InvestModalRef, InvestModalProps>(({ lang }, ref)
             </div>
 
             {/* Right Column - Form or Status */}
-            <div className="p-12 lg:p-14">
+            <div className="p-12 lg:p-14 bg-[#F7F4EE] dark:bg-slate-900">
               {status === 'success' ? (
                 <div className="py-12">
-                  <h3 className="text-2xl font-bold text-slate-900 mb-4">
+                  <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">
                     {lang === 'en' ? `Thank you, ${confirmName}!` : `Спасибо, ${confirmName}!`}
                   </h3>
-                  <p className="text-slate-600 leading-relaxed mb-6">
+                  <p className="text-slate-600 dark:text-slate-300 leading-relaxed mb-6">
                     {content.confirm.success.message[lang]}
                   </p>
                   <button
                     onClick={handleClose}
-                    className="bg-qatar-maroon hover:bg-qatar-maroon/90 text-white font-bold px-6 py-3 rounded-lg transition-all"
+                    className="bg-qatar-maroon hover:bg-qatar-maroon/90 text-white font-bold px-6 py-3 rounded-lg transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-qatar-maroon dark:focus-visible:ring-rose-400 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-slate-900"
                   >
                     {content.confirm.close[lang]}
                   </button>
                 </div>
               ) : status === 'error' ? (
                 <div className="py-12">
-                  <h3 className="text-2xl font-bold text-slate-900 mb-4">
+                  <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">
                     {content.confirm.error.title[lang]}
                   </h3>
-                  <p className="text-slate-600 leading-relaxed mb-6">
+                  <p className="text-slate-600 dark:text-slate-300 leading-relaxed mb-6">
                     {errorMessage || content.confirm.error.message[lang]}
                   </p>
                   <button
                     onClick={() => setStatus('idle')}
-                    className="bg-qatar-maroon hover:bg-qatar-maroon/90 text-white font-bold px-6 py-3 rounded-lg transition-all"
+                    className="bg-qatar-maroon hover:bg-qatar-maroon/90 text-white font-bold px-6 py-3 rounded-lg transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-qatar-maroon dark:focus-visible:ring-rose-400 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-slate-900"
                   >
                     {content.confirm.tryAgain[lang]}
                   </button>
                 </div>
               ) : status === 'limited' ? (
                 <div className="py-12">
-                  <h3 className="text-2xl font-bold text-slate-900 mb-4">
+                  <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">
                     {content.confirm.limited.title[lang]}
                   </h3>
-                  <p className="text-slate-600 leading-relaxed mb-6">
+                  <p className="text-slate-600 dark:text-slate-300 leading-relaxed mb-6">
                     {content.confirm.limited.message[lang]}
                   </p>
                   <button
                     onClick={handleClose}
-                    className="bg-qatar-maroon hover:bg-qatar-maroon/90 text-white font-bold px-6 py-3 rounded-lg transition-all"
+                    className="bg-qatar-maroon hover:bg-qatar-maroon/90 text-white font-bold px-6 py-3 rounded-lg transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-qatar-maroon dark:focus-visible:ring-rose-400 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-slate-900"
                   >
                     {content.confirm.close[lang]}
                   </button>
@@ -417,7 +417,7 @@ const InvestModal = forwardRef<InvestModalRef, InvestModalProps>(({ lang }, ref)
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-5">
                   <div>
-                    <label htmlFor="invest-name" className="block text-sm text-slate-600 mb-2">
+                    <label htmlFor="invest-name" className="block text-sm text-slate-600 dark:text-slate-300 mb-2">
                       {content.form.name[lang]}
                     </label>
                     <input
@@ -426,12 +426,12 @@ const InvestModal = forwardRef<InvestModalRef, InvestModalProps>(({ lang }, ref)
                       required
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      className="w-full px-4 py-3 bg-white border border-slate-900/10 rounded text-slate-900 focus:border-qatar-maroon focus:outline-none"
+                      className="w-full px-4 py-3 bg-white dark:bg-slate-800 border border-slate-900/10 dark:border-slate-700 rounded text-slate-900 dark:text-white focus:border-qatar-maroon focus:outline-none focus-visible:ring-2 focus-visible:ring-qatar-maroon/30 dark:focus-visible:ring-rose-400/40 transition-colors"
                     />
                   </div>
 
                   <div>
-                    <label htmlFor="invest-country" className="block text-sm text-slate-600 mb-2">
+                    <label htmlFor="invest-country" className="block text-sm text-slate-600 dark:text-slate-300 mb-2">
                       {content.form.country[lang]}
                     </label>
                     <input
@@ -441,12 +441,12 @@ const InvestModal = forwardRef<InvestModalRef, InvestModalProps>(({ lang }, ref)
                       placeholder={content.form.countryPlaceholder[lang]}
                       value={formData.country}
                       onChange={(e) => setFormData({ ...formData, country: e.target.value })}
-                      className="w-full px-4 py-3 bg-white border border-slate-900/10 rounded text-slate-900 focus:border-qatar-maroon focus:outline-none"
+                      className="w-full px-4 py-3 bg-white dark:bg-slate-800 border border-slate-900/10 dark:border-slate-700 rounded text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:border-qatar-maroon focus:outline-none focus-visible:ring-2 focus-visible:ring-qatar-maroon/30 dark:focus-visible:ring-rose-400/40 transition-colors"
                     />
                   </div>
 
                   <div>
-                    <label htmlFor="invest-contact" className="block text-sm text-slate-600 mb-2">
+                    <label htmlFor="invest-contact" className="block text-sm text-slate-600 dark:text-slate-300 mb-2">
                       {content.form.contact[lang]}
                     </label>
                     <input
@@ -456,12 +456,12 @@ const InvestModal = forwardRef<InvestModalRef, InvestModalProps>(({ lang }, ref)
                       placeholder={content.form.contactPlaceholder[lang]}
                       value={formData.contact}
                       onChange={(e) => setFormData({ ...formData, contact: e.target.value })}
-                      className="w-full px-4 py-3 bg-white border border-slate-900/10 rounded text-slate-900 focus:border-qatar-maroon focus:outline-none"
+                      className="w-full px-4 py-3 bg-white dark:bg-slate-800 border border-slate-900/10 dark:border-slate-700 rounded text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:border-qatar-maroon focus:outline-none focus-visible:ring-2 focus-visible:ring-qatar-maroon/30 dark:focus-visible:ring-rose-400/40 transition-colors"
                     />
                   </div>
 
                   <div>
-                    <label htmlFor="invest-budget" className="block text-sm text-slate-600 mb-2">
+                    <label htmlFor="invest-budget" className="block text-sm text-slate-600 dark:text-slate-300 mb-2">
                       {content.form.budget[lang]}
                     </label>
                     <select
@@ -469,7 +469,7 @@ const InvestModal = forwardRef<InvestModalRef, InvestModalProps>(({ lang }, ref)
                       required
                       value={formData.budget}
                       onChange={(e) => setFormData({ ...formData, budget: e.target.value })}
-                      className="w-full px-4 py-3 bg-white border border-slate-900/10 rounded text-slate-900 focus:border-qatar-maroon focus:outline-none appearance-none bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIiIGhlaWdodD0iOCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMSAxbDUgNSA1LTUiIHN0cm9rZT0iIzcyNkE2MSIgc3Ryb2tlLXdpZHRoPSIxLjUiIGZpbGw9Im5vbmUiLz48L3N2Zz4=')] bg-no-repeat bg-[right_12px_center] pr-10"
+                      className="w-full px-4 py-3 bg-white dark:bg-slate-800 border border-slate-900/10 dark:border-slate-700 rounded text-slate-900 dark:text-white focus:border-qatar-maroon focus:outline-none focus-visible:ring-2 focus-visible:ring-qatar-maroon/30 dark:focus-visible:ring-rose-400/40 appearance-none bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIiIGhlaWdodD0iOCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMSAxbDUgNSA1LTUiIHN0cm9rZT0iIzcyNkE2MSIgc3Ryb2tlLXdpZHRoPSIxLjUiIGZpbGw9Im5vbmUiLz48L3N2Zz4=')] dark:bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIiIGhlaWdodD0iOCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMSAxbDUgNSA1LTUiIHN0cm9rZT0iIzk0YTNiOCIgc3Ryb2tlLXdpZHRoPSIxLjUiIGZpbGw9Im5vbmUiLz48L3N2Zz4=')] bg-no-repeat bg-[right_12px_center] pr-10 transition-colors dark:[color-scheme:dark]"
                     >
                       <option value="" disabled>
                         {content.form.budgetPlaceholder[lang]}
@@ -483,7 +483,7 @@ const InvestModal = forwardRef<InvestModalRef, InvestModalProps>(({ lang }, ref)
                   </div>
 
                   <div>
-                    <label htmlFor="invest-sector" className="block text-sm text-slate-600 mb-2">
+                    <label htmlFor="invest-sector" className="block text-sm text-slate-600 dark:text-slate-300 mb-2">
                       {content.form.sector[lang]}
                     </label>
                     <select
@@ -491,7 +491,7 @@ const InvestModal = forwardRef<InvestModalRef, InvestModalProps>(({ lang }, ref)
                       required
                       value={formData.sector}
                       onChange={(e) => setFormData({ ...formData, sector: e.target.value })}
-                      className="w-full px-4 py-3 bg-white border border-slate-900/10 rounded text-slate-900 focus:border-qatar-maroon focus:outline-none appearance-none bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIiIGhlaWdodD0iOCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMSAxbDUgNSA1LTUiIHN0cm9rZT0iIzcyNkE2MSIgc3Ryb2tlLXdpZHRoPSIxLjUiIGZpbGw9Im5vbmUiLz48L3N2Zz4=')] bg-no-repeat bg-[right_12px_center] pr-10"
+                      className="w-full px-4 py-3 bg-white dark:bg-slate-800 border border-slate-900/10 dark:border-slate-700 rounded text-slate-900 dark:text-white focus:border-qatar-maroon focus:outline-none focus-visible:ring-2 focus-visible:ring-qatar-maroon/30 dark:focus-visible:ring-rose-400/40 appearance-none bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIiIGhlaWdodD0iOCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMSAxbDUgNSA1LTUiIHN0cm9rZT0iIzcyNkE2MSIgc3Ryb2tlLXdpZHRoPSIxLjUiIGZpbGw9Im5vbmUiLz48L3N2Zz4=')] dark:bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIiIGhlaWdodD0iOCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMSAxbDUgNSA1LTUiIHN0cm9rZT0iIzk0YTNiOCIgc3Ryb2tlLXdpZHRoPSIxLjUiIGZpbGw9Im5vbmUiLz48L3N2Zz4=')] bg-no-repeat bg-[right_12px_center] pr-10 transition-colors dark:[color-scheme:dark]"
                     >
                       <option value="" disabled>
                         {content.form.sectorPlaceholder[lang]}
@@ -505,7 +505,7 @@ const InvestModal = forwardRef<InvestModalRef, InvestModalProps>(({ lang }, ref)
                   </div>
 
                   <div>
-                    <label className="block text-sm text-slate-600 mb-3">
+                    <label className="block text-sm text-slate-600 dark:text-slate-300 mb-3">
                       {content.form.intent[lang]}
                     </label>
                     <div className="flex flex-wrap gap-2">
@@ -520,7 +520,7 @@ const InvestModal = forwardRef<InvestModalRef, InvestModalProps>(({ lang }, ref)
                             onChange={(e) => setFormData({ ...formData, intent: e.target.value })}
                             className="sr-only peer"
                           />
-                          <span className="inline-block px-4 py-2 text-sm border border-slate-900/10 rounded-full text-slate-900 peer-checked:bg-qatar-maroon peer-checked:border-qatar-maroon peer-checked:text-white transition-all">
+                          <span className="inline-block px-4 py-2 text-sm border border-slate-900/10 dark:border-slate-700 rounded-full text-slate-900 dark:text-slate-300 peer-checked:bg-qatar-maroon peer-checked:border-qatar-maroon peer-checked:text-white peer-focus-visible:ring-2 peer-focus-visible:ring-qatar-maroon/30 dark:peer-focus-visible:ring-rose-400/40 transition-all cursor-pointer hover:border-qatar-maroon/30 dark:hover:border-rose-400/30">
                             {opt.label[lang]}
                           </span>
                         </label>
@@ -531,7 +531,7 @@ const InvestModal = forwardRef<InvestModalRef, InvestModalProps>(({ lang }, ref)
                   <button
                     type="submit"
                     disabled={status === 'loading' || cooldown > 0 || !formData.intent}
-                    className="w-full bg-qatar-maroon hover:bg-qatar-maroon/90 text-white font-bold px-6 py-4 rounded-lg mt-2 transition-all hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3"
+                    className="w-full bg-qatar-maroon hover:bg-qatar-maroon/90 text-white font-bold px-6 py-4 rounded-lg mt-2 transition-all hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0 flex items-center justify-center gap-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-qatar-maroon dark:focus-visible:ring-rose-400 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-slate-900"
                   >
                     {status === 'loading' ? (
                       <>
@@ -547,12 +547,12 @@ const InvestModal = forwardRef<InvestModalRef, InvestModalProps>(({ lang }, ref)
                   </button>
 
                   {cooldown > 0 && (
-                    <p className="text-xs text-slate-500 text-center mt-3 font-semibold">
+                    <p className="text-xs text-slate-500 dark:text-slate-400 text-center mt-3 font-semibold">
                       {lang === 'en' ? `Please wait ${cooldown}s before sending another request.` : `Подождите ${cooldown}с перед повторной отправкой.`}
                     </p>
                   )}
 
-                  <p className="text-xs text-slate-500 text-center mt-3">
+                  <p className="text-xs text-slate-500 dark:text-slate-400 text-center mt-3">
                     {content.form.fineprint[lang]}
                   </p>
                 </form>
