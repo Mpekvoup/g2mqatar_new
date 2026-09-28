@@ -38,7 +38,7 @@ const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ lang, setLang }) 
   };
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen bg-white dark:bg-slate-950 transition-colors duration-200">
       <Header lang={lang} setLang={setLang} />
 
       <main className="flex-grow">
@@ -80,32 +80,32 @@ const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ lang, setLang }) 
         </section>
 
         {/* Description & Benefits */}
-        <section className="py-24 bg-white">
+        <section className="py-24 bg-white dark:bg-slate-950 transition-colors duration-200">
           <div className="container mx-auto px-6">
             <div className="max-w-6xl mx-auto">
               <div className="grid lg:grid-cols-2 gap-16 items-start">
                 <div className="space-y-6">
-                  <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900">
+                  <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white">
                     {lang === 'en' ? 'What You Get' : 'Что вы получаете'}
                   </h2>
-                  <p className="text-lg text-slate-600 leading-relaxed">
+                  <p className="text-lg text-slate-600 dark:text-slate-300 leading-relaxed">
                     {service.description[lang]}
                   </p>
                 </div>
 
-                <div className="bg-slate-50 rounded-3xl p-8 lg:p-10">
-                  <h3 className="text-xl font-bold text-slate-900 mb-6">
+                <div className="bg-slate-50 dark:bg-slate-900 rounded-3xl p-8 lg:p-10 border border-transparent dark:border-white/10">
+                  <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-6">
                     {lang === 'en' ? 'Key Benefits' : 'Основные преимущества'}
                   </h3>
                   <div className="space-y-4">
                     {service.benefits.map((benefit, index) => (
                       <div key={index} className="flex items-start gap-3">
-                        <div className="w-6 h-6 bg-qatar-maroon/10 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5">
-                          <svg className="w-4 h-4 text-qatar-maroon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <div className="w-6 h-6 bg-qatar-maroon/10 dark:bg-[#d85b7d]/15 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5">
+                          <svg className="w-4 h-4 text-qatar-maroon dark:text-[#d85b7d]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                           </svg>
                         </div>
-                        <span className="text-slate-700 font-medium">{benefit[lang]}</span>
+                        <span className="text-slate-700 dark:text-slate-300 font-medium">{benefit[lang]}</span>
                       </div>
                     ))}
                   </div>
@@ -116,34 +116,34 @@ const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ lang, setLang }) 
         </section>
 
         {/* Process Steps */}
-        <section className="py-24 bg-slate-50">
+        <section className="py-24 bg-slate-50 dark:bg-slate-900 transition-colors duration-200">
           <div className="container mx-auto px-6">
             <div className="max-w-4xl mx-auto">
               <div className="text-center mb-16">
-                <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900 mb-4">
+                <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white mb-4">
                   {lang === 'en' ? 'How It Works' : 'Как это работает'}
                 </h2>
-                <p className="text-lg text-slate-600">
+                <p className="text-lg text-slate-600 dark:text-slate-400">
                   {lang === 'en' ? 'Our proven step-by-step process' : 'Наш проверенный пошаговый процесс'}
                 </p>
               </div>
 
-              <div className="bg-white rounded-3xl p-10 lg:p-12 shadow-xl">
+              <div className="bg-white dark:bg-slate-800 rounded-3xl p-10 lg:p-12 shadow-xl dark:shadow-none dark:border dark:border-white/10">
                 {service.steps.map((step, index) => (
                   <div key={index} className="flex gap-6">
                     <div className="flex flex-col items-center flex-shrink-0">
-                      <div className="w-12 h-12 bg-qatar-maroon text-white rounded-2xl flex items-center justify-center text-lg font-black shadow-lg">
+                      <div className="w-12 h-12 bg-qatar-maroon dark:bg-[#d85b7d] text-white rounded-2xl flex items-center justify-center text-lg font-black shadow-lg">
                         {index + 1}
                       </div>
                       {index < service.steps.length - 1 && (
-                        <div className="w-0.5 flex-1 bg-qatar-maroon/20 my-2" />
+                        <div className="w-0.5 flex-1 bg-qatar-maroon/20 dark:bg-[#d85b7d]/30 my-2" />
                       )}
                     </div>
                     <div className={index < service.steps.length - 1 ? 'pb-8' : ''}>
-                      <h3 className="text-xl font-bold text-slate-900 mb-2 pt-2">
+                      <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2 pt-2">
                         {step.title[lang]}
                       </h3>
-                      <p className="text-slate-600 leading-relaxed">
+                      <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
                         {step.desc[lang]}
                       </p>
                     </div>
@@ -155,38 +155,38 @@ const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ lang, setLang }) 
         </section>
 
         {/* Examples / Case Studies */}
-        <section className="py-24 bg-white">
+        <section className="py-24 bg-white dark:bg-slate-950 transition-colors duration-200">
           <div className="container mx-auto px-6">
             <div className="max-w-6xl mx-auto">
               <div className="text-center mb-16">
-                <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900 mb-4">
+                <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white mb-4">
                   {lang === 'en' ? 'Success Stories' : 'Истории успеха'}
                 </h2>
-                <p className="text-lg text-slate-600">
+                <p className="text-lg text-slate-600 dark:text-slate-400">
                   {lang === 'en' ? 'Real results from real clients' : 'Реальные результаты реальных клиентов'}
                 </p>
               </div>
 
               <div className="grid md:grid-cols-2 gap-8">
                 {service.examples.map((example, index) => (
-                  <div key={index} className="bg-slate-50 rounded-3xl p-8 lg:p-10 hover:shadow-xl transition-all border border-slate-100">
-                    <h3 className="text-2xl font-bold text-slate-900 mb-4">
+                  <div key={index} className="bg-slate-50 dark:bg-slate-900 rounded-3xl p-8 lg:p-10 hover:shadow-xl dark:hover:shadow-none transition-all border border-slate-100 dark:border-white/10 dark:hover:border-[#d85b7d]/30">
+                    <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">
                       {example.title[lang]}
                     </h3>
                     <div className="space-y-4">
                       <div>
-                        <p className="text-xs font-bold text-qatar-maroon uppercase tracking-wider mb-2">
+                        <p className="text-xs font-bold text-qatar-maroon dark:text-[#d85b7d] uppercase tracking-wider mb-2">
                           {lang === 'en' ? 'Challenge' : 'Задача'}
                         </p>
-                        <p className="text-slate-600 leading-relaxed">
+                        <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
                           {example.description[lang]}
                         </p>
                       </div>
                       <div>
-                        <p className="text-xs font-bold text-qatar-maroon uppercase tracking-wider mb-2">
+                        <p className="text-xs font-bold text-qatar-maroon dark:text-[#d85b7d] uppercase tracking-wider mb-2">
                           {lang === 'en' ? 'Result' : 'Результат'}
                         </p>
-                        <p className="text-slate-900 font-semibold leading-relaxed">
+                        <p className="text-slate-900 dark:text-white font-semibold leading-relaxed">
                           {example.result[lang]}
                         </p>
                       </div>
@@ -199,14 +199,14 @@ const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ lang, setLang }) 
         </section>
 
         {/* Pricing */}
-        <section className="py-24 bg-slate-50">
+        <section className="py-24 bg-slate-50 dark:bg-slate-900 transition-colors duration-200">
           <div className="container mx-auto px-6">
             <div className="max-w-6xl mx-auto">
               <div className="text-center mb-16">
-                <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900 mb-4">
+                <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white mb-4">
                   {lang === 'en' ? 'Pricing' : 'Цены'}
                 </h2>
-                <p className="text-lg text-slate-600">
+                <p className="text-lg text-slate-600 dark:text-slate-400">
                   {lang === 'en' ? 'Transparent pricing with no hidden fees' : 'Прозрачные цены без скрытых платежей'}
                 </p>
               </div>
@@ -215,20 +215,20 @@ const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ lang, setLang }) 
                 {service.pricing.map((pricing, index) => (
                   <div
                     key={index}
-                    className={`bg-white rounded-3xl p-10 border-2 transition-all hover:shadow-2xl hover:-translate-y-1 ${
+                    className={`bg-white dark:bg-slate-800 rounded-3xl p-10 border-2 transition-all hover:shadow-2xl dark:hover:shadow-none hover:-translate-y-1 ${
                       index === service.pricing.length - 1
-                        ? 'border-qatar-maroon shadow-xl'
-                        : 'border-slate-200'
+                        ? 'border-qatar-maroon dark:border-[#d85b7d] shadow-xl dark:shadow-none'
+                        : 'border-slate-200 dark:border-white/10'
                     }`}
                   >
                     <div className="text-center mb-8">
-                      <h3 className="text-2xl font-bold text-slate-900 mb-3">
+                      <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-3">
                         {pricing.title[lang]}
                       </h3>
-                      <div className="text-5xl font-black text-qatar-maroon mb-2">
+                      <div className="text-5xl font-black text-qatar-maroon dark:text-[#d85b7d] mb-2">
                         {pricing.price[lang]}
                       </div>
-                      <p className="text-sm text-slate-500 font-semibold">
+                      <p className="text-sm text-slate-500 dark:text-slate-400 font-semibold">
                         {pricing.timeline[lang]}
                       </p>
                     </div>
@@ -236,10 +236,10 @@ const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ lang, setLang }) 
                     <div className="space-y-4 mb-8">
                       {pricing.features.map((feature, fIndex) => (
                         <div key={fIndex} className="flex items-start gap-3">
-                          <svg className="w-5 h-5 text-qatar-maroon flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <svg className="w-5 h-5 text-qatar-maroon dark:text-[#d85b7d] flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                           </svg>
-                          <span className="text-slate-700 font-medium">{feature[lang]}</span>
+                          <span className="text-slate-700 dark:text-slate-300 font-medium">{feature[lang]}</span>
                         </div>
                       ))}
                     </div>
@@ -249,8 +249,8 @@ const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ lang, setLang }) 
                       onClick={(e) => scrollToSection(e, 'contacts')}
                       className={`block text-center py-4 rounded-2xl font-bold text-lg transition-all ${
                         index === service.pricing.length - 1
-                          ? 'bg-qatar-maroon text-white hover:bg-qatar-maroon/90 shadow-lg'
-                          : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
+                          ? 'bg-qatar-maroon dark:bg-[#d85b7d] text-white hover:bg-qatar-maroon/90 dark:hover:bg-[#d85b7d]/90 shadow-lg'
+                          : 'bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-600'
                       }`}
                     >
                       {lang === 'en' ? 'Get Started' : 'Начать'}
@@ -263,22 +263,22 @@ const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ lang, setLang }) 
         </section>
 
         {/* FAQ */}
-        <section className="py-24 bg-white">
+        <section className="py-24 bg-white dark:bg-slate-950 transition-colors duration-200">
           <div className="container mx-auto px-6">
             <div className="max-w-4xl mx-auto">
               <div className="text-center mb-16">
-                <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900 mb-4">
+                <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white mb-4">
                   {lang === 'en' ? 'Frequently Asked Questions' : 'Часто задаваемые вопросы'}
                 </h2>
               </div>
 
               <div className="space-y-6">
                 {service.faqs.map((faq, index) => (
-                  <div key={index} className="bg-slate-50 rounded-2xl p-8 hover:bg-slate-100 transition-all">
-                    <h3 className="text-xl font-bold text-slate-900 mb-3">
+                  <div key={index} className="bg-slate-50 dark:bg-slate-900 rounded-2xl p-8 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all border border-transparent dark:border-white/10">
+                    <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3">
                       {faq.question[lang]}
                     </h3>
-                    <p className="text-slate-600 leading-relaxed">
+                    <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
                       {faq.answer[lang]}
                     </p>
                   </div>

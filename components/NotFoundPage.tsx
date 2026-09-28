@@ -11,14 +11,14 @@ interface Props {
 
 const NotFoundPage: React.FC<Props> = ({ lang, setLang }) => {
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen bg-white dark:bg-slate-950 transition-colors duration-200">
       <Header lang={lang} setLang={setLang} />
-      <main className="flex-grow bg-[#FCFCFD] flex items-center justify-center py-24">
+      <main className="flex-grow bg-[#FCFCFD] dark:bg-slate-900 flex items-center justify-center py-24 transition-colors duration-200">
         <div className="text-center px-6">
-          <p className="text-[120px] md:text-[180px] font-black text-slate-100 leading-none select-none">
+          <p className="text-[120px] md:text-[180px] font-black text-slate-100 dark:text-slate-800 leading-none select-none">
             404
           </p>
-          <h1 className="text-2xl md:text-3xl font-extrabold text-slate-900 -mt-4 mb-4">
+          <h1 className="text-2xl md:text-3xl font-extrabold text-slate-900 dark:text-white -mt-4 mb-4">
             {lang === 'en' ? 'Page not found' : 'Страница не найдена'}
           </h1>
           <p className="text-slate-400 font-medium mb-10 max-w-sm mx-auto">
@@ -28,7 +28,7 @@ const NotFoundPage: React.FC<Props> = ({ lang, setLang }) => {
           </p>
           <Link
             to="/"
-            className="inline-flex items-center gap-2 bg-qatar-maroon text-white px-8 py-4 rounded-2xl font-bold transition-all hover:bg-[#701530] hover:scale-[1.02] active:scale-95"
+            className="inline-flex items-center gap-2 bg-qatar-maroon dark:bg-[#d85b7d] text-white px-8 py-4 rounded-2xl font-bold transition-all hover:bg-[#701530] dark:hover:bg-[#c44d6d] hover:scale-[1.02] active:scale-95"
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
