@@ -208,23 +208,51 @@ export function createContactHandler({ token, chatId, fetchImpl = fetch, now = D
     }
     lines.push('', fields.message);
     const text = lines.join('\n');
+    const safeLog = code => { try { Promise.resolve(logError(code)).catch(() => {}); } catch { /* isolate logging failures */ } };
+    const timeoutSignal = AbortSignal.timeout(10_000);
+    const classifyError = error => {
+      // TimeoutError is definitive timeout
+      if (error?.name === 'TimeoutError') return 'TG_TIMEOUT';
+      // AbortError: only TG_TIMEOUT if signal aborted due to timeout (reason is TimeoutError)
+      if (
+        error?.name === 'AbortError' &&
+        timeoutSignal.aborted &&
+        timeoutSignal.reason?.name === 'TimeoutError'
+      ) {
+        return 'TG_TIMEOUT';
+      }
+      return 'TG_NETWORK_OR_RESPONSE';
+    };
     try {
       const response = await fetchImpl(`https://api.telegram.org/bot${token}/sendMessage`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ chat_id: chatId, text }),
-        signal: AbortSignal.timeout(10_000),
+        signal: timeoutSignal,
       });
-      const result = await response.json();
-      if (!response.ok || result.ok !== true) {
+      let result;
+      try {
+        result = await response.json();
+      } catch (jsonError) {
+        // Distinguish JSON syntax error from timeout/network during body read
+        if (jsonError instanceof SyntaxError) {
+          result = null; // Invalid JSON treated as rejection
+        } else {
+          // Timeout or network error during body read
+          const code = classifyError(jsonError);
+          safeLog(code);
+          return reply(502, { error: 'Could not deliver your enquiry. Please try again later.', code });
+        }
+      }
+      if (!response.ok || result?.ok !== true) {
         const code = telegramErrorCode(response.status, result);
-        logError(code);
+        safeLog(code);
         return reply(502, { error: 'Could not deliver your enquiry. Please try again later.', code });
       }
       return reply(200, { ok: true });
     } catch (error) {
-      const code = error?.name === 'TimeoutError' || error?.name === 'AbortError' ? 'TG_TIMEOUT' : 'TG_NETWORK_OR_RESPONSE';
-      logError(code);
+      const code = classifyError(error);
+      safeLog(code);
       // Never expose upstream URLs, tokens, messages or Telegram responses.
       return reply(502, { error: 'Could not deliver your enquiry. Please try again later.', code });
     }

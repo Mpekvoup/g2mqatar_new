@@ -285,3 +285,288 @@ test('does not expose Telegram errors to client', async t => {
   const body = await r.json();
   assert.doesNotMatch(JSON.stringify(body), /internal secret/);
 });
+
+// === Telegram error codes ===
+test('TG_ACCESS on HTTP 403', async t => {
+  const loggedArgs = [];
+  const f = await fixture(t, { logError: (...args) => loggedArgs.push(args), fetchImpl: async () => ({ ok: false, status: 403, json: async () => ({ ok: false, error_code: 403 }) }) });
+  const r = await f.request();
+  assert.equal(r.status, 502);
+  assert.equal((await r.json()).code, 'TG_ACCESS');
+  assert.deepEqual(loggedArgs, [['TG_ACCESS']]);
+});
+
+test('TG_RATE_LIMIT on HTTP 429', async t => {
+  const loggedArgs = [];
+  const f = await fixture(t, { logError: (...args) => loggedArgs.push(args), fetchImpl: async () => ({ ok: false, status: 429, json: async () => ({ ok: false, error_code: 429 }) }) });
+  const r = await f.request();
+  assert.equal(r.status, 502);
+  assert.equal((await r.json()).code, 'TG_RATE_LIMIT');
+  assert.deepEqual(loggedArgs, [['TG_RATE_LIMIT']]);
+});
+
+test('TG_CHAT_NOT_FOUND on 400 with chat not found', async t => {
+  const loggedArgs = [];
+  const f = await fixture(t, { logError: (...args) => loggedArgs.push(args), fetchImpl: async () => ({ ok: false, status: 400, json: async () => ({ ok: false, error_code: 400, description: 'Bad Request: chat not found' }) }) });
+  const r = await f.request();
+  assert.equal(r.status, 502);
+  assert.equal((await r.json()).code, 'TG_CHAT_NOT_FOUND');
+  assert.deepEqual(loggedArgs, [['TG_CHAT_NOT_FOUND']]);
+});
+
+test('TG_CHAT_MIGRATED when migrate_to_chat_id present', async t => {
+  const loggedArgs = [];
+  const f = await fixture(t, { logError: (...args) => loggedArgs.push(args), fetchImpl: async () => ({ ok: false, status: 400, json: async () => ({ ok: false, parameters: { migrate_to_chat_id: -123456 } }) }) });
+  const r = await f.request();
+  assert.equal(r.status, 502);
+  assert.equal((await r.json()).code, 'TG_CHAT_MIGRATED');
+  assert.deepEqual(loggedArgs, [['TG_CHAT_MIGRATED']]);
+});
+
+test('TG_TOKEN_FORMAT on HTTP 404', async t => {
+  const loggedArgs = [];
+  const f = await fixture(t, { logError: (...args) => loggedArgs.push(args), fetchImpl: async () => ({ ok: false, status: 404, json: async () => ({ ok: false, error_code: 404 }) }) });
+  const r = await f.request();
+  assert.equal(r.status, 502);
+  assert.equal((await r.json()).code, 'TG_TOKEN_FORMAT');
+  assert.deepEqual(loggedArgs, [['TG_TOKEN_FORMAT']]);
+});
+
+test('TG_REJECTED as fallback for unknown Telegram error', async t => {
+  const loggedArgs = [];
+  const f = await fixture(t, { logError: (...args) => loggedArgs.push(args), fetchImpl: async () => ({ ok: false, status: 418, json: async () => ({ ok: false, error_code: 418 }) }) });
+  const r = await f.request();
+  assert.equal(r.status, 502);
+  assert.equal((await r.json()).code, 'TG_REJECTED');
+  assert.deepEqual(loggedArgs, [['TG_REJECTED']]);
+});
+
+// === Invalid JSON, empty body, JSON null ===
+test('handles invalid JSON response from Telegram', async t => {
+  const loggedArgs = [];
+  const f = await fixture(t, { logError: (...args) => loggedArgs.push(args), fetchImpl: async () => ({ ok: true, json: async () => { throw new SyntaxError('Unexpected token'); } }) });
+  const r = await f.request();
+  assert.equal(r.status, 502);
+  assert.equal((await r.json()).code, 'TG_REJECTED');
+  assert.deepEqual(loggedArgs, [['TG_REJECTED']]);
+});
+
+test('handles empty response body from Telegram', async t => {
+  const loggedArgs = [];
+  const f = await fixture(t, { logError: (...args) => loggedArgs.push(args), fetchImpl: async () => ({ ok: true, json: async () => { throw new SyntaxError('Unexpected end of JSON input'); } }) });
+  const r = await f.request();
+  assert.equal(r.status, 502);
+  assert.equal((await r.json()).code, 'TG_REJECTED');
+  assert.deepEqual(loggedArgs, [['TG_REJECTED']]);
+});
+
+test('handles JSON null from Telegram', async t => {
+  const loggedArgs = [];
+  const f = await fixture(t, { logError: (...args) => loggedArgs.push(args), fetchImpl: async () => ({ ok: true, json: async () => null }) });
+  const r = await f.request();
+  assert.equal(r.status, 502);
+  assert.equal((await r.json()).code, 'TG_REJECTED');
+  assert.deepEqual(loggedArgs, [['TG_REJECTED']]);
+});
+
+// === Timeout/network errors on fetch and body read ===
+test('TG_TIMEOUT on TimeoutError', async t => {
+  const loggedArgs = [];
+  const timeoutError = new Error('timeout'); timeoutError.name = 'TimeoutError';
+  const f = await fixture(t, { logError: (...args) => loggedArgs.push(args), fetchImpl: async () => { throw timeoutError; } });
+  const r = await f.request();
+  assert.equal(r.status, 502);
+  assert.equal((await r.json()).code, 'TG_TIMEOUT');
+  assert.deepEqual(loggedArgs, [['TG_TIMEOUT']]);
+});
+
+test('TG_NETWORK_OR_RESPONSE on AbortError when signal not aborted', async t => {
+  const loggedArgs = [];
+  const abortError = new Error('aborted'); abortError.name = 'AbortError';
+  const f = await fixture(t, { logError: (...args) => loggedArgs.push(args), fetchImpl: async () => { throw abortError; } });
+  const r = await f.request();
+  assert.equal(r.status, 502);
+  assert.equal((await r.json()).code, 'TG_NETWORK_OR_RESPONSE');
+  assert.deepEqual(loggedArgs, [['TG_NETWORK_OR_RESPONSE']]);
+});
+
+test('TG_TIMEOUT on AbortError when timeout signal is aborted with TimeoutError reason', async t => {
+  const loggedArgs = [];
+  const originalTimeout = AbortSignal.timeout;
+  const abortedSignal = AbortSignal.abort(new DOMException('Test timeout', 'TimeoutError'));
+  t.after(() => { AbortSignal.timeout = originalTimeout; });
+  AbortSignal.timeout = () => abortedSignal;
+  const abortError = new Error('aborted'); abortError.name = 'AbortError';
+  const f = await fixture(t, { logError: (...args) => loggedArgs.push(args), fetchImpl: async () => { throw abortError; } });
+  const r = await f.request();
+  assert.equal(r.status, 502);
+  assert.equal((await r.json()).code, 'TG_TIMEOUT');
+  assert.deepEqual(loggedArgs, [['TG_TIMEOUT']]);
+});
+
+test('TG_NETWORK_OR_RESPONSE on AbortError when signal aborted with non-timeout reason', async t => {
+  const loggedArgs = [];
+  const originalTimeout = AbortSignal.timeout;
+  const abortedSignal = AbortSignal.abort(new Error('Manual abort'));
+  t.after(() => { AbortSignal.timeout = originalTimeout; });
+  AbortSignal.timeout = () => abortedSignal;
+  const abortError = new Error('aborted'); abortError.name = 'AbortError';
+  const f = await fixture(t, { logError: (...args) => loggedArgs.push(args), fetchImpl: async () => { throw abortError; } });
+  const r = await f.request();
+  assert.equal(r.status, 502);
+  assert.equal((await r.json()).code, 'TG_NETWORK_OR_RESPONSE');
+  assert.deepEqual(loggedArgs, [['TG_NETWORK_OR_RESPONSE']]);
+});
+
+test('TG_NETWORK_OR_RESPONSE on DNS/network failure', async t => {
+  const loggedArgs = [];
+  const f = await fixture(t, { logError: (...args) => loggedArgs.push(args), fetchImpl: async () => { throw new TypeError('fetch failed'); } });
+  const r = await f.request();
+  assert.equal(r.status, 502);
+  assert.equal((await r.json()).code, 'TG_NETWORK_OR_RESPONSE');
+  assert.deepEqual(loggedArgs, [['TG_NETWORK_OR_RESPONSE']]);
+});
+
+// === response.json() errors ===
+test('TG_TIMEOUT when response.json() throws TimeoutError', async t => {
+  const loggedArgs = [];
+  const timeoutError = new Error('timeout'); timeoutError.name = 'TimeoutError';
+  const f = await fixture(t, { logError: (...args) => loggedArgs.push(args), fetchImpl: async () => ({ ok: true, json: async () => { throw timeoutError; } }) });
+  const r = await f.request();
+  assert.equal(r.status, 502);
+  assert.equal((await r.json()).code, 'TG_TIMEOUT');
+  assert.deepEqual(loggedArgs, [['TG_TIMEOUT']]);
+});
+
+test('TG_NETWORK_OR_RESPONSE when response.json() throws AbortError without signal aborted', async t => {
+  const loggedArgs = [];
+  const abortError = new Error('aborted'); abortError.name = 'AbortError';
+  const f = await fixture(t, { logError: (...args) => loggedArgs.push(args), fetchImpl: async () => ({ ok: true, json: async () => { throw abortError; } }) });
+  const r = await f.request();
+  assert.equal(r.status, 502);
+  assert.equal((await r.json()).code, 'TG_NETWORK_OR_RESPONSE');
+  assert.deepEqual(loggedArgs, [['TG_NETWORK_OR_RESPONSE']]);
+});
+
+test('TG_TIMEOUT when response.json() throws AbortError with signal aborted and TimeoutError reason', async t => {
+  const loggedArgs = [];
+  const originalTimeout = AbortSignal.timeout;
+  const abortedSignal = AbortSignal.abort(new DOMException('Test timeout', 'TimeoutError'));
+  t.after(() => { AbortSignal.timeout = originalTimeout; });
+  AbortSignal.timeout = () => abortedSignal;
+  const abortError = new Error('aborted'); abortError.name = 'AbortError';
+  const f = await fixture(t, { logError: (...args) => loggedArgs.push(args), fetchImpl: async () => ({ ok: true, json: async () => { throw abortError; } }) });
+  const r = await f.request();
+  assert.equal(r.status, 502);
+  assert.equal((await r.json()).code, 'TG_TIMEOUT');
+  assert.deepEqual(loggedArgs, [['TG_TIMEOUT']]);
+});
+
+test('TG_NETWORK_OR_RESPONSE when response.json() throws AbortError with signal aborted but non-timeout reason', async t => {
+  const loggedArgs = [];
+  const originalTimeout = AbortSignal.timeout;
+  const abortedSignal = AbortSignal.abort(new Error('Manual abort'));
+  t.after(() => { AbortSignal.timeout = originalTimeout; });
+  AbortSignal.timeout = () => abortedSignal;
+  const abortError = new Error('aborted'); abortError.name = 'AbortError';
+  const f = await fixture(t, { logError: (...args) => loggedArgs.push(args), fetchImpl: async () => ({ ok: true, json: async () => { throw abortError; } }) });
+  const r = await f.request();
+  assert.equal(r.status, 502);
+  assert.equal((await r.json()).code, 'TG_NETWORK_OR_RESPONSE');
+  assert.deepEqual(loggedArgs, [['TG_NETWORK_OR_RESPONSE']]);
+});
+
+// === logError isolation ===
+test('logError throwing synchronously does not break response', async t => {
+  const f = await fixture(t, { logError: () => { throw new Error('sync log failure'); }, fetchImpl: async () => ({ ok: false, status: 500, json: async () => ({ ok: false }) }) });
+  const r = await f.request();
+  assert.equal(r.status, 502);
+  assert.ok((await r.json()).code);
+});
+
+test('logError returning rejected Promise does not break response', async t => {
+  const f = await fixture(t, { logError: async () => { throw new Error('async log failure'); }, fetchImpl: async () => ({ ok: false, status: 500, json: async () => ({ ok: false }) }) });
+  const r = await f.request();
+  assert.equal(r.status, 502);
+  assert.ok((await r.json()).code);
+});
+
+test('logError failure in catch block does not break response', async t => {
+  const f = await fixture(t, { logError: () => { throw new Error('sync log failure'); }, fetchImpl: async () => { throw new Error('network'); } });
+  const r = await f.request();
+  assert.equal(r.status, 502);
+  assert.ok((await r.json()).code);
+});
+
+// === No leakage of private data ===
+test('no token/chatId/message leakage in response or logs', async t => {
+  const loggedArgs = [];
+  const f = await fixture(t, { logError: (...args) => loggedArgs.push(args), fetchImpl: async () => { throw new Error('test-secret test-chat private'); } });
+  const r = await f.request();
+  assert.equal(r.status, 502);
+  const body = await r.json();
+  assert.doesNotMatch(JSON.stringify(body), /test-secret|test-chat|private/);
+  assert.doesNotMatch(JSON.stringify(loggedArgs), /test-secret|test-chat|private/);
+  assert.deepEqual(loggedArgs, [['TG_NETWORK_OR_RESPONSE']]);
+});
+
+// === Trim token and chatId ===
+test('trims whitespace from token and chatId', async t => {
+  const sent = [];
+  const handler = (await import('./contact.mjs')).createContactHandler({
+    token: '  trimmed-token  ',
+    chatId: '  trimmed-chat  ',
+    fetchImpl: async (url, options) => {
+      sent.push({ url, body: JSON.parse(options.body) });
+      return { ok: true, json: async () => ({ ok: true }) };
+    }
+  });
+  const server = (await import('node:http')).createServer(handler);
+  await new Promise(resolve => server.listen(0, '127.0.0.1', resolve));
+  t.after(() => new Promise(resolve => server.close(resolve)));
+  const url = `http://127.0.0.1:${server.address().port}`;
+  const r = await fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(valid) });
+  assert.equal(r.status, 200);
+  assert.match(sent[0].url, /trimmed-token/);
+  assert.doesNotMatch(sent[0].url, /\s/);
+  assert.equal(sent[0].body.chat_id, 'trimmed-chat');
+});
+
+// === telegramErrorCode edge cases ===
+import { telegramErrorCode } from './telegram-error.mjs';
+
+test('telegramErrorCode handles null and undefined result', async t => {
+  assert.equal(telegramErrorCode(500, null), 'TG_REJECTED');
+  assert.equal(telegramErrorCode(500, undefined), 'TG_REJECTED');
+});
+
+test('telegramErrorCode handles primitives as result', async t => {
+  assert.equal(telegramErrorCode(500, 'string'), 'TG_REJECTED');
+  assert.equal(telegramErrorCode(500, 123), 'TG_REJECTED');
+  assert.equal(telegramErrorCode(500, true), 'TG_REJECTED');
+});
+
+test('telegramErrorCode handles arrays as result', async t => {
+  assert.equal(telegramErrorCode(500, []), 'TG_REJECTED');
+  assert.equal(telegramErrorCode(500, [{ ok: false }]), 'TG_REJECTED');
+});
+
+test('telegramErrorCode handles description of wrong type', async t => {
+  assert.equal(telegramErrorCode(400, { ok: false, description: 123 }), 'TG_REJECTED');
+  assert.equal(telegramErrorCode(400, { ok: false, description: null }), 'TG_REJECTED');
+  assert.equal(telegramErrorCode(400, { ok: false, description: { text: 'chat not found' } }), 'TG_REJECTED');
+});
+
+test('telegramErrorCode priority: error_code overrides HTTP status', async t => {
+  // HTTP 200 but error_code 401 -> TG_AUTH
+  assert.equal(telegramErrorCode(200, { ok: false, error_code: 401 }), 'TG_AUTH');
+  // HTTP 500 but error_code 429 -> TG_RATE_LIMIT
+  assert.equal(telegramErrorCode(500, { ok: false, error_code: 429 }), 'TG_RATE_LIMIT');
+});
+
+test('telegramErrorCode: conflicting HTTP status and error_code', async t => {
+  // HTTP 401 but error_code 403 -> TG_ACCESS (error_code wins)
+  assert.equal(telegramErrorCode(401, { ok: false, error_code: 403 }), 'TG_ACCESS');
+  // HTTP 403 but error_code 401 -> TG_AUTH (error_code wins)
+  assert.equal(telegramErrorCode(403, { ok: false, error_code: 401 }), 'TG_AUTH');
+});
