@@ -18,7 +18,7 @@ const app = (
   </React.StrictMode>
 );
 
-// Use hydrateRoot for prerendered HTML, createRoot for dev (empty #root)
+// Hydrate prerendered pages; mount normally when the root is empty.
 if (rootElement.hasChildNodes()) {
   hydrateRoot(rootElement, app);
 } else {
