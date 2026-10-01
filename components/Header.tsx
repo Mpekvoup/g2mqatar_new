@@ -42,9 +42,36 @@ const Header: React.FC<HeaderProps> = ({ lang, setLang, onOpenInvestModal }) => 
     return () => window.removeEventListener('scroll', handleScroll);
   }, [lastScrollY]);
 
+  // Lock body scroll when mobile menu is open, restore previous value on close
   useEffect(() => {
-    document.body.style.overflow = isMobileMenuOpen ? 'hidden' : '';
-    return () => { document.body.style.overflow = ''; };
+    if (!isMobileMenuOpen) return;
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [isMobileMenuOpen]);
+
+  // Close mobile menu when resizing to desktop (xl: 1280px)
+  useEffect(() => {
+    if (!isMobileMenuOpen) return;
+
+    const mediaQuery = window.matchMedia('(min-width: 1280px)');
+
+    // Check immediately in case already at desktop width
+    if (mediaQuery.matches) {
+      setIsMobileMenuOpen(false);
+      return;
+    }
+
+    const handleChange = (e: MediaQueryListEvent) => {
+      if (e.matches) setIsMobileMenuOpen(false);
+    };
+
+    mediaQuery.addEventListener('change', handleChange);
+    return () => mediaQuery.removeEventListener('change', handleChange);
   }, [isMobileMenuOpen]);
 
   const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
@@ -281,7 +308,12 @@ const Header: React.FC<HeaderProps> = ({ lang, setLang, onOpenInvestModal }) => 
           {/* Close button */}
           <div className="flex items-center justify-between px-8 pt-10 pb-8 border-b border-white/10">
             <img src="/images/logo/logo.webp" alt="G2M" className="h-8 w-auto object-contain brightness-0 invert" width="215" height="81" />
-            <button onClick={() => setIsMobileMenuOpen(false)} className="w-9 h-9 rounded-xl bg-white/10 flex items-center justify-center text-white">
+            <button
+              type="button"
+              onClick={() => setIsMobileMenuOpen(false)}
+              aria-label="Close menu"
+              className="w-11 h-11 rounded-xl bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900"
+            >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               </svg>

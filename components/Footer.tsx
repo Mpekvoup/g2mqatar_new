@@ -116,7 +116,7 @@ const Footer: React.FC<FooterProps> = ({ lang }) => {
               {lang === 'en' ? 'Company' : 'Компания'}
             </h4>
             <ul className="space-y-3 text-slate-400 font-medium text-sm">
-              <li><a href="#about" onClick={(e) => scrollToSection(e, 'about')} className="hover:text-white transition-colors">{lang === 'en' ? 'About Us' : 'О нас'}</a></li>
+              <li><Link to="/#about" className="hover:text-white transition-colors">{lang === 'en' ? 'About Us' : 'О нас'}</Link></li>
               <li><Link to="/#services" className="hover:text-white transition-colors">{lang === 'en' ? 'Our Services' : 'Наши услуги'}</Link></li>
               <li><Link to="/case-studies" className="hover:text-white transition-colors">{lang === 'en' ? 'Case Studies' : 'Кейсы'}</Link></li>
               <li><Link to="/#contacts" className="hover:text-white transition-colors">{lang === 'en' ? 'Contact' : 'Контакты'}</Link></li>
