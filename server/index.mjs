@@ -128,6 +128,38 @@ async function tryServePrerenderHtml(req, res, pathname) {
   }
 }
 
+/**
+ * Serve 404.html with 404 status code.
+ * Supports GET and HEAD methods.
+ */
+async function serve404(req, res) {
+  const notFoundPath = path.join(distPath, '404.html');
+  try {
+    const html404 = await readFile(notFoundPath, 'utf-8');
+    const headers = {
+      'Content-Type': 'text/html; charset=utf-8',
+      'Content-Length': Buffer.byteLength(html404, 'utf-8'),
+      'Cache-Control': 'no-store',
+      ...HTML_SECURITY_HEADERS,
+    };
+    res.writeHead(404, headers);
+    // HEAD request: headers only, no body
+    if (req.method === 'HEAD') {
+      res.end();
+    } else {
+      res.end(html404);
+    }
+  } catch {
+    // 404.html not found - return basic 404
+    res.writeHead(404, { 'Content-Type': 'text/plain', 'Content-Length': 9 });
+    if (req.method === 'HEAD') {
+      res.end();
+    } else {
+      res.end('Not Found');
+    }
+  }
+}
+
 const server = createServer(async (req, res) => {
   const pathname = new URL(req.url, 'http://localhost').pathname;
 
@@ -153,8 +185,25 @@ const server = createServer(async (req, res) => {
       return;
     }
 
-    // Fall back to serve-handler for static assets and SPA fallback
-    await serveHandler(req, res, { ...config, public: distPath });
+    // Check if this is a static asset request (has file extension)
+    const hasExtension = /\.[a-zA-Z0-9]+$/.test(pathname);
+    if (hasExtension) {
+      // Verify file exists before letting serve-handler process it
+      // (serve-handler would fallback to index.html due to rewrite rule)
+      const filePath = path.join(distPath, pathname.slice(1));
+      try {
+        await access(filePath);
+        // File exists - let serve-handler handle it with proper caching
+        await serveHandler(req, res, { ...config, public: distPath });
+        return;
+      } catch {
+        // File doesn't exist - serve 404
+        return await serve404(req, res);
+      }
+    }
+
+    // Unknown route without extension - serve 404.html with 404 status
+    await serve404(req, res);
   } catch (err) {
     console.error('Server error:', err.message);
     if (!res.headersSent) {

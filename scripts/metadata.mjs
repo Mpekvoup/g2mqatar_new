@@ -41,6 +41,70 @@ export function getCanonicalUrl(routePath) {
 }
 
 /**
+ * Inject 404 page metadata with noindex directive.
+ * Used for error pages that should not be indexed.
+ */
+export function inject404Metadata(html) {
+  const title = `Page Not Found | ${COMPANY_NAME}`;
+  const description = 'The page you are looking for does not exist or has been moved.';
+
+  const safeTitle = escapeHtml(title);
+  const safeDescription = escapeHtml(description);
+
+  // Replace title
+  let result = html.replace(
+    /<title>[^<]*<\/title>/,
+    `<title>${safeTitle}</title>`
+  );
+
+  // Replace description
+  result = result.replace(
+    /<meta name="description" content="[^"]*" \/>/,
+    `<meta name="description" content="${safeDescription}" />`
+  );
+
+  // Replace robots directive with noindex
+  result = result.replace(
+    /<meta name="robots" content="[^"]*" \/>/,
+    `<meta name="robots" content="noindex, nofollow" />`
+  );
+
+  // Remove canonical link (404 pages should not have canonical)
+  result = result.replace(
+    /<link rel="canonical" href="[^"]*" \/>\n?/,
+    ''
+  );
+
+  // Remove Open Graph URL (not applicable for 404)
+  result = result.replace(
+    /<meta property="og:url" content="[^"]*" \/>\n?/,
+    ''
+  );
+
+  // Update OG title and description
+  result = result.replace(
+    /<meta property="og:title" content="[^"]*" \/>/,
+    `<meta property="og:title" content="${safeTitle}" />`
+  );
+  result = result.replace(
+    /<meta property="og:description" content="[^"]*" \/>/,
+    `<meta property="og:description" content="${safeDescription}" />`
+  );
+
+  // Update Twitter title and description
+  result = result.replace(
+    /<meta name="twitter:title" content="[^"]*" \/>/,
+    `<meta name="twitter:title" content="${safeTitle}" />`
+  );
+  result = result.replace(
+    /<meta name="twitter:description" content="[^"]*" \/>/,
+    `<meta name="twitter:description" content="${safeDescription}" />`
+  );
+
+  return result;
+}
+
+/**
  * Inject route-specific metadata into HTML template.
  * Throws if any tag is missing or duplicated.
  */

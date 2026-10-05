@@ -6,6 +6,7 @@ import {
   escapeXml,
   getCanonicalUrl,
   injectMetadata,
+  inject404Metadata,
   SITE_ORIGIN,
   COMPANY_NAME,
 } from './metadata.mjs';
@@ -225,6 +226,24 @@ async function prerender() {
 
   if (hasErrors) {
     console.error('\nPre-rendering completed with errors.');
+    return;
+  }
+
+  // Generate 404.html with noindex metadata
+  try {
+    // Render NotFoundPage using a non-existent route
+    const notFoundHtml = await render('/__internal_404_render__');
+    let html404 = template.replace(
+      '<div id="root"></div>',
+      `<div id="root">${notFoundHtml}</div>`
+    );
+    // Inject 404-specific metadata (noindex, no canonical)
+    html404 = inject404Metadata(html404);
+    await fs.writeFile(path.join(distClient, '404.html'), html404, 'utf-8');
+    console.log('\n✓  Generated 404.html with noindex');
+  } catch (err) {
+    console.error('✗  Failed to generate 404.html:', err.message);
+    process.exitCode = 1;
     return;
   }
 
