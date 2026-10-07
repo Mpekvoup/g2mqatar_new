@@ -15,6 +15,8 @@ const Testimonials: React.FC<TestimonialsProps> = ({ lang }) => {
       company: CASE_STUDIES[0].company[lang],
       industry: CASE_STUDIES[0].industry[lang],
       logo: '/images/clients/caring_hands.webp',
+      logoWidth: 480,
+      logoHeight: 470,
       slug: CASE_STUDIES[0].slug,
       highlight: { metric: CASE_STUDIES[0].results[lang][0].metric, label: CASE_STUDIES[0].results[lang][0].label },
     },
@@ -24,6 +26,8 @@ const Testimonials: React.FC<TestimonialsProps> = ({ lang }) => {
       company: CASE_STUDIES[1].company[lang],
       industry: CASE_STUDIES[1].industry[lang],
       logo: '/images/clients/sidr-tech-logo.webp',
+      logoWidth: 248,
+      logoHeight: 248,
       slug: CASE_STUDIES[1].slug,
       highlight: { metric: CASE_STUDIES[1].results[lang][0].metric, label: CASE_STUDIES[1].results[lang][0].label },
     },
@@ -33,6 +37,8 @@ const Testimonials: React.FC<TestimonialsProps> = ({ lang }) => {
       company: CASE_STUDIES[2].company[lang],
       industry: CASE_STUDIES[2].industry[lang],
       logo: '/images/clients/qalan.webp',
+      logoWidth: 279,
+      logoHeight: 85,
       slug: CASE_STUDIES[2].slug,
       highlight: { metric: CASE_STUDIES[2].results[lang][0].metric, label: CASE_STUDIES[2].results[lang][0].label },
     },
@@ -81,7 +87,9 @@ const Testimonials: React.FC<TestimonialsProps> = ({ lang }) => {
                     <img
                       src={item.logo}
                       alt={`${item.company} - ${lang === 'en' ? 'Client testimonial for G2M International Qatar consulting services' : 'Отзыв клиента о консалтинговых услугах G2M International Qatar'}`}
-                      className="h-10 object-contain grayscale group-hover:grayscale-0 transition-all duration-300"
+                      className="h-10 w-auto object-contain grayscale group-hover:grayscale-0 transition-all duration-300"
+                      width={item.logoWidth}
+                      height={item.logoHeight}
                       loading="lazy"
                       decoding="async"
                     />

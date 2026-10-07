@@ -182,7 +182,7 @@ const Team: React.FC<TeamProps> = ({ lang }) => {
                   <p className="text-sm md:text-base text-slate-600 dark:text-slate-300 font-medium">
                     {member.role[lang]}
                   </p>
-                  <p className="text-xs md:text-sm text-slate-400 font-medium mt-1">
+                  <p className="text-xs md:text-sm text-slate-500 dark:text-slate-400 font-medium mt-1">
                     {member.location[lang]}
                   </p>
                 </div>

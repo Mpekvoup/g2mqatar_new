@@ -118,7 +118,7 @@ const Services: React.FC<ServicesProps> = ({ lang }) => {
                   ].map((stat, i) => (
                     <div key={i} className="text-center">
                       <p className="text-3xl font-black text-qatar-maroon dark:text-[#d85b7d] leading-none mb-2">{stat.value}</p>
-                      <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wide leading-tight">
+                      <p className="text-[10px] text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wide leading-tight">
                         {stat.label[lang]}
                       </p>
                     </div>

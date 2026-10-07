@@ -128,9 +128,9 @@ const ServicesConsultationPanel: React.FC<ServicesConsultationPanelProps> = ({ l
                 )}
               </div>
               <div className={idx < steps.length - 1 ? 'pb-6' : ''}>
-                <h5 className="font-bold text-slate-900 dark:text-white text-sm mb-1 pt-1.5 leading-tight">
+                <h4 className="font-bold text-slate-900 dark:text-white text-sm mb-1 pt-1.5 leading-tight">
                   {step.title[lang]}
-                </h5>
+                </h4>
                 <p className="text-slate-500 dark:text-slate-400 text-xs leading-relaxed">
                   {step.desc[lang]}
                 </p>
@@ -148,7 +148,7 @@ const ServicesConsultationPanel: React.FC<ServicesConsultationPanelProps> = ({ l
           ].map((stat, i) => (
             <div key={i} className="text-center">
               <p className="text-2xl font-black text-qatar-maroon dark:text-[#d85b7d] leading-none">{stat.value}</p>
-              <p className="text-xs text-slate-400 font-semibold uppercase tracking-wide mt-2">
+              <p className="text-xs text-slate-500 dark:text-slate-400 font-semibold uppercase tracking-wide mt-2">
                 {stat.label[lang]}
               </p>
             </div>

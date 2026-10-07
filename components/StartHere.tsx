@@ -151,7 +151,7 @@ const StartHere: React.FC<StartHereProps> = ({ lang, onOpenInvestModal }) => {
 
                 {/* Number + Category */}
                 <div className="text-right">
-                  <span className="block text-2xl font-bold text-slate-200 dark:text-slate-700 leading-none">
+                  <span className="block text-2xl font-bold text-slate-200 dark:text-slate-700 leading-none" aria-hidden="true">
                     {content.cards.companyFormation.number}
                   </span>
                   <span className="text-[10px] font-bold text-qatar-maroon dark:text-[#d85b7d] uppercase tracking-[0.15em]">
@@ -222,7 +222,7 @@ const StartHere: React.FC<StartHereProps> = ({ lang, onOpenInvestModal }) => {
 
                 {/* Number + Category */}
                 <div className="text-right">
-                  <span className="block text-2xl font-bold text-slate-200 dark:text-slate-700 leading-none">
+                  <span className="block text-2xl font-bold text-slate-200 dark:text-slate-700 leading-none" aria-hidden="true">
                     {content.cards.reachClients.number}
                   </span>
                   <span className="text-[10px] font-bold text-qatar-maroon dark:text-[#d85b7d] uppercase tracking-[0.15em]">
@@ -292,7 +292,7 @@ const StartHere: React.FC<StartHereProps> = ({ lang, onOpenInvestModal }) => {
 
                 {/* Number + Category */}
                 <div className="text-right">
-                  <span className="block text-2xl font-bold text-slate-200 dark:text-slate-700 leading-none">
+                  <span className="block text-2xl font-bold text-slate-200 dark:text-slate-700 leading-none" aria-hidden="true">
                     {content.cards.investQatar.number}
                   </span>
                   <span className="text-[10px] font-bold text-qatar-maroon dark:text-[#d85b7d] uppercase tracking-[0.15em]">

@@ -147,6 +147,8 @@ export const PARTNERS: Partner[] = [
   {
     name: 'MOCI',
     logo: '/images/partners/Ministry_OCI.png',
+    logoWidth: 316,
+    logoHeight: 123,
     url: 'https://www.moci.gov.qa/en/',
     altText: {
       en: 'Ministry of Commerce and Industry Qatar - Government partner for business registration',
@@ -156,6 +158,8 @@ export const PARTNERS: Partner[] = [
   {
     name: 'General Tax Authority',
     logo: '/images/partners/gen_tax_qatar.png',
+    logoWidth: 300,
+    logoHeight: 120,
     url: 'https://www.gta.gov.qa/en/',
     altText: {
       en: 'General Tax Authority Qatar - Tax and compliance partner',
@@ -165,6 +169,8 @@ export const PARTNERS: Partner[] = [
   {
     name: 'QSTP',
     logo: '/images/partners/qatar_science.png',
+    logoWidth: 283,
+    logoHeight: 101,
     url: 'https://qstp.org.qa/',
     altText: {
       en: 'Qatar Science & Technology Park - Free zone partner for technology companies',
@@ -174,6 +180,8 @@ export const PARTNERS: Partner[] = [
   {
     name: 'QFZ',
     logo: '/images/partners/qfz.png',
+    logoWidth: 284,
+    logoHeight: 101,
     url: 'https://qfz.gov.qa/',
     altText: {
       en: 'Qatar Free Zones Authority - Logistics and trading zone partner',
@@ -183,6 +191,8 @@ export const PARTNERS: Partner[] = [
   {
     name: 'QFC',
     logo: '/images/partners/QFC.png',
+    logoWidth: 283,
+    logoHeight: 101,
     url: 'https://www.qfc.qa/en',
     altText: {
       en: 'Qatar Financial Centre - Premier business and financial services partner',
@@ -195,6 +205,8 @@ export const CLIENTS = [
   {
     name: 'Qalan',
     logo: '/images/clients/qalan.webp',
+    logoWidth: 279,
+    logoHeight: 85,
     url: 'https://qalan.kz/',
     altText: {
       en: 'Qalan - Technology company successfully registered in Qatar through G2M International',
@@ -204,6 +216,8 @@ export const CLIENTS = [
   {
     name: 'MUSA',
     logo: '/images/clients/musa_h.webp',
+    logoWidth: 570,
+    logoHeight: 143,
     url: 'https://musa.kz/',
     altText: {
       en: 'MUSA - Kazakhstan business expanded to Qatar with G2M consulting services',
@@ -213,6 +227,8 @@ export const CLIENTS = [
   {
     name: 'Caring Hands',
     logo: '/images/clients/caring_hands.webp',
+    logoWidth: 480,
+    logoHeight: 470,
     url: '#',
     altText: {
       en: 'Caring Hands - Healthcare company registered in Qatar by G2M International',
@@ -222,6 +238,8 @@ export const CLIENTS = [
   {
     name: 'Sidr Technology',
     logo: '/images/clients/sidr-tech-logo.webp',
+    logoWidth: 248,
+    logoHeight: 248,
     url: '#',
     altText: {
       en: 'Sidr Technology - IT solutions provider established in Qatar with G2M support',
@@ -231,6 +249,8 @@ export const CLIENTS = [
   {
     name: 'ChopA',
     logo: '/images/clients/chopa.webp',
+    logoWidth: 480,
+    logoHeight: 471,
     url: '#',
     altText: {
       en: 'ChopA - Business client successfully set up in Qatar through G2M International',
@@ -240,6 +260,8 @@ export const CLIENTS = [
   {
     name: 'IdealFin',
     logo: '/images/clients/IdealFin.webp',
+    logoWidth: 480,
+    logoHeight: 252,
     url: '#',
     altText: {
       en: 'IdealFin - Financial services company registered in Qatar by G2M consulting',
@@ -249,6 +271,8 @@ export const CLIENTS = [
   {
     name: 'Newoon',
     logo: '/images/clients/newoon.webp',
+    logoWidth: 480,
+    logoHeight: 480,
     url: '#',
     altText: {
       en: 'Newoon - Business successfully launched in Qatar with G2M International assistance',
