@@ -255,20 +255,23 @@ const InvestModal = forwardRef<InvestModalRef, InvestModalProps>(({ lang }, ref)
 
       setStatus('success');
 
-      // Google Analytics
-      if (typeof window.gtag === 'function') {
-        window.gtag('event', 'generate_lead', { event_category: 'investment', event_label: 'form_submit' });
-      }
+      // Analytics events (isolated - errors must not affect form success state)
+      try {
+        if (typeof window.gtag === 'function') {
+          window.gtag('event', 'generate_lead', { event_category: 'investment', event_label: 'form_submit' });
+        }
+      } catch { /* analytics error isolated */ }
 
-      // Facebook Pixel Lead event
-      if (typeof window.fbq === 'function') {
-        window.fbq('track', 'Lead', {
-          content_name: 'Invest in Qatar Form',
-          content_category: 'Investment',
-          value: 200,
-          currency: 'USD'
-        });
-      }
+      try {
+        if (typeof window.fbq === 'function') {
+          window.fbq('track', 'Lead', {
+            content_name: 'Invest in Qatar Form',
+            content_category: 'Investment',
+            value: 200,
+            currency: 'USD'
+          });
+        }
+      } catch { /* analytics error isolated */ }
 
       const firstName = formData.name.split(' ')[0] || (lang === 'en' ? 'there' : 'друг');
       setConfirmName(firstName);
