@@ -69,7 +69,9 @@ const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ lang, setLang }) 
                   onClick={(e) => scrollToSection(e, 'contacts')}
                   className="inline-flex items-center gap-2 bg-white text-qatar-maroon px-10 py-5 rounded-2xl font-bold text-lg hover:bg-white/90 hover:scale-105 transition-all shadow-2xl"
                 >
-                  {lang === 'en' ? 'Get Started' : 'Начать'}
+                  {service.slug === 'incorporation'
+                    ? (lang === 'en' ? 'Discuss Your Company Setup' : 'Обсудить открытие компании')
+                    : (lang === 'en' ? 'Get Started' : 'Начать')}
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                   </svg>
@@ -95,7 +97,9 @@ const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ lang, setLang }) 
 
                 <div className="bg-slate-50 dark:bg-slate-900 rounded-3xl p-8 lg:p-10 border border-transparent dark:border-white/10">
                   <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-6">
-                    {lang === 'en' ? 'Key Benefits' : 'Основные преимущества'}
+                    {service.slug === 'incorporation'
+                      ? (lang === 'en' ? 'Who It\'s For' : 'Кому подходит')
+                      : (lang === 'en' ? 'Key Benefits' : 'Основные преимущества')}
                   </h3>
                   <div className="space-y-4">
                     {service.benefits.map((benefit, index) => (
@@ -154,7 +158,8 @@ const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ lang, setLang }) 
           </div>
         </section>
 
-        {/* Examples / Case Studies */}
+        {/* Examples / Case Studies - hidden if empty */}
+        {service.examples.length > 0 && (
         <section className="py-24 bg-white dark:bg-slate-950 transition-colors duration-200">
           <div className="container mx-auto px-6">
             <div className="max-w-6xl mx-auto">
@@ -197,8 +202,10 @@ const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ lang, setLang }) 
             </div>
           </div>
         </section>
+        )}
 
-        {/* Pricing */}
+        {/* Pricing - hidden if empty */}
+        {service.pricing.length > 0 && (
         <section className="py-24 bg-slate-50 dark:bg-slate-900 transition-colors duration-200">
           <div className="container mx-auto px-6">
             <div className="max-w-6xl mx-auto">
@@ -261,6 +268,7 @@ const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ lang, setLang }) 
             </div>
           </div>
         </section>
+        )}
 
         {/* FAQ */}
         <section className="py-24 bg-white dark:bg-slate-950 transition-colors duration-200">
@@ -287,6 +295,22 @@ const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ lang, setLang }) 
             </div>
           </div>
         </section>
+
+        {/* Trusted By - only for incorporation */}
+        {service.slug === 'incorporation' && (
+        <section className="py-16 bg-slate-50 dark:bg-slate-900 transition-colors duration-200">
+          <div className="container mx-auto px-6">
+            <div className="max-w-4xl mx-auto text-center">
+              <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-8">
+                {lang === 'en' ? 'Trusted By' : 'Нам доверяют'}
+              </h2>
+              <p className="text-lg text-slate-600 dark:text-slate-400">
+                Transforma Travel Group • Wings AI • Qalan Group
+              </p>
+            </div>
+          </div>
+        </section>
+        )}
 
         {/* Contact Form */}
         <ContactForm lang={lang} />

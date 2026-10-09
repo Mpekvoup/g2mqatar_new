@@ -265,106 +265,65 @@ export const SERVICES_DETAIL: ServiceDetail[] = [
   },
   {
     slug: 'incorporation',
-    title: { en: 'Company Incorporation', ru: 'Регистрация компании' },
+    title: { en: 'Company Formation in Qatar', ru: 'Открытие компании в Катаре' },
     subtitle: {
-      en: 'Register your business in Qatar with full legal and visa support',
-      ru: 'Регистрируйте бизнес в Катаре с полной юридической поддержкой и визами'
+      en: 'We register businesses in QFC, free zones, and mainland Qatar. Full support from consultation through licensing and corporate bank account opening.',
+      ru: 'Регистрируем бизнес в QFC, свободных зонах и на материке. Сопровождаем от консультации до получения лицензии и открытия банковского счёта.'
     },
     description: {
-      en: 'Setting up a company in Qatar involves paperwork, licenses, approvals, and residency permits. We handle the entire incorporation process through QFC. You get a registered entity, commercial license, visas for your team, and a corporate bank account — without dealing with bureaucracy yourself.',
-      ru: 'Открытие компании в Катаре — это документы, лицензии, согласования и резидентство. Мы ведём весь процесс регистрации через QFC. Вы получаете зарегистрированную компанию, коммерческую лицензию, визы для команды и корпоративный счёт — без бюрократии.'
+      en: 'G2M supports company registration across several Qatar jurisdictions: QFC (Qatar Financial Centre), Qatar Free Zones, Qatar Media City, QSTP (Qatar Science & Technology Park), and Mainland. During consultation, we help select the option that fits your business goals.',
+      ru: 'G2M сопровождает регистрацию в нескольких юрисдикциях Катара: QFC (Qatar Financial Centre), Qatar Free Zones, Qatar Media City, QSTP (Qatar Science & Technology Park) и Mainland. На консультации подбираем вариант под задачи вашего бизнеса.'
     },
     benefits: [
-      { en: '0% corporate tax in free zones', ru: '0% налог на прибыль в свободных зонах' },
-      { en: '100% foreign ownership', ru: '100% иностранное владение' },
-      { en: 'Residency visas for founders and employees', ru: 'Резидентские визы для основателей и сотрудников' },
-      { en: 'Access to GCC markets', ru: 'Доступ к рынкам GCC' },
-      { en: 'Fast-track bank account opening', ru: 'Ускоренное открытие банковского счёта' }
+      { en: 'Entrepreneurs — launching a business in Qatar from scratch', ru: 'Предприниматели — запуск бизнеса в Катаре с нуля' },
+      { en: 'Startups and growing companies — tech and fintech projects entering the Qatar market', ru: 'Стартапы и растущие компании — технологические и финтех-проекты, выходящие на рынок Катара' },
+      { en: 'SMEs — establishing commercial presence in Qatar', ru: 'Малый и средний бизнес — создание коммерческого присутствия в Катаре' },
+      { en: 'International companies — setting up a company in Qatar', ru: 'Международные компании — открытие компании в Катаре' }
     ],
     steps: [
       {
         title: { en: 'First Call', ru: 'Первый звонок' },
-        desc: { en: 'You tell us your plans and we tell you what actually works in Qatar.', ru: 'Вы рассказываете о планах, мы говорим, что реально работает в Катаре.' }
+        desc: { en: 'We discuss your plans and answer questions about registering in Qatar.', ru: 'Обсуждаем ваши планы и отвечаем на вопросы о регистрации в Катаре.' }
       },
       {
-        title: { en: 'Legal Structure', ru: 'Юридическая форма' },
-        desc: { en: 'LLC, branch or rep office? We help you pick what fits.', ru: 'LLC, филиал или представительство? Помогаем выбрать подходящее.' }
+        title: { en: 'Jurisdiction Selection', ru: 'Выбор юрисдикции' },
+        desc: { en: 'We recommend the right structure and jurisdiction for your business activity.', ru: 'Рекомендуем структуру и юрисдикцию под ваш вид деятельности.' }
       },
       {
-        title: { en: 'License', ru: 'Лицензия' },
-        desc: { en: 'We collect the documents, file everything and chase approvals until it is done.', ru: 'Собираем документы, подаём заявки и добиваемся одобрения.' }
+        title: { en: 'Document Collection', ru: 'Сбор документов' },
+        desc: { en: 'You provide founder documents and business information; we prepare the package.', ru: 'Вы предоставляете документы учредителей и информацию о бизнесе, мы готовим пакет.' }
       },
       {
-        title: { en: 'Visa', ru: 'Виза' },
-        desc: { en: 'Residency visa paperwork handled on your behalf.', ru: 'Оформляем резидентскую визу за вас.' }
+        title: { en: 'Application Filing', ru: 'Подача заявки' },
+        desc: { en: 'We submit to the regulator and manage the process until you receive your license.', ru: 'Подаём документы в регулятор и ведём процесс до получения лицензии.' }
       },
       {
         title: { en: 'Bank Account', ru: 'Банковский счёт' },
-        desc: { en: 'Local or international bank. We make the intro and help you open the account.', ru: 'Местный или международный банк. Познакомим и поможем открыть счёт.' }
+        desc: { en: 'We help open a corporate account after company registration.', ru: 'Помогаем открыть корпоративный счёт после регистрации компании.' }
       },
     ],
-    examples: [
-      {
-        title: { en: 'SaaS Company QFC Setup', ru: 'Регистрация SaaS компании в QFC' },
-        description: {
-          en: 'A SaaS startup from Kazakhstan wanted Qatar entity to serve GCC clients and access regional payment processors.',
-          ru: 'SaaS-стартап из Казахстана хотел компанию в Катаре для обслуживания клиентов GCC и доступа к региональным платёжным системам.'
-        },
-        result: {
-          en: 'Registered QFC entity in 3 weeks, secured 2 founder visas, opened USD/QAR accounts with local bank. Company now processes $50K+ monthly through regional payment gateways.',
-          ru: 'Зарегистрировали компанию в QFC за 3 недели, получили 2 визы основателей, открыли счета в USD/QAR. Компания обрабатывает $50K+ ежемесячно через региональные платёжные системы.'
-        }
-      },
-      {
-        title: { en: 'Trading Company in Qatar Free Zone', ru: 'Торговая компания в свободной зоне Катара' },
-        description: {
-          en: 'Russian trading company needed Qatar entity for import/export operations with preferential GCC trade agreements.',
-          ru: 'Российская торговая компания нуждалась в катарской компании для импорта/экспорта с преференциальными соглашениями GCC.'
-        },
-        result: {
-          en: 'Set up Qatar free zone company with import/export license, arranged office space, secured 4 employee visas. First shipment cleared customs within 30 days of incorporation.',
-          ru: 'Открыли компанию в свободной зоне Катара с лицензией на импорт/экспорт, арендовали офис, получили 4 визы сотрудникам. Первая партия прошла таможню через 30 дней после регистрации.'
-        }
-      }
-    ],
-    pricing: [
-      {
-        title: { en: 'QFC Registration', ru: 'Регистрация в QFC' },
-        price: { en: 'from $4,500', ru: 'от $4,500' },
-        features: [
-          { en: 'Company registration & license', ru: 'Регистрация компании и лицензия' },
-          { en: 'Legal documents & filing', ru: 'Юридические документы и подача' },
-          { en: '1 founder residency visa', ru: '1 резидентская виза основателя' },
-          { en: 'Government fees included', ru: 'Госпошлины включены' },
-          { en: '2-4 weeks timeline', ru: 'Срок 2-4 недели' }
-        ],
-        timeline: { en: '2-4 weeks', ru: '2-4 недели' }
-      },
-      {
-        title: { en: 'Full Setup Package', ru: 'Полный пакет открытия' },
-        price: { en: 'from $8,500', ru: 'от $8,500' },
-        features: [
-          { en: 'Everything in QFC Registration', ru: 'Всё из регистрации QFC' },
-          { en: 'Up to 3 employee visas', ru: 'До 3 виз сотрудникам' },
-          { en: 'Corporate bank account setup', ru: 'Открытие корпоративного счёта' },
-          { en: 'Virtual office (12 months)', ru: 'Виртуальный офис (12 месяцев)' },
-          { en: 'Compliance support (first year)', ru: 'Поддержка по compliance (первый год)' }
-        ],
-        timeline: { en: '4-6 weeks', ru: '4-6 недель' }
-      }
-    ],
+    examples: [],
+    pricing: [],
     faqs: [
       {
-        question: { en: 'What documents do I need to provide?', ru: 'Какие документы нужно предоставить?' },
-        answer: { en: 'Passport copies of shareholders/directors, proof of address, business plan summary, and source of funds declaration. We provide a detailed checklist after the first call.', ru: 'Копии паспортов акционеров/директоров, подтверждение адреса, краткий бизнес-план и декларация источника средств. Даём детальный чек-лист после первого звонка.' }
+        question: { en: 'Can foreigners register a company in Qatar?', ru: 'Можно ли открыть компанию в Катаре иностранцу?' },
+        answer: { en: 'Yes, foreign entrepreneurs and companies can register a business in Qatar. Available structures and requirements depend on the jurisdiction and business activity.', ru: 'Да, иностранные предприниматели и компании могут регистрировать бизнес в Катаре. Доступные структуры и требования зависят от юрисдикции и вида деятельности.' }
       },
       {
-        question: { en: 'How long does the full process take?', ru: 'Сколько занимает весь процесс?' },
-        answer: { en: 'Company registration: 2-4 weeks. Visas: additional 2-3 weeks. Bank account: 2-4 weeks after company registration. Total: 6-10 weeks for complete setup.', ru: 'Регистрация компании: 2-4 недели. Визы: ещё 2-3 недели. Банковский счёт: 2-4 недели после регистрации. Итого: 6-10 недель полный цикл.' }
+        question: { en: 'Which jurisdiction should I choose?', ru: 'Какую юрисдикцию выбрать?' },
+        answer: { en: 'It depends on your business. We help you choose during consultation.', ru: 'Выбор зависит от вашего бизнеса. На консультации мы подберём оптимальный вариант.' }
       },
       {
-        question: { en: 'Can I manage this remotely?', ru: 'Можно всё сделать удалённо?' },
-        answer: { en: 'Most of the process can be handled remotely with notarized documents. You may need to visit once for bank account opening (some banks allow video KYC) and visa stamping.', ru: 'Большую часть можно сделать удалённо с нотариально заверенными документами. Может потребоваться один визит для открытия счёта (некоторые банки делают KYC по видео) и проставления визы.' }
+        question: { en: 'What documents are required for registration?', ru: 'Какие документы нужны для регистрации?' },
+        answer: { en: 'Founder documents and information about your planned business activity. The exact list depends on the jurisdiction and company type.', ru: 'Документы учредителей и информация о планируемой деятельности. Конкретный список зависит от юрисдикции и формы компании.' }
+      },
+      {
+        question: { en: 'Does G2M help with bank account opening?', ru: 'G2M помогает с открытием банковского счёта?' },
+        answer: { en: 'Yes, we help prepare documents and support you through the corporate account opening process. The final decision is made by the bank.', ru: 'Да, мы помогаем подготовить документы и сопровождаем открытие корпоративного счёта. Окончательное решение принимает банк.' }
+      },
+      {
+        question: { en: 'What happens after I submit a request on the website?', ru: 'Что происходит после отправки заявки на сайте?' },
+        answer: { en: 'The G2M founder will contact you via WhatsApp. The first consultation on company formation is free: we\'ll recommend a jurisdiction and prepare a proposal.', ru: 'С вами свяжется основатель G2M через WhatsApp. Первая консультация по открытию компании бесплатная: подберём юрисдикцию и подготовим коммерческое предложение.' }
       }
     ]
   },
