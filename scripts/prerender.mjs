@@ -53,8 +53,9 @@ function buildRouteMeta(routePath, servicesData, caseStudiesData) {
     const service = servicesData.find(s => s.slug === slug);
     if (service) {
       return {
-        title: service.title.en,
-        description: service.subtitle.en,
+        title: service.metaTitle?.en ?? service.title.en,
+        description: service.metaDescription?.en ?? service.subtitle.en,
+        completeTitle: Boolean(service.metaTitle),
       };
     }
     return null; // Service not found
@@ -82,7 +83,9 @@ function buildRouteMeta(routePath, servicesData, caseStudiesData) {
  */
 function validateMetadata(html, routePath, meta) {
   const canonical = getCanonicalUrl(routePath);
-  const fullTitle = meta.title.includes(COMPANY_NAME)
+  const fullTitle = meta.completeTitle
+    ? meta.title
+    : meta.title.includes(COMPANY_NAME)
     ? meta.title
     : `${meta.title} | ${COMPANY_NAME}`;
 

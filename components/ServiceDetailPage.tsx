@@ -71,7 +71,7 @@ const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ lang, setLang }) 
                 >
                   {service.slug === 'incorporation'
                     ? (lang === 'en' ? 'Discuss Your Company Setup' : 'Обсудить открытие компании')
-                    : (lang === 'en' ? 'Get Started' : 'Начать')}
+                    : service.heroCta?.[lang] ?? (lang === 'en' ? 'Get Started' : 'Начать')}
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                   </svg>
@@ -88,7 +88,7 @@ const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ lang, setLang }) 
               <div className="grid lg:grid-cols-2 gap-16 items-start">
                 <div className="space-y-6">
                   <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white">
-                    {lang === 'en' ? 'What You Get' : 'Что вы получаете'}
+                    {service.descriptionTitle?.[lang] ?? (lang === 'en' ? 'What You Get' : 'Что вы получаете')}
                   </h2>
                   <p className="text-lg text-slate-600 dark:text-slate-300 leading-relaxed">
                     {service.description[lang]}
@@ -97,9 +97,9 @@ const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ lang, setLang }) 
 
                 <div className="bg-slate-50 dark:bg-slate-900 rounded-3xl p-8 lg:p-10 border border-transparent dark:border-white/10">
                   <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-6">
-                    {service.slug === 'incorporation'
+                    {service.benefitsTitle?.[lang] ?? (service.slug === 'incorporation'
                       ? (lang === 'en' ? 'Who It\'s For' : 'Кому подходит')
-                      : (lang === 'en' ? 'Key Benefits' : 'Основные преимущества')}
+                      : (lang === 'en' ? 'Key Benefits' : 'Основные преимущества'))}
                   </h3>
                   <div className="space-y-4">
                     {service.benefits.map((benefit, index) => (
@@ -119,16 +119,68 @@ const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ lang, setLang }) 
           </div>
         </section>
 
+        {/* Optional service scope */}
+        {service.scope && service.scope.items.length > 0 && (
+        <section className="py-24 bg-slate-50 dark:bg-slate-900 transition-colors duration-200">
+          <div className="container mx-auto px-6">
+            <div className="max-w-6xl mx-auto">
+              <div className="max-w-3xl mx-auto text-center mb-14">
+                <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white mb-5">
+                  {service.scope.title[lang]}
+                </h2>
+                <p className="text-lg text-slate-600 dark:text-slate-300 leading-relaxed">
+                  {service.scope.subtitle[lang]}
+                </p>
+              </div>
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {service.scope.items.map((item, index) => (
+                  <div key={index} className="p-7 bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-white/10">
+                    <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3">{item.title[lang]}</h3>
+                    <p className="text-slate-600 dark:text-slate-300 leading-relaxed">{item.desc[lang]}</p>
+                  </div>
+                ))}
+              </div>
+              <p className="mt-8 max-w-4xl mx-auto text-center text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
+                {service.scope.note[lang]}
+              </p>
+            </div>
+          </div>
+        </section>
+        )}
+
+        {/* Optional audience */}
+        {service.audience && service.audience.groups.length > 0 && (
+        <section className="py-24 bg-white dark:bg-slate-950 transition-colors duration-200">
+          <div className="container mx-auto px-6">
+            <div className="max-w-5xl mx-auto">
+              <div className="text-center mb-12">
+                <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white mb-5">{service.audience.title[lang]}</h2>
+                <p className="text-lg text-slate-600 dark:text-slate-300">{service.audience.intro[lang]}</p>
+              </div>
+              <div className="grid md:grid-cols-2 gap-4">
+                {service.audience.groups.map((group, index) => (
+                  <div key={index} className="flex items-start gap-3 p-5 bg-slate-50 dark:bg-slate-900 rounded-xl border border-slate-100 dark:border-white/10">
+                    <span className="mt-1.5 w-2 h-2 rounded-full bg-qatar-maroon dark:bg-[#d85b7d] flex-shrink-0" />
+                    <span className="text-slate-700 dark:text-slate-300 font-medium">{group[lang]}</span>
+                  </div>
+                ))}
+              </div>
+              <p className="mt-8 text-center text-slate-600 dark:text-slate-300 leading-relaxed">{service.audience.industries[lang]}</p>
+            </div>
+          </div>
+        </section>
+        )}
+
         {/* Process Steps */}
         <section className="py-24 bg-slate-50 dark:bg-slate-900 transition-colors duration-200">
           <div className="container mx-auto px-6">
             <div className="max-w-4xl mx-auto">
               <div className="text-center mb-16">
                 <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white mb-4">
-                  {lang === 'en' ? 'How It Works' : 'Как это работает'}
+                  {service.processTitle?.[lang] ?? (lang === 'en' ? 'How It Works' : 'Как это работает')}
                 </h2>
                 <p className="text-lg text-slate-600 dark:text-slate-400">
-                  {lang === 'en' ? 'Our proven step-by-step process' : 'Наш проверенный пошаговый процесс'}
+                  {service.processSubtitle?.[lang] ?? (lang === 'en' ? 'Our proven step-by-step process' : 'Наш проверенный пошаговый процесс')}
                 </p>
               </div>
 
@@ -271,6 +323,7 @@ const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ lang, setLang }) 
         )}
 
         {/* FAQ */}
+        {service.faqs.length > 0 && (
         <section className="py-24 bg-white dark:bg-slate-950 transition-colors duration-200">
           <div className="container mx-auto px-6">
             <div className="max-w-4xl mx-auto">
@@ -295,6 +348,7 @@ const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ lang, setLang }) 
             </div>
           </div>
         </section>
+        )}
 
         {/* Trusted By - only for incorporation */}
         {service.slug === 'incorporation' && (
@@ -307,6 +361,25 @@ const ServiceDetailPage: React.FC<ServiceDetailPageProps> = ({ lang, setLang }) 
               <p className="text-lg text-slate-600 dark:text-slate-400">
                 Transforma Travel Group • Wings AI • Qalan Group
               </p>
+            </div>
+          </div>
+        </section>
+        )}
+
+        {/* Optional pre-form context */}
+        {service.preForm && (
+        <section className="py-20 bg-slate-50 dark:bg-slate-900 transition-colors duration-200">
+          <div className="container mx-auto px-6">
+            <div className="max-w-4xl mx-auto text-center">
+              <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white mb-5">{service.preForm.title[lang]}</h2>
+              <p className="text-lg text-slate-600 dark:text-slate-300 leading-relaxed mb-8">{service.preForm.text[lang]}</p>
+              <a
+                href="#contacts"
+                onClick={(e) => scrollToSection(e, 'contacts')}
+                className="inline-flex items-center justify-center bg-qatar-maroon dark:bg-[#d85b7d] text-white px-8 py-4 rounded-2xl font-bold text-lg hover:opacity-90 transition-opacity"
+              >
+                {service.preForm.cta[lang]}
+              </a>
             </div>
           </div>
         </section>

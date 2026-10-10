@@ -110,7 +110,9 @@ export function inject404Metadata(html) {
  */
 export function injectMetadata(html, routePath, meta) {
   const canonical = getCanonicalUrl(routePath);
-  const fullTitle = meta.title.includes(COMPANY_NAME)
+  const fullTitle = meta.completeTitle
+    ? meta.title
+    : meta.title.includes(COMPANY_NAME)
     ? meta.title
     : `${meta.title} | ${COMPANY_NAME}`;
 

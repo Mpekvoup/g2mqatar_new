@@ -17,18 +17,45 @@ export interface ServiceDetail {
   slug: string;
   title: { en: string; ru: string };
   subtitle: { en: string; ru: string };
+  metaTitle?: { en: string; ru: string };
+  metaDescription?: { en: string; ru: string };
+  heroCta?: { en: string; ru: string };
   description: { en: string; ru: string };
+  descriptionTitle?: { en: string; ru: string };
   benefits: Array<{ en: string; ru: string }>;
+  benefitsTitle?: { en: string; ru: string };
+  scope?: {
+    title: { en: string; ru: string };
+    subtitle: { en: string; ru: string };
+    items: Array<{
+      title: { en: string; ru: string };
+      desc: { en: string; ru: string };
+    }>;
+    note: { en: string; ru: string };
+  };
+  audience?: {
+    title: { en: string; ru: string };
+    intro: { en: string; ru: string };
+    groups: Array<{ en: string; ru: string }>;
+    industries: { en: string; ru: string };
+  };
   steps: Array<{
     title: { en: string; ru: string };
     desc: { en: string; ru: string };
   }>;
+  processTitle?: { en: string; ru: string };
+  processSubtitle?: { en: string; ru: string };
   examples: ServiceExample[];
   pricing: ServicePricing[];
   faqs: Array<{
     question: { en: string; ru: string };
     answer: { en: string; ru: string };
   }>;
+  preForm?: {
+    title: { en: string; ru: string };
+    text: { en: string; ru: string };
+    cta: { en: string; ru: string };
+  };
 }
 
 export const SERVICES_DETAIL: ServiceDetail[] = [
@@ -161,107 +188,161 @@ export const SERVICES_DETAIL: ServiceDetail[] = [
   },
   {
     slug: 'business-intelligence',
-    title: { en: 'Business Intelligence', ru: 'Бизнес-аналитика' },
+    title: { en: 'Qatar Market Research and Market Entry Strategy', ru: 'Анализ рынка и стратегия выхода в Катар' },
     subtitle: {
-      en: 'Make informed market entry decisions with comprehensive research and analysis',
-      ru: 'Принимайте взвешенные решения о выходе на рынок на основе глубокого анализа'
+      en: 'Receive written Qatar market research and a practical market-entry plan tailored to your business objectives. The format and scope are agreed before the project begins.',
+      ru: 'Получите письменный анализ рынка Катара и практический план выхода с учётом задач вашего бизнеса. Формат и объём работы согласуем до начала проекта.'
+    },
+    metaTitle: {
+      en: 'Qatar Market Research and Market Entry Strategy | G2M',
+      ru: 'Анализ рынка Катара и стратегия выхода | G2M'
+    },
+    metaDescription: {
+      en: 'Written Qatar market research and a market-entry plan tailored to your business, followed by a final consultation to review the findings.',
+      ru: 'Письменный анализ рынка Катара и план выхода под задачи бизнеса. Согласуем объём работы и разберём выводы на итоговой консультации.'
+    },
+    heroCta: {
+      en: 'Discuss Your Market Research',
+      ru: 'Обсудить анализ рынка'
     },
     description: {
-      en: 'Before you invest time and money into a new market, you need to know what you are getting into. Our Business Intelligence service gives you market research, regulatory analysis, financial projections and a clear launch plan. No fluff, just the data and insights you need to make a confident decision about entering the GCC market.',
-      ru: 'Прежде чем вкладывать время и деньги в новый рынок, нужно понимать, во что вы ввязываетесь. Наша услуга бизнес-аналитики даёт вам исследование рынка, регуляторный анализ, финансовые прогнозы и чёткий план запуска. Никакой воды — только данные и инсайты для уверенного решения о выходе на рынок GCC.'
+      en: 'The result is written Qatar market research and a market-entry plan prepared around the agreed objectives of your business. Once the materials are ready, we hold a final consultation to review the key findings, answer your questions, and discuss possible next steps. The format and scope are agreed before work begins. Strategy implementation and ongoing support are agreed separately if required.',
+      ru: 'Результатом работы станет письменный анализ рынка Катара и план выхода на рынок, подготовленные под согласованные задачи вашего бизнеса. После подготовки материалов проводится итоговая консультация: разбираем основные выводы, отвечаем на вопросы и обсуждаем возможные следующие действия. Формат и объём согласовываются до начала работы. Реализация стратегии и дальнейшее сопровождение при необходимости обсуждаются отдельно.'
+    },
+    descriptionTitle: {
+      en: 'What You Receive',
+      ru: 'Что вы получите'
     },
     benefits: [
-      { en: 'Reduce market entry risks with data-driven insights', ru: 'Снижаете риски выхода на рынок благодаря данным' },
-      { en: 'Understand competitive landscape before launch', ru: 'Понимаете конкурентную среду до запуска' },
-      { en: 'Get clear financial projections for investor presentations', ru: 'Получаете чёткие финансовые прогнозы для инвесторов' },
-      { en: 'Navigate GCC regulations with confidence', ru: 'Уверенно ориентируетесь в регуляторике GCC' },
-      { en: 'Launch with a tested go-to-market strategy', ru: 'Запускаетесь с проверенной стратегией' }
+      { en: 'Research tailored to a defined business objective', ru: 'Анализ под конкретную задачу бизнеса' },
+      { en: 'Project scope and deliverable format agreed in advance', ru: 'Согласованные заранее границы и формат результата' },
+      { en: 'Written materials for further launch discussions and decisions', ru: 'Письменные материалы для дальнейшего обсуждения запуска' },
+      { en: 'A structured sequence of actions for entering Qatar', ru: 'Последовательность действий для выхода на рынок Катара' },
+      { en: 'A final consultation to review the findings and next steps', ru: 'Итоговый разбор выводов и следующих действий' }
     ],
+    benefitsTitle: {
+      en: 'Why This Format Is Useful',
+      ru: 'Почему такой формат полезен бизнесу'
+    },
+    scope: {
+      title: {
+        en: 'What the Market Research May Cover',
+        ru: 'Что может входить в анализ рынка'
+      },
+      subtitle: {
+        en: 'The contents are determined by your business objectives. Before work begins, we agree on the questions to explore and the expected result.',
+        ru: 'Содержание исследования определяется вашей задачей. До начала работы согласуем вопросы для изучения и ожидаемый результат.'
+      },
+      items: [
+        {
+          title: { en: 'Demand and Target Audience', ru: 'Спрос и целевая аудитория' },
+          desc: { en: 'An assessment of potential demand and the customer groups the offer may address.', ru: 'Оценка предполагаемого спроса и определение групп клиентов, на которых может быть ориентировано предложение.' }
+        },
+        {
+          title: { en: 'Competitors and Their Offers', ru: 'Конкуренты и их предложения' },
+          desc: { en: 'An overview of the competitive landscape and offers already available in the market.', ru: 'Обзор конкурентной среды и предложений компаний, уже работающих на рынке.' }
+        },
+        {
+          title: { en: 'Positioning', ru: 'Позиционирование' },
+          desc: { en: 'Consideration of how the product or service could be presented in Qatar and differentiated from alternatives.', ru: 'Определение того, как представить продукт или услугу на рынке Катара и чем предложение может отличаться от альтернатив.' }
+        },
+        {
+          title: { en: 'Sales and Customer Acquisition Channels', ru: 'Каналы продаж и привлечения клиентов' },
+          desc: { en: 'A review of relevant ways to reach potential customers.', ru: 'Рассмотрение подходящих направлений для выхода к потенциальным клиентам.' }
+        },
+        {
+          title: { en: 'Market-Entry Obstacles and Risks', ru: 'Препятствия и риски выхода' },
+          desc: { en: 'Identification of factors that should be considered before launch.', ru: 'Выявление факторов, которые важно учитывать до запуска.' }
+        },
+        {
+          title: { en: 'Sequence of Actions', ru: 'Последовательность действий' },
+          desc: { en: 'A structured plan of the next steps for entering the Qatar market.', ru: 'Подготовка плана следующих шагов для выхода бизнеса на рынок Катара.' }
+        }
+      ],
+      note: {
+        en: 'The exact scope depends on the agreed objectives and size of the project. Not every area listed above is automatically included in every engagement.',
+        ru: 'Конкретный состав анализа зависит от согласованной задачи и объёма работы. Не все перечисленные направления автоматически входят в каждый проект.'
+      }
+    },
+    audience: {
+      title: { en: 'Who This Service Is For', ru: 'Кому подходит услуга' },
+      intro: {
+        en: 'For businesses and entrepreneurs who need to assess an opportunity to launch or develop a business in Qatar.',
+        ru: 'Для компаний и предпринимателей, которым необходимо оценить возможности запуска или развития бизнеса в Катаре.'
+      },
+      groups: [
+        { en: 'Entrepreneurs considering starting a business in Qatar', ru: 'Предприниматели, рассматривающие запуск бизнеса в Катаре' },
+        { en: 'Startups assessing a market opportunity or business idea', ru: 'Стартапы, проверяющие рыночную возможность или бизнес-идею' },
+        { en: 'Small and medium-sized businesses planning to enter a new market', ru: 'Малый и средний бизнес, планирующий выход на новый рынок' },
+        { en: 'International companies exploring opportunities in Qatar', ru: 'Международные компании, изучающие возможности работы в Катаре' },
+        { en: 'Entrepreneurs and investors assessing an industry or business idea for a Qatar-based venture', ru: 'Предприниматели и инвесторы, оценивающие отрасль или идею для запуска бизнеса в Катаре' }
+      ],
+      industries: {
+        en: 'Typical industries represented among G2M clients include tourism, IT and AI, fintech, chemicals and raw materials, and education.',
+        ru: 'Среди типичных отраслей клиентов G2M — туризм, IT и AI, финтех, химия и сырьё, образование.'
+      }
+    },
     steps: [
       {
-        title: { en: 'Discovery Call', ru: 'Знакомство' },
-        desc: { en: 'We talk through your goals, target market and what is standing in the way.', ru: 'Разбираемся в ваших целях, рынке и том, что мешает двигаться вперёд.' }
+        title: { en: 'Enquiry and WhatsApp Contact', ru: 'Заявка и связь через WhatsApp' },
+        desc: { en: 'Submit an enquiry through the website. The founder of G2M will contact you on WhatsApp to understand your objectives and business context.', ru: 'Оставьте заявку на сайте. Основатель G2M свяжется с вами через WhatsApp, чтобы уточнить задачу и контекст бизнеса.' }
       },
       {
-        title: { en: 'Feasibility Study', ru: 'Исследование рынка' },
-        desc: { en: 'Market size, demand check and the regulatory requirements you need to know.', ru: 'Объём рынка, проверка спроса и требования по регуляторике.' }
+        title: { en: 'Scope Agreement', ru: 'Согласование задачи' },
+        desc: { en: 'Before work begins, we agree on the research objectives, questions to cover, result format, and project scope.', ru: 'До начала работы согласовываем цели анализа, вопросы для рассмотрения, формат результата и объём проекта.' }
       },
       {
-        title: { en: 'Competitive Analysis', ru: 'Конкурентный анализ' },
-        desc: { en: 'Who is already there, where the gaps are and how you position yourself.', ru: 'Кто уже на рынке, где пробелы и как вы выглядите на их фоне.' }
+        title: { en: 'Research and Market-Entry Plan', ru: 'Анализ и подготовка плана' },
+        desc: { en: 'We prepare materials covering the areas included in the agreed scope and structure the next steps for entering Qatar.', ru: 'Готовим материалы по направлениям, включённым в согласованную задачу, и формируем последовательность действий для выхода на рынок Катара.' }
       },
       {
-        title: { en: 'Financial Projections', ru: 'Финансовые прогнозы' },
-        desc: { en: 'Revenue model, cost breakdown and a P&L forecast for the first years.', ru: 'Модель доходов, разбивка расходов и прогноз прибыли на первые годы.' }
-      },
-      {
-        title: { en: 'Launch Plan', ru: 'План запуска' },
-        desc: { en: 'A practical market entry plan with dates and who does what.', ru: 'Конкретный план выхода на рынок с датами и ответственными.' }
-      },
-    ],
-    examples: [
-      {
-        title: { en: 'EdTech Platform Market Entry', ru: 'Выход EdTech платформы на рынок' },
-        description: {
-          en: 'A European online education platform wanted to expand to Qatar and UAE. They needed to understand market size, regulatory requirements for educational content, and competition.',
-          ru: 'Европейская онлайн-платформа образования хотела выйти в Катар и ОАЭ. Им нужно было понять размер рынка, требования к образовательному контенту и конкуренцию.'
-        },
-        result: {
-          en: 'Delivered feasibility study showing $12M addressable market, identified 3 key regulatory approvals needed, and created 18-month launch roadmap. Client secured $2M seed round based on our research.',
-          ru: 'Предоставили исследование с адресным рынком $12M, определили 3 ключевых разрешения и создали 18-месячный план. Клиент привлёк $2M посевных инвестиций на основе нашего исследования.'
-        }
-      },
-      {
-        title: { en: 'F&B Brand Expansion Analysis', ru: 'Анализ расширения F&B бренда' },
-        description: {
-          en: 'A specialty coffee chain from Central Asia wanted to test Qatar market viability before committing to physical locations.',
-          ru: 'Сеть кофеен из Центральной Азии хотела проверить жизнеспособность рынка Катара перед открытием точек.'
-        },
-        result: {
-          en: 'Market analysis revealed oversaturated premium coffee segment but untapped opportunity in office catering. Client pivoted strategy and opened B2B division instead, generating 40% higher margins.',
-          ru: 'Анализ показал перенасыщение премиального кофе, но нишу в офисном кейтеринге. Клиент изменил стратегию на B2B, получив на 40% больше маржи.'
-        }
+        title: { en: 'Final Consultation', ru: 'Итоговая консультация' },
+        desc: { en: 'We review the prepared materials, answer your questions, and discuss possible next steps. Strategy implementation or further support is agreed separately.', ru: 'Разбираем подготовленные материалы, отвечаем на вопросы и обсуждаем следующие шаги. Реализация стратегии или дальнейшее сопровождение согласовываются отдельно.' }
       }
     ],
-    pricing: [
-      {
-        title: { en: 'Feasibility Study', ru: 'Исследование рынка' },
-        price: { en: '$2,500', ru: '$2,500' },
-        features: [
-          { en: 'Market size & demand analysis', ru: 'Анализ размера рынка и спроса' },
-          { en: 'Regulatory requirements overview', ru: 'Обзор регуляторных требований' },
-          { en: 'Competitive landscape report', ru: 'Отчёт о конкурентной среде' },
-          { en: '2-week delivery', ru: 'Поставка за 2 недели' }
-        ],
-        timeline: { en: '2 weeks', ru: '2 недели' }
-      },
-      {
-        title: { en: 'Full Market Entry Package', ru: 'Полный пакет выхода на рынок' },
-        price: { en: '$8,500', ru: '$8,500' },
-        features: [
-          { en: 'Everything in Feasibility Study', ru: 'Всё из исследования рынка' },
-          { en: 'Financial model & projections (3 years)', ru: 'Финансовая модель и прогнозы (3 года)' },
-          { en: 'Go-to-market strategy & timeline', ru: 'Стратегия выхода на рынок и таймлайн' },
-          { en: 'Investor-ready presentation deck', ru: 'Презентация для инвесторов' },
-          { en: '4-6 weeks delivery', ru: 'Поставка за 4-6 недель' }
-        ],
-        timeline: { en: '4-6 weeks', ru: '4-6 недель' }
-      }
-    ],
+    processTitle: { en: 'How the Engagement Works', ru: 'Как проходит работа' },
+    processSubtitle: { en: 'From the initial enquiry to the final review', ru: 'От первой заявки до итогового разбора' },
+    examples: [],
+    pricing: [],
     faqs: [
       {
-        question: { en: 'How long does a feasibility study take?', ru: 'Сколько времени занимает исследование?' },
-        answer: { en: 'Typically 2-3 weeks from kickoff to final report delivery. Timeline depends on market complexity and data availability.', ru: 'Обычно 2-3 недели от старта до финального отчёта. Срок зависит от сложности рынка и доступности данных.' }
+        question: { en: 'Is the market research service paid?', ru: 'Анализ рынка является платной услугой?' },
+        answer: { en: 'Yes. Qatar market research and market-entry strategy preparation are paid services. The fee is determined after discussing the objectives and scope of work.', ru: 'Да. Анализ рынка Катара и подготовка стратегии выхода — платная услуга. Стоимость определяется после обсуждения задачи и объёма работы.' }
       },
       {
-        question: { en: 'What sources do you use for market data?', ru: 'Какие источники данных вы используете?' },
-        answer: { en: 'We combine official government statistics, industry reports, interviews with market participants, and proprietary research. All sources are cited in the final report.', ru: 'Комбинируем официальную статистику, отраслевые отчёты, интервью с участниками рынка и собственные исследования. Все источники указаны в отчёте.' }
+        question: { en: 'What will the research include?', ru: 'Что именно войдёт в анализ?' },
+        answer: { en: 'The contents depend on your business objectives. The scope may cover demand and target audience, competitors, positioning, sales and customer acquisition channels, obstacles and risks, and a sequence of actions for launch. The exact contents are agreed before work begins.', ru: 'Состав зависит от задачи бизнеса. Он может включать спрос и целевую аудиторию, конкурентов, позиционирование, каналы продаж и привлечения клиентов, препятствия и риски, а также последовательность действий для запуска. Конкретное содержание согласовывается до начала работы.' }
       },
       {
-        question: { en: 'Can I use this for investor presentations?', ru: 'Можно использовать для презентаций инвесторам?' },
-        answer: { en: 'Yes. The Full Market Entry Package includes an investor-ready deck. Feasibility Study clients can upgrade to add presentation materials.', ru: 'Да. Полный пакет включает презентацию для инвесторов. Клиенты базового исследования могут доплатить за презентационные материалы.' }
+        question: { en: 'In what format will I receive the result?', ru: 'В каком формате предоставляется результат?' },
+        answer: { en: 'The result includes written market research and a market-entry plan. The specific format and volume of the materials are agreed in advance.', ru: 'Результат включает письменный анализ и план выхода на рынок. Конкретный формат и объём материалов согласовываются заранее.' }
+      },
+      {
+        question: { en: 'Will the results be discussed with me?', ru: 'Предусмотрено ли обсуждение результатов?' },
+        answer: { en: 'Yes. Once the materials are ready, a final consultation is held to review the findings, answer questions, and discuss possible next steps.', ru: 'Да. После подготовки материалов проводится итоговая консультация с разбором выводов, ответами на вопросы и обсуждением следующих действий.' }
+      },
+      {
+        question: { en: 'Is company registration included?', ru: 'Входит ли регистрация компании в эту услугу?' },
+        answer: { en: 'No. Company registration is a separate G2M service. The free initial company-formation consultation does not apply to market research.', ru: 'Нет. Регистрация компании — отдельная услуга G2M. Бесплатная первая консультация по открытию компании не распространяется на анализ рынка.' }
+      },
+      {
+        question: { en: 'Are partner search, lead generation, or fundraising included?', ru: 'Входят ли поиск партнёров, лидогенерация или привлечение финансирования?' },
+        answer: { en: 'No. These services are not automatically included. Any additional support must be scoped and agreed separately.', ru: 'Нет. Эти услуги не входят в анализ рынка автоматически. Дополнительная поддержка при необходимости согласовывается отдельно.' }
+      },
+      {
+        question: { en: 'Does the service guarantee sales, returns, or investment?', ru: 'Гарантирует ли анализ продажи, доходность или получение инвестиций?' },
+        answer: { en: 'No. The service helps structure relevant information and prepare a plan of action, but it does not guarantee sales, financial returns, or investment.', ru: 'Нет. Услуга помогает структурировать информацию и подготовить план действий, но не гарантирует продажи, доходность или привлечение инвестиций.' }
+      },
+      {
+        question: { en: 'What happens after I submit an enquiry?', ru: 'Что происходит после отправки заявки?' },
+        answer: { en: 'The founder of G2M will contact you on WhatsApp to clarify your objectives and discuss a suitable scope of work.', ru: 'Основатель G2M свяжется с вами через WhatsApp, чтобы уточнить задачу и обсудить подходящий объём работы.' }
       }
-    ]
+    ],
+    preForm: {
+      title: { en: 'Discuss Your Objectives with the Founder of G2M', ru: 'Обсудите задачу с основателем G2M' },
+      text: { en: 'Market research and market-entry strategy preparation are paid services. Submit an enquiry, and the founder of G2M will contact you on WhatsApp to discuss your objectives, the potential scope, and the commercial terms.', ru: 'Анализ рынка и подготовка стратегии выхода — платная услуга. Оставьте заявку, и основатель G2M свяжется с вами через WhatsApp, чтобы обсудить задачу, предполагаемый объём работы и условия сотрудничества.' },
+      cta: { en: 'Discuss Your Market Research', ru: 'Обсудить анализ рынка' }
+    }
   },
   {
     slug: 'incorporation',
